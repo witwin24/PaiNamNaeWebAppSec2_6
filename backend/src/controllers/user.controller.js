@@ -97,6 +97,17 @@ const createUser = asyncHandler(async (req, res) => {
     });
 });
 
+
+const deleteMyUser = asyncHandler(async (req, res) => {
+    const userId = req.user.sub;
+    const deletedUser = await userService.deleteUser(userId);
+    res.status(200).json({
+        success: true,
+        message: "User deleted successfully.",
+        data: { deletedUserId: deletedUser.id }
+    });
+});
+
 const updateCurrentUserProfile = asyncHandler(async (req, res) => {
     // เอาข้อมูล text fields ที่มากับ req.body
     const updateData = { ...req.body };
@@ -207,5 +218,5 @@ module.exports = {
     adminUpdateUser,
     adminDeleteUser,
     setUserStatus,
-
+    deleteMyUser,
 };

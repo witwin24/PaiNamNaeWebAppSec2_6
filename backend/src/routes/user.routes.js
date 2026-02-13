@@ -84,6 +84,13 @@ router.post(
     userController.createUser
 );
 
+// Delete /api/users/me
+router.delete(
+    '/me',
+    protect,
+    userController.deleteMyUser
+);
+
 // PUT /api/users/me
 router.put(
     '/me',
