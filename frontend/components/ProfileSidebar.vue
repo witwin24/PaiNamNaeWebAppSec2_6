@@ -74,7 +74,6 @@
         </ul>
       </div>
       <div>
-
         <h3 class="text-sm font-semibold text-gray-900 mb-2 px-4">การยืนยันตัวตน</h3>
         <ul class="space-y-1">
           <li>
@@ -145,11 +144,18 @@ const loading = ref(false);
 
 const confirmDelete = async () => {
   loading.value = true;
+  const config = useRuntimeConfig();
+  const token =
+    useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
 
   try {
-    await $fetch("/api/user/me", {
+    await fetch(`${config.public.apiBase}/users/me`, {
       method: "DELETE",
-      body: { password: password.value },
+      headers: {
+        Accept: "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      credentials: "include",
     });
 
     alert("ลบบัญชีสำเร็จ");
@@ -160,5 +166,6 @@ const confirmDelete = async () => {
   } finally {
     loading.value = false;
   }
+
 };
 </script>
