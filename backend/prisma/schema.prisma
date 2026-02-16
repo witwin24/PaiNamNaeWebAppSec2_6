@@ -211,3 +211,14 @@ model Booking {
   dropoffLocation Json          @db.Json
   createdAt       DateTime      @default(now())
 }
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  user      String
+  method    String
+  endpoint  String
+  status    Int
+  ip        String
+  userAgent String?
+  timestamp DateTime @default(now())
+}

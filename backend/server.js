@@ -10,8 +10,11 @@ const swaggerSpec = require('./src/config/swagger');
 const routes = require('./src/routes');
 const { errorHandler } = require('./src/middlewares/errorHandler');
 const ApiError = require('./src/utils/ApiError')
+const activityLogger = require('./src/middlewares/activityLogger');
 const { metricsMiddleware } = require('./src/middlewares/metrics');
 const ensureAdmin = require('./src/bootstrap/ensureAdmin');
+const cron = require('node-cron');
+const prisma = require('./src/utils/prisma');
 
 const app = express();
 promClient.collectDefaultMetrics();
@@ -30,6 +33,8 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // เปิดรับ preflight สำหรับทุก route
 
 app.use(express.json());
+
+app.use(activityLogger);
 
 //Rate Limiting
 // const limiter = rateLimit({
@@ -87,9 +92,31 @@ const PORT = process.env.PORT || 3000;
         console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
     });
 })();
+
+
+cron.schedule('0 0 * * *', async () => {
+    try {
+        const ninetyDaysAgo = new Date();
+        ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+        const deleted = await prisma.activityLog.deleteMany({
+            where: {
+                timestamp: {
+                    lt: ninetyDaysAgo
+                }
+            }
+        });
+        console.log(`[Cleanup] Deleted ${deleted.count} logs older than 90 days.`);
+    } catch (err) {
+        console.error('[Cleanup Error]:', err);
+    }
+});
+
 // Graceful Shutdown
 process.on('unhandledRejection', (err) => {
     console.error('UNHANDLED REJECTION! 💥 Shutting down...');
     console.error(err);
     process.exit(1);
 });
+
+
