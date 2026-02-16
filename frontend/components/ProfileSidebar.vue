@@ -158,9 +158,14 @@ const confirmDelete = async () => {
       credentials: "include",
     });
 
+    // ลบคุกกี้ token และ user หลังจากลบบัญชีสำเร็จ
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     alert("ลบบัญชีสำเร็จ");
-    // อาจ redirect ไปหน้าแรก
+
+    // redirect ไปหน้าแรก
     await navigateTo("/");
+
   } catch (err) {
     alert("รหัสผ่านไม่ถูกต้อง");
   } finally {
