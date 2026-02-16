@@ -196,6 +196,18 @@ model Route {
   @@index([departureTime])
 }
 
+
+model UserArchive {
+  id              String   @id
+  username        String
+  email           String?
+  password        String?  // must always be null when inserting
+  deletedAt       DateTime @default(now())
+  scheduledDelete DateTime
+  createdAt       DateTime
+  updatedAt       DateTime
+}
+
 model Booking {
   id              String        @id @default(cuid())
   routeId         String
