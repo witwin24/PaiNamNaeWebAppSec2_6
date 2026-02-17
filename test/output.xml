@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.11.5 on win32)" generated="2026-02-17T23:21:44.788680" rpa="false" schemaversion="5">
+<suite id="s1" name="Api-Test" source="D:\GE\SoftwareEn\Project\PaiNamNaeWebAppSec2_6\test\api-test.robot">
+<test id="s1-t1" name="Scenario: Delete User Account Successfully" line="11">
+<kw name="Get Auth Token">
+<kw name="Create Session">
+<msg time="2026-02-17T23:21:44.852680" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>painumnae_session</arg>
+<arg>${BASE_URL}</arg>
+<arg>verify=True</arg>
+<status status="FAIL" start="2026-02-17T23:21:44.852680" elapsed="0.000000">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<var>${body}</var>
+<arg>username=${user}</arg>
+<arg>password=${pass}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" start="2026-02-17T23:21:44.852680" elapsed="0.000000"/>
+</kw>
+<kw name="POST On Session">
+<var>${response}</var>
+<arg>painumnae_session</arg>
+<arg>/login</arg>
+<arg>json=${body}</arg>
+<status status="NOT RUN" start="2026-02-17T23:21:44.852680" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${token}</var>
+<arg>${response.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-02-17T23:21:44.853683" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="NOT RUN" start="2026-02-17T23:21:44.853683" elapsed="0.000000"/>
+</return>
+<var>${auth_token}</var>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<status status="FAIL" start="2026-02-17T23:21:44.848680" elapsed="0.005003">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=Bearer ${auth_token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" start="2026-02-17T23:21:44.853683" elapsed="0.000000"/>
+</kw>
+<kw name="DELETE On Session">
+<var>${response}</var>
+<arg>painumnae_session</arg>
+<arg>users/me</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<status status="NOT RUN" start="2026-02-17T23:21:44.854681" elapsed="0.000000"/>
+</kw>
+<kw name="Dictionary Should Contain Value" owner="Collections">
+<arg>${response.json()}</arg>
+<arg>User deleted successfully.</arg>
+<doc>Fails if ``value`` is not found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-17T23:21:44.854681" elapsed="0.000000"/>
+</kw>
+<doc>ทดสอบการลบบัญชีผู้ใช้และตรวจสอบว่า Token เดิมใช้งานไม่ได้อีกต่อไป</doc>
+<status status="FAIL" start="2026-02-17T23:21:44.845695" elapsed="0.009986">No keyword with name 'Create Session' found.</status>
+</test>
+<status status="FAIL" start="2026-02-17T23:21:44.791680" elapsed="0.067003"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Api-Test" id="s1" pass="0" fail="1" skip="0">Api-Test</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-02-17T23:21:44.832678" level="ERROR">Error in file 'D:\GE\SoftwareEn\Project\PaiNamNaeWebAppSec2_6\test\api-test.robot' on line 2: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\i5 4670\AppData\Roaming\Python\Python311\Scripts\robot.exe
+  C:\Program Files\Python311\python311.zip
+  C:\Program Files\Python311\DLLs
+  C:\Program Files\Python311\Lib
+  C:\Program Files\Python311
+  C:\Users\i5 4670\AppData\Roaming\Python\Python311\site-packages
+  C:\Program Files\Python311\Lib\site-packages</msg>
+</errors>
+</robot>
