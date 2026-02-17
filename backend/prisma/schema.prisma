@@ -196,6 +196,18 @@ model Route {
   @@index([departureTime])
 }
 
+
+model UserArchive {
+  id              String   @id
+  username        String
+  email           String?
+  password        String?  // must always be null when inserting
+  deletedAt       DateTime @default(now())
+  scheduledDelete DateTime
+  createdAt       DateTime
+  updatedAt       DateTime
+}
+
 model Booking {
   id              String        @id @default(cuid())
   routeId         String
@@ -210,4 +222,15 @@ model Booking {
   pickupLocation  Json          @db.Json
   dropoffLocation Json          @db.Json
   createdAt       DateTime      @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  user      String
+  method    String
+  endpoint  String
+  status    Int
+  ip        String
+  userAgent String?
+  timestamp DateTime @default(now())
 }
