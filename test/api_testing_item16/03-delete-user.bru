@@ -1,0 +1,23 @@
+meta {
+  name: Delete User
+  type: http
+}
+
+delete {
+  url: {{baseUrl}}/api/users/me?permanent=true
+  body: none
+  auth: bearer
+}
+auth:bearer {
+  token: {{token}}
+}
+params:query {
+  permanent: true
+}
+
+
+tests {
+  test("Status code is 200 or 204", () => {
+    expect([200, 204]).to.include(res.status);
+  });
+}
