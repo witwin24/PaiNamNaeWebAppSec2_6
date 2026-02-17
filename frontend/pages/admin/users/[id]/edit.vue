@@ -408,7 +408,7 @@ async function handleSubmit() {
     isSubmitting.value = true
     try {
         const id = route.params.id
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         let token = ''
         try { token = useCookie('token')?.value || '' } catch { }
         if (process.client && !token) token = localStorage.getItem('token') || ''
@@ -500,3 +500,4 @@ async function handleSubmit() {
     }
 }
 </style>
+

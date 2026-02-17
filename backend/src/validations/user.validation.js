@@ -10,10 +10,7 @@ const createUserSchema = z.object({
     phoneNumber: z.string().min(10, "phoneNumber is require"),
     gender: z.string().min(1, "gender is require"), // หรือ z.enum(['MALE', 'FEMALE'])
     nationalIdNumber: z.string().length(13, "nationalIdNumber must be 13 digits"),
-    //nationalIdExpiryDate: z.string().datetime({ message: "Invalid date format for nationalIdExpiryDate" }),
-    nationalIdExpiryDate: z.coerce.date({
-    invalid_type_error: "Invalid date format for nationalIdExpiryDate",
-}),
+    nationalIdExpiryDate: z.string().datetime({ message: "Invalid date format for nationalIdExpiryDate" }),
     role: z.nativeEnum(Role).optional()
 })
 

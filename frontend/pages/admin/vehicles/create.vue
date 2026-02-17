@@ -495,7 +495,7 @@ async function handleSubmit() {
         fd.append('photos', form.licensePlatePhoto)
 
         const token = useCookie('token')?.value || (process.client ? localStorage.getItem('token') : '')
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
 
         const result = await postForm(`${apiBase}/vehicles/admin`, fd, token)
 
@@ -551,3 +551,4 @@ async function handleSubmit() {
     }
 }
 </style>
+

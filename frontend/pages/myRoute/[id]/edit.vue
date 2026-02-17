@@ -323,7 +323,7 @@ useHead({ script: headScripts })
 const original = ref(null)
 
 async function loadRoute() {
-    const apiBase = (useRuntimeConfig().public.apiBase || 'http://localhost:3000/api').replace(/\/$/, '')
+    const apiBase = (useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api').replace(/\/$/, '')
     const res = await fetch(`${apiBase}/routes/${routeId}`, {
         method: 'GET',
         headers: { Accept: 'application/json' },
@@ -637,7 +637,7 @@ const handleSubmit = async () => {
     }
 
     try {
-        const apiBase = (useRuntimeConfig().public.apiBase || 'http://localhost:3000/api').replace(/\/$/, '')
+        const apiBase = (useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api').replace(/\/$/, '')
         // ดึง token จาก cookie/localStorage
         let token = ''
         try { const m = document.cookie.match(/(?:^|;\s*)token=([^;]+)/); if (m) token = decodeURIComponent(m[1]) } catch { }
@@ -741,3 +741,4 @@ onMounted(() => {
     transform: scale(.9) translateY(1rem)
 }
 </style>
+
