@@ -22,7 +22,7 @@ promClient.collectDefaultMetrics();
 app.use(helmet());
 
 const corsOptions = {
-    origin: ['http://localhost:3001',
+    origin: ['https://painumder.cpkku.com','http://localhost:3001',
         'https://amazing-crisp-9bcb1a.netlify.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
