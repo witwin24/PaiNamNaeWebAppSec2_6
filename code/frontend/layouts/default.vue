@@ -453,7 +453,7 @@ async function fetchUserNotifications() {
         if (!token.value) return
         loading.value = true
 
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk = useCookie('token')?.value || (process.client ? localStorage.getItem('token') : '')
 
         const res = await $fetch('/notifications', {
@@ -486,7 +486,7 @@ function toggleItemMenu(id) {
 /** PATCH /notifications/:id/read -> set readAt (ผู้ใช้ทั่วไป) */
 async function markAsRead(n) {
     try {
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk = useCookie('token')?.value || (process.client ? localStorage.getItem('token') : '')
         await fetch(`${apiBase}/notifications/${n.id}/read`, {
             method: 'PATCH',
@@ -503,7 +503,7 @@ async function markAsRead(n) {
 /** DELETE /notifications/:id */
 async function removeNotification(n) {
     try {
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk = useCookie('token')?.value || (process.client ? localStorage.getItem('token') : '')
         await fetch(`${apiBase}/notifications/${n.id}`, {
             method: 'DELETE',

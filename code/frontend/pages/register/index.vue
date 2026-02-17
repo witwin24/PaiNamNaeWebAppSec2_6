@@ -349,7 +349,7 @@ const prevStep = () => {
 };
 
 // ===== Helpers (same behavior as admin create) =====
-const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api';
+const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api';
 
 async function postForm(url, formData, token = '') {
   const res = await fetch(url, {
@@ -527,3 +527,4 @@ const formatExpiryDate = () => {
 <style scoped>
 /* Scoped styles for the parent component can remain here if any */
 </style>
+
