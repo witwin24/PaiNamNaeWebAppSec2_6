@@ -1,0 +1,41 @@
+meta {
+  name: 01-create-user
+  type: http
+}
+
+post {
+  url: {{baseUrl}}/api/users
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  email: {{email}}
+  username: anutin
+  password: {{password}}
+  firstName: Anutin
+  lastName: Charnvirakul
+  phoneNumber: 0800060719
+  gender: MALE
+  nationalIdNumber: 2156254205586
+  nationalIdExpiryDate: 2030-12-31T00:00:00.000Z
+  nationalIdPhotoUrl: @file(anutin.jpg) @contentType(image/jpeg)
+  selfiePhotoUrl: @file(anutin.jpg) @contentType(image/jpeg)
+}
+
+headers {
+  Accept: application/json
+  Content-Type: multipart/form-data
+}
+
+
+tests {
+    test("Status code is 201", () => {
+        expect(res.status).to.equal(201);
+    });
+  expect(res.status).to.equal(201)
+  expect(res.body.success).to.equal(true)
+  expect(res.body.data.id).to.be.a("string")
+
+  bru.setEnvVar("userId", res.body.data.id)
+}
