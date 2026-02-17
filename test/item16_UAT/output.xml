@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.3 on win32)" generated="2026-02-18T00:27:49.277838" rpa="false" schemaversion="5">
+<suite id="s1" name="DeleteUserTest" source="D:\663380022-3_3.2\Software_En\Project\2\PaiNamNaeWebAppSec2_6\Robot_Test\DeleteUserTest.robot">
+<kw name="Connect To My Database" type="SETUP">
+<kw name="Connect To Database" owner="DatabaseLibrary">
+<msg time="2026-02-18T00:27:49.540915" level="INFO">Looking for configuration file: 'resources\db.cfg'</msg>
+<msg time="2026-02-18T00:27:49.541022" level="INFO">Configuration file doesn't exist</msg>
+<msg time="2026-02-18T00:27:49.551852" level="INFO">Connect to DB using : psycopg2.connect(database='postgres', user='postgres.sagopmktdtfejqbjnsar', password=***, host='aws-1-ap-south-1.pooler.supabase.com', port=5432)</msg>
+<arg>psycopg2</arg>
+<arg>${DB_NAME}</arg>
+<arg>${DB_USER}</arg>
+<arg>${DB_PASS}</arg>
+<arg>${DB_HOST}</arg>
+<arg>${DB_PORT}</arg>
+<doc>Creates a database connection using the DB API 2.0 ``db_module`` and the parameters provided.
+Along with listed commonly used arguments (`db_name`, `db_host` etc.)
+you can set any other DB module specific parameters as key/value pairs.</doc>
+<status status="PASS" start="2026-02-18T00:27:49.540628" elapsed="0.663659"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nConnected to Supabase for Audit Check.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-02-18T00:27:50.204616" elapsed="0.000710"/>
+</kw>
+<status status="PASS" start="2026-02-18T00:27:49.540097" elapsed="0.665391"/>
+</kw>
+<test id="s1-t1" name="User Delete Account And Verify Audit Table" line="22">
+<kw name="Login As User">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:50.206993" level="INFO">Opening browser 'chrome' to base url 'https://painumder.cpkku.com/profile/'.</msg>
+<arg>${BASE_URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T00:27:50.206813" elapsed="1.018293"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.225390" elapsed="0.035195"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:51.261258" level="INFO">Typing text 'TestDeleteUser' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.260831" elapsed="0.113122"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:51.375545" level="INFO">Typing text '123456789' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.374713" elapsed="0.063703"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:51.438807" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.438617" elapsed="0.075370"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>https://painumder.cpkku.com/</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.514373" elapsed="0.006452"/>
+</kw>
+<status status="PASS" start="2026-02-18T00:27:50.206595" elapsed="1.314358"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-18T00:27:56.527218" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-18T00:27:51.521199" elapsed="5.006153"/>
+</kw>
+<kw name="Delete Account Process">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:56.528052" level="INFO">Opening url 'https://painumder.cpkku.com/profile'</msg>
+<arg>https://painumder.cpkku.com/profile</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.527959" elapsed="0.044538"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/profile</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.572696" elapsed="0.024988"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//button[contains(., 'ลบบัญชี')]</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.597861" elapsed="0.014888"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:56.613095" level="INFO">Clicking button 'xpath=//button[contains(., 'ลบบัญชี')]'.</msg>
+<arg>xpath=//button[contains(., 'ลบบัญชี')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.612914" elapsed="0.050277"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-18T00:27:56.663796" level="INFO">${INPUT_CONFIRM_PASS} = xpath=//input[@placeholder='กรอกรหัสผ่าน']</msg>
+<var>${INPUT_CONFIRM_PASS}</var>
+<arg>xpath=//input[@placeholder='กรอกรหัสผ่าน']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.663381" elapsed="0.000444"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${INPUT_CONFIRM_PASS}</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.663926" elapsed="0.014480"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:56.678798" level="INFO">Typing password into text field 'xpath=//input[@placeholder='กรอกรหัสผ่าน']'.</msg>
+<msg time="2026-02-18T00:27:56.695496" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_CONFIRM_PASS}</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.678574" elapsed="0.044175"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:56.723099" level="INFO">Clicking button 'xpath=//button[contains(., 'ยืนยันการลบ')]'.</msg>
+<arg>xpath=//button[contains(., 'ยืนยันการลบ')]</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.722917" elapsed="0.047885"/>
+</kw>
+<kw name="Handle Alert" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:56.771204" level="INFO">HANDLE::&lt;class 'datetime.timedelta'&gt;::0:00:10</msg>
+<arg>action=ACCEPT</arg>
+<arg>timeout=10s</arg>
+<doc>Handles the current alert and returns its message.</doc>
+<status status="PASS" start="2026-02-18T00:27:56.770986" elapsed="1.021400"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>https://painumder.cpkku.com/</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-02-18T00:27:57.792571" elapsed="0.008310"/>
+</kw>
+<doc>รอจนกว่าหน้าแรกจะโหลดเสร็จก่อนย้ายไปหน้า Profile</doc>
+<status status="PASS" start="2026-02-18T00:27:56.527731" elapsed="1.273300"/>
+</kw>
+<kw name="Attempt Login Should Fail">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:57.801779" level="INFO">Opening url 'https://painumder.cpkku.com/profile/'</msg>
+<arg>${BASE_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-02-18T00:27:57.801651" elapsed="0.066430"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:57.868624" level="INFO">Typing text 'TestDeleteUser' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:57.868347" elapsed="0.086911"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:57.955668" level="INFO">Typing text '123456789' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:57.955436" elapsed="0.060288"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-02-18T00:27:58.016121" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T00:27:58.015920" elapsed="0.040821"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>เข้าสู่ระบบไม่สำเร็จ</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-02-18T00:27:58.057043" elapsed="0.220290"/>
+</kw>
+<status status="PASS" start="2026-02-18T00:27:57.801371" elapsed="0.476071"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-18T00:28:01.278123" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-18T00:27:58.277673" elapsed="3.000565"/>
+</kw>
+<kw name="Deleted User Should Exist In Audit Table">
+<kw name="Query" owner="DatabaseLibrary">
+<msg time="2026-02-18T00:28:01.279046" level="INFO" html="true">Executing sql:&lt;br&gt;&lt;code style="font-weight: bold;"&gt;SELECT "username", "deletedAt" FROM "UserArchive" WHERE "username"='TestDeleteUser' ORDER BY "deletedAt" DESC LIMIT 1;&lt;/code&gt;</msg>
+<msg time="2026-02-18T00:28:01.474486" level="INFO">Commit the transaction</msg>
+<msg time="2026-02-18T00:28:01.570862" level="INFO" html="true">&lt;div style="max-width: 100%; overflow-x: auto; max-height: 500px; overflow-y: auto;"&gt;&lt;table style="width: auto; border-collapse: collapse; border: 2px solid rgb(140 140 140)"&gt;&lt;caption style="text-align: left; font-weight: bold; padding: 5px;"&gt;Query returned 1 rows&lt;/caption&gt;&lt;tr&gt;&lt;th scope="col" style="position: sticky; top: 0; color:black; background-color: #d6ecd4; border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;Row&lt;/th&gt;&lt;th scope="col" style="position: sticky; top: 0; background-color: #505050; color: #fff;border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;username&lt;/th&gt;&lt;th scope="col" style="position: sticky; top: 0; background-color: #505050; color: #fff;border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;deletedAt&lt;/th&gt;&lt;/tr&gt;&lt;tr style="background-color: var(--secondary-color, #eee)"&gt;&lt;th scope="row" style="color:black; background-color: #d6ecd4;border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;0&lt;/th&gt;&lt;td style="border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;TestDeleteUser&lt;/td&gt;&lt;td style="border: 1px solid rgb(160 160 160);padding: 8px 10px;text-align: center;"&gt;2026-02-17 17:26:46.540000&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg time="2026-02-18T00:28:01.571052" level="INFO">${result} = [('TestDeleteUser', datetime.datetime(2026, 2, 17, 17, 26, 46, 540000))]</msg>
+<var>${result}</var>
+<arg>SELECT "username", "deletedAt" FROM "UserArchive" WHERE "username"='${USERNAME}' ORDER BY "deletedAt" DESC LIMIT 1;</arg>
+<doc>Runs a query with the ``select_statement`` and returns the result as list of rows.
+The type of row values depends on the database module -
+usually they are tuples or tuple-like objects.</doc>
+<status status="PASS" start="2026-02-18T00:28:01.278880" elapsed="0.292196"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-02-18T00:28:01.571715" level="INFO">Length is 1.</msg>
+<arg>${result}</arg>
+<arg>msg=ไม่พบประวัติการลบของยูสเซอร์ ${USERNAME} ในตาราง deleted_users</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-02-18T00:28:01.571222" elapsed="0.000530"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Verified: User '${USERNAME}' exists in Audit Table.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-02-18T00:28:01.571834" elapsed="0.000423"/>
+</kw>
+<doc>เช็คว่าในตาราง deleted_users มี Username นี้โผล่ขึ้นมา</doc>
+<status status="PASS" start="2026-02-18T00:28:01.278649" elapsed="0.293679"/>
+</kw>
+<doc>ทดสอบการลบบัญชี และตรวจสอบว่าข้อมูลไปปรากฏในตาราง deleted_users จริง</doc>
+<status status="PASS" start="2026-02-18T00:27:50.205583" elapsed="11.367004"/>
+</test>
+<kw name="Run Keywords" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-02-18T00:28:01.573965" elapsed="2.158103"/>
+</kw>
+<kw name="Disconnect From Database" owner="DatabaseLibrary">
+<doc>Disconnects from the database.</doc>
+<status status="PASS" start="2026-02-18T00:28:03.732322" elapsed="0.000503"/>
+</kw>
+<arg>Close All Browsers</arg>
+<arg>AND</arg>
+<arg>Disconnect From Database</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2026-02-18T00:28:01.573641" elapsed="2.159271"/>
+</kw>
+<status status="PASS" start="2026-02-18T00:27:49.279351" elapsed="14.453601"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="DeleteUserTest" id="s1" pass="1" fail="0" skip="0">DeleteUserTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
