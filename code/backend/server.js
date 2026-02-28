@@ -10,7 +10,7 @@ const swaggerSpec = require('./src/config/swagger');
 const routes = require('./src/routes');
 const { errorHandler } = require('./src/middlewares/errorHandler');
 const ApiError = require('./src/utils/ApiError')
-const activityLogger = require('./src/middlewares/activityLogger');
+const trafficLogger = require('./src/middlewares/trafficLogger');
 const { metricsMiddleware } = require('./src/middlewares/metrics');
 const ensureAdmin = require('./src/bootstrap/ensureAdmin');
 const cron = require('node-cron');
@@ -34,7 +34,7 @@ app.options('*', cors(corsOptions)); // เปิดรับ preflight สำ�
 
 app.use(express.json());
 
-app.use(activityLogger);
+app.use(trafficLogger);
 
 //Rate Limiting
 // const limiter = rateLimit({
@@ -99,7 +99,7 @@ cron.schedule('0 0 * * *', async () => {
         const ninetyDaysAgo = new Date();
         ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
 
-        const deleted = await prisma.activityLog.deleteMany({
+        const deleted = await prisma.trafficLogger.deleteMany({
             where: {
                 timestamp: {
                     lt: ninetyDaysAgo
