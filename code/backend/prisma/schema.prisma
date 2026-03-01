@@ -197,16 +197,6 @@ model Route {
 }
 
 
-model UserArchive {
-  id              String   @id
-  username        String
-  email           String?
-  password        String?  // must always be null when inserting
-  deletedAt       DateTime @default(now())
-  scheduledDelete DateTime
-  createdAt       DateTime
-  updatedAt       DateTime
-}
 
 model Booking {
   id              String        @id @default(cuid())
@@ -224,13 +214,18 @@ model Booking {
   createdAt       DateTime      @default(now())
 }
 
-model ActivityLog {
-  id        String   @id @default(uuid())
-  user      String
-  method    String
-  endpoint  String
-  status    Int
-  ip        String
-  userAgent String?
-  timestamp DateTime @default(now())
+
+model TrafficLog {
+    id              Int      @id @default(autoincrement())
+    timestamp       DateTime 
+    sourceIp        String   
+    sourcePort      String  
+    destinationUrl  String   
+    destinationPort String  
+    userId          String   
+    userAgent       String?  
+    method          String  
+    protocol        String   
+    statusCode      Int      
+    action          String  
 }
