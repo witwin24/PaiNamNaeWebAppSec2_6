@@ -201,28 +201,10 @@ const updateUserProfile = async (id, data) => {
 };
 
 const deleteUser = async (id) => {
-    return await prisma.$transaction(async (tx) => {
-        const user = await tx.user.findUnique({ where: { id } });
-        if (!user) {
-            throw new ApiError(404, 'User not found');
-        }
+    const deletedUser = await prisma.user.delete({ where: { id } });
 
-        await tx.userArchive.create({
-            data: {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                password: null,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                scheduledDelete: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-            }
-        });
-
-        const deleted = await tx.user.delete({ where: { id } });
-        const { password, ...safeDeleted } = deleted;
-        return safeDeleted;
-    });
+    const { password, ...safeDeletedUser } = deletedUser;
+    return safeDeletedUser;
 };
 
 const cleanupArchivedUsers = async () => {
