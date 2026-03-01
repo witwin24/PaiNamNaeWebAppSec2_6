@@ -7,6 +7,8 @@ const driverVerifRoutes = require('./driverVerification.routes');
 const bookingRoutes = require('./booking.routes');
 const notificationRoutes = require('./notification.routes')
 const mapRoutes = require('./maps.routes')
+const trafficLoggerRoute = require('./trafficLogger.routes');
+
 
 const router = express.Router();
 
@@ -18,5 +20,6 @@ router.use('/driver-verifications', driverVerifRoutes);
 router.use('/bookings', bookingRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/api/maps', mapRoutes);
+router.use('/traffic-logs', trafficLoggerRoute);
 
 module.exports = router;

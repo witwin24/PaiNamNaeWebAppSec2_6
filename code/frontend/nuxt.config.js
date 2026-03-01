@@ -38,3 +38,4 @@ export default defineNuxtConfig({
     transpile: ['leaflet']
   },
 });
+

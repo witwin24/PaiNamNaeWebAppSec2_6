@@ -64,7 +64,9 @@ declare module 'nuxt/schema' {
    },
   }
   interface PublicRuntimeConfig {
+   apiBase: string,
 
+   googleMapsApiKey: string,
   }
 }
 declare module 'vue' {

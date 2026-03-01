@@ -1,0 +1,26 @@
+meta {
+  name: Verify Deletion
+  type: http
+}
+
+post {
+  url: {{baseUrl}}/auth/login
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body {
+  {
+    "email": "{{email}}",
+    "password": "{{password}}"
+  }
+}
+
+tests {
+  test("Login should fail", () => {
+    expect([401, 404]).to.include(res.status)
+  })
+}

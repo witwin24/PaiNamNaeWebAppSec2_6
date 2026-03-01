@@ -164,10 +164,6 @@ const confirmDelete = async () => {
       credentials: "include",
     });
 
-<<<<<<< Updated upstream:frontend/components/ProfileSidebar.vue
-    alert("ลบบัญชีสำเร็จ");
-    // อาจ redirect ไปหน้าแรก
-=======
     if (!res.ok) {
       throw new Error("Delete failed");
     }
@@ -177,7 +173,6 @@ const confirmDelete = async () => {
     document.cookie = "user=; Max-Age=0; path=/;";
 
     alert("ลบบัญชีสำเร็จ");
->>>>>>> Stashed changes:code/frontend/components/ProfileSidebar.vue
     await navigateTo("/");
   } catch (err) {
     alert("ลบไม่สำเร็จ / รหัสผ่านผิด");

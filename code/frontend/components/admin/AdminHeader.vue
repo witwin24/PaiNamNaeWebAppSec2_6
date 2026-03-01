@@ -172,7 +172,7 @@ async function fetchAdminNotifications() {
         if (!user?.value || String(user.value.role).toUpperCase() !== 'ADMIN') return
         loading.value = true
 
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk =
             useCookie('token')?.value ||
             token?.value ||
@@ -212,7 +212,7 @@ function toggleItemMenu(id) {
 
 async function markAsRead(n) {
     try {
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk =
             useCookie('token')?.value ||
             token?.value ||
@@ -240,7 +240,7 @@ async function markAsRead(n) {
 
 async function removeNotification(n) {
     try {
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
         const tk =
             useCookie('token')?.value ||
             token?.value ||
@@ -309,3 +309,4 @@ function timeAgo(ts) {
     overflow: hidden;
 }
 </style>
+

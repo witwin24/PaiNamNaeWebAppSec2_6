@@ -647,7 +647,10 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "apiBase": "https://painamnaewebappsec26-production.up.railway.app/api/",
+    "googleMapsApiKey": ""
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -1020,7 +1023,7 @@ const _5rApwRWaORHgqympSkrcO5VaOgnA2Vbi_L5lOpw1oSo = (function(nitro) {
 
 const rootDir = "D:/University/PaiNamNaeWebAppSec2_6/code/frontend";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1"},{"charset":"utf-8"},{"name":"description","content":"รายละเอียด"}],"link":[{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap"}],"style":[],"script":[],"noscript":[],"title":"ไปนำแหน่","charset":"utf-8","viewport":"width=device-width, initial-scale=1, maximum-scale=1"};
 
 const appRootTag = "div";
 

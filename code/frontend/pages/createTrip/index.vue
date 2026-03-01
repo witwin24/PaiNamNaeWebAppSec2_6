@@ -378,7 +378,7 @@ const handleSubmit = async () => {
 
     // ===== รูปแบบ POST แบบเดียวกับหน้า create user (จัดการ error แบบเจาะจง) =====
     try {
-        const apiBase = useRuntimeConfig().public.apiBase || 'http://localhost:3000/api'
+        const apiBase = useRuntimeConfig().public.apiBase || 'https://painamnaewebappsec26-production.up.railway.app/api'
 
         // ดึง token แบบไม่พึ่ง useCookie (เพื่อไม่ต้องแก้ import อื่น)
         let token = ''

@@ -10,8 +10,11 @@ const swaggerSpec = require('./src/config/swagger');
 const routes = require('./src/routes');
 const { errorHandler } = require('./src/middlewares/errorHandler');
 const ApiError = require('./src/utils/ApiError')
+const trafficLogger = require('./src/middlewares/trafficLogger');
 const { metricsMiddleware } = require('./src/middlewares/metrics');
 const ensureAdmin = require('./src/bootstrap/ensureAdmin');
+const cron = require('node-cron');
+const prisma = require('./src/utils/prisma');
 
 const app = express();
 promClient.collectDefaultMetrics();
@@ -19,7 +22,7 @@ promClient.collectDefaultMetrics();
 app.use(helmet());
 
 const corsOptions = {
-    origin: ['http://localhost:3001',
+    origin: ['https://csse2669.cpkku.com','http://localhost:3001',
         'https://amazing-crisp-9bcb1a.netlify.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -30,6 +33,8 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions)); // เปิดรับ preflight สำหรับทุก route
 
 app.use(express.json());
+
+app.use(trafficLogger);
 
 //Rate Limiting
 // const limiter = rateLimit({
@@ -87,9 +92,31 @@ const PORT = process.env.PORT || 3000;
         console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
     });
 })();
+
+
+cron.schedule('0 0 * * *', async () => {
+    try {
+        const ninetyDaysAgo = new Date();
+        ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+        const deleted = await prisma.trafficLogger.deleteMany({
+            where: {
+                timestamp: {
+                    lt: ninetyDaysAgo
+                }
+            }
+        });
+        console.log(`[Cleanup] Deleted ${deleted.count} logs older than 90 days.`);
+    } catch (err) {
+        console.error('[Cleanup Error]:', err);
+    }
+});
+
 // Graceful Shutdown
 process.on('unhandledRejection', (err) => {
     console.error('UNHANDLED REJECTION! 💥 Shutting down...');
     console.error(err);
     process.exit(1);
 });
+
+
