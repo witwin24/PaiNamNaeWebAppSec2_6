@@ -8,6 +8,7 @@ const bookingRoutes = require('./booking.routes');
 const notificationRoutes = require('./notification.routes')
 const mapRoutes = require('./maps.routes')
 const trafficLoggerRoute = require('./trafficLogger.routes');
+const logExportRoute = require('./logExport.routes');
 
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.use('/bookings', bookingRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/api/maps', mapRoutes);
 router.use('/traffic-logs', trafficLoggerRoute);
+router.use('/export-logs', logExportRoute);
 
 module.exports = router;
