@@ -2,6 +2,7 @@ const prisma = require("../utils/prisma");
 const ApiError = require('../utils/ApiError');
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
+const cloudinary = require('cloudinary').v2;
 
 const searchUsers = async (opts = {}) => {
     const {
@@ -225,24 +226,99 @@ const updateUserProfile = async (id, data) => {
 //     });
 // };
 
-const deleteUser = async (id) => {
-    return await prisma.$transaction(async (tx) => {
-        // 1. ตรวจสอบว่ามี User อยู่จริงไหม
-        const user = await tx.user.findUnique({ where: { id } });
-        if (!user) {
-            throw new ApiError(404, 'User not found');
-        }
 
-        // 2. [PDPA] ลบข้อมูลส่วนตัวในตาราง User
-        // ด้วย onDelete: Cascade ใน Schema ข้อมูลจำพวก Vehicles, Bookings จะหายไป
-        // แต่ TrafficLog จะ "ยังอยู่" เพราะไม่มี Relation ใน Prisma
-        const deleted = await tx.user.delete({ 
-            where: { id } 
+//ฟังก์ชันช่วยดึง Public ID จาก URL ของ Cloudinary
+//ตัวอย่าง: https://res.cloudinary.com/.../painamnae/national_ids/abc123.jpg 
+//จะได้ค่า: painamnae/national_ids/abc123
+const getPublicIdFromUrl = (url) => {
+    if (!url || typeof url !== 'string') return null;
+    try {
+        // แยกส่วนประกอบของ URL เพื่อหาคำว่า /upload/
+        const parts = url.split(/\/upload\/v\d+\//);
+        if (parts.length < 2) return null;
+        
+        // ตัดนามสกุลไฟล์ (.jpg, .png, .webp) ออกเพื่อให้ได้ Public ID ที่ถูกต้อง
+        return parts[1].split('.')[0];
+    } catch (error) {
+        return null;
+    }
+};
+
+
+ // ฟังก์ชันลบบัญชีผู้ใช้
+ // รองรับทั้ง Passenger และ Driver พร้อมล้างรูปภาพบน Cloudinary 
+const deleteUser = async (userId) => {
+    return await prisma.$transaction(async (tx) => {
+        // ดึงข้อมูล User พร้อมข้อมูลที่เกี่ยวข้อง (Vehicles และ DriverVerification)
+        // เพื่อนำ URL รูปภาพมาใช้ลบใน Cloudinary ก่อนที่ข้อมูลใน DB จะหายไป
+        const user = await tx.user.findUnique({
+            where: { id: userId },
+            include: {
+                driverVerification: true, // สำหรับ Driver (ถ้าเป็น Passenger จะได้ null)
+                vehicles: true            // สำหรับ Driver (ถ้าเป็น Passenger จะได้ [])
+            }
         });
 
-        // 3. (เพิ่มเติม) หากมีรูปภาพใน Cloudinary ควรลบทิ้งที่นี่เพื่อประหยัดพื้นที่และตามกฎ PDPA
-        // โดยใช้ public_id ที่เก็บไว้ใน DB (ถ้ามี)
+        if (!user) {
+            throw new ApiError(404, 'ไม่พบข้อมูลผู้ใช้ที่ต้องการลบ');
+        }
 
+        // สร้างรายการ Public ID ของรูปภาพที่ต้องลบทั้งหมด
+        const publicIds = [];
+
+        // --- รูปภาพพื้นฐาน (มีทั้ง Passenger และ Driver) ---
+        publicIds.push(getPublicIdFromUrl(user.profilePicture));
+        publicIds.push(getPublicIdFromUrl(user.nationalIdPhotoUrl));
+        publicIds.push(getPublicIdFromUrl(user.selfiePhotoUrl));
+
+        // --- รูปภาพเฉพาะ Driver (เช็กก่อนว่ามีข้อมูลไหม) ---
+        if (user.driverVerification) {
+            publicIds.push(getPublicIdFromUrl(user.driverVerification.licensePhotoUrl));
+            publicIds.push(getPublicIdFromUrl(user.driverVerification.selfiePhotoUrl));
+        }
+
+        // --- รูปภาพรถยนต์ (กรณีเป็น Driver ที่ลงทะเบียนรถไว้) ---
+        user.vehicles.forEach(vehicle => {
+            // เช็กว่าฟิลด์ photos (Json) เป็น Array หรือไม่
+            if (Array.isArray(vehicle.photos)) {
+                vehicle.photos.forEach(url => {
+                    publicIds.push(getPublicIdFromUrl(url));
+                });
+            }
+        });
+
+        // กรองเอาเฉพาะค่าที่มีอยู่จริง (ลบ null/undefined ออก)
+        const finalIdsToDelete = publicIds.filter(Boolean);
+
+        // สั่งลบรูปภาพบน Cloudinary
+        if (finalIdsToDelete.length > 0) {
+            await Promise.allSettled(
+                finalIdsToDelete.map(async (pid) => { // ใส่ async ตรงนี้เพื่อให้ใช้ await ข้างในได้
+                    try {
+                        // เพิ่ม invalidate: true เพื่อลบรูปที่ค้างใน Cache ของ CDN ด้วย
+                        const result = await cloudinary.uploader.destroy(pid, { invalidate: true });
+                        
+                        // พิมพ์สถานะออกมาดูใน Console ของฝั่ง Backend
+                        console.log(`[Cloudinary] Deletion status for ${pid}:`, result); 
+                        
+                        return result;
+                    } catch (error) {
+                        console.error(`[Cloudinary] Error deleting ${pid}:`, error);
+                        return { result: 'error', error };
+                    }
+                })
+            );
+        }
+
+        // สั่งลบ User หลักใน Database
+        // เนื่องด้วย onDelete: Cascade ใน schema.prisma
+        // ทำให้ข้อมูลในตาราง DriverVerification, Vehicle, Route, Booking จะถูกลบอัตโนมัติ
+        // แต่ TrafficLog จะยังคงอยู่ เพราะไม่มี @relation
+        const deleted = await tx.user.delete({
+            where: { id: userId }
+        });
+
+        // คืนค่าข้อมูล User ที่ลบแล้ว (ตัด password ออกเพื่อความปลอดภัย)
         const { password, ...safeDeleted } = deleted;
         return safeDeleted;
     });
