@@ -9,35 +9,35 @@
             <div class="mx-auto max-w-8xl">
                 <!-- Title -->
                 <div class="flex flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
-                    <h1 class="text-2xl font-semibold text-gray-800">Traffic Log</h1>
+                    <h1 class="text-2xl font-semibold text-gray-800">Export Log</h1>
                 </div>
 
                 <!-- Advanced Filters -->
                 <div class="mb-4 bg-white border border-gray-300 rounded-lg shadow-sm">
                     <div class="grid grid-cols-1 gap-3 px-4 py-4 sm:px-6 lg:grid-cols-[repeat(24,minmax(0,1fr))]">
 
-                        <!-- User ID (5/24) -->
+                        <!-- Admin ID (5/24) -->
                         <div class="lg:col-span-5">
-                            <label class="block mb-1 text-xs font-medium text-gray-600">User ID</label>
-                            <input v-model="filters.userId" type="text" id="userID" placeholder="ระบุ User ID"
+                            <label class="block mb-1 text-xs font-medium text-gray-600">Admin ID</label>
+                            <input v-model="filters.adminId" type="text" id="adminID" placeholder="ระบุ Admin ID"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
-                        <!-- Start Time (5/24) -->
+                        <!-- Start Date (5/24) -->
                         <div class="lg:col-span-5">
-                            <label class="block mb-1 text-xs font-medium text-gray-600">เวลาเริ่มต้น</label>
-                            <input v-model="filters.startDate" type="datetime-local" id="startTime"
+                            <label class="block mb-1 text-xs font-medium text-gray-600">วันที่เริ่มต้น</label>
+                            <input v-model="filters.startDate" type="datetime-local" id="startDate"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
-                        <!-- End Time (5/24) -->
+                        <!-- End Date (5/24) -->
                         <div class="lg:col-span-5">
-                            <label class="block mb-1 text-xs font-medium text-gray-600">เวลาสิ้นสุด</label>
-                            <input v-model="filters.endDate" type="datetime-local" id="endTime"
+                            <label class="block mb-1 text-xs font-medium text-gray-600">วันที่สิ้นสุด</label>
+                            <input v-model="filters.endDate" type="datetime-local" id="endDate"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
-                        <!-- Actions (4/24) -->
+                        <!-- Actions -->
                         <div class="flex items-end justify-end gap-2 mt-1 lg:col-span-9 lg:mt-0">
                             <button @click="clearFilters"
                                 class="px-3 py-2 text-gray-700 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50" id="clearFilters">
@@ -71,65 +71,55 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        User ID
+                                        Admin ID
                                     </th>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Timestamp
+                                        ประเภทข้อมูล
                                     </th>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Source IP
+                                        วันที่สร้าง
                                     </th>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Destination URL
-                                    </th>
-                                    
-                                    <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Method
+                                        IP Address
                                     </th>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Status Code
+                                        รูปแบบไฟล์
                                     </th>
                                     <th class="px-4 py-3 text-xs font-medium text-left text-gray-500 uppercase">
-                                        Action
+                                        รายละเอียด
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="log in logs" :key="log.id" class="transition-opacity hover:bg-gray-50">
                                     <td class="px-4 py-3">
-                                        <span class="font-mono text-sm text-gray-700">{{ log.userId || '-' }}</span>
+                                        <span class="font-mono text-sm text-gray-700">{{ log.adminId || '-' }}</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-700">
+                                        {{ log.exportedDataType || '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
-                                        {{ formatDate(log.timestamp) }}
+                                        {{ formatDate(log.createdAt) }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <span class="font-mono text-sm text-gray-700">{{ log.sourceIp || '-' }}</span>
+                                        <span class="font-mono text-sm text-gray-700">{{ log.ipAddress || '-' }}</span>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div class="max-w-xs text-sm text-gray-700 truncate" :title="log.destinationUrl">
-                                            {{ log.destinationUrl || '-' }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full"
-                                            :class="getMethodBadge(log.method)">
-                                            {{ log.method }}
+                                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                                            {{ log.fileFormat || '-' }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-3">
-                                        <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full"
-                                            :class="getStatusBadge(log.statusCode)">
-                                            {{ log.statusCode }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <span class="text-sm text-gray-700">{{ log.action || '-' }}</span>
+                                    <td class="px-4 py-3 text-center">
+                                        <button @click="openDetailModal(log)"
+                                            class="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer" id="details">
+                                            <i class="fas fa-eye"></i> ดู
+                                        </button>
                                     </td>
                                 </tr>
 
                                 <tr v-if="!logs.length">
                                     <td colspan="7" class="px-4 py-10 text-center text-gray-500">
-                                        ไม่มีข้อมูล Traffic Log
+                                        ไม่มีข้อมูล Export Log
                                     </td>
                                 </tr>
                             </tbody>
@@ -166,7 +156,7 @@
                                 </button>
                             </template>
 
-                            <button id="next"  class="px-3 py-2 text-sm border rounded-md disabled:opacity-50"
+                            <button id="next" class="px-3 py-2 text-sm border rounded-md disabled:opacity-50"
                                 :disabled="pagination.page >= totalPages || isLoading"
                                 @click="changePage(pagination.page + 1)">
                                 Next
@@ -176,6 +166,110 @@
                 </div>
             </div>
         </main>
+
+        <!-- Detail Modal -->
+        <div v-if="showDetailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="w-full max-w-2xl mx-4 bg-white rounded-lg shadow-xl">
+                <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-800">รายละเอียด Export Log</h2>
+                    <button @click="closeDetailModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div v-if="selectedLog" class="px-6 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
+                    <!-- Admin Information -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">Admin ID</label>
+                            <p class="text-sm text-gray-800 font-mono">{{ selectedLog.adminId }}</p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">Admin Username</label>
+                            <p class="text-sm text-gray-800">{{ selectedLog.adminUsername || '-' }}</p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">Admin Role</label>
+                            <p class="text-sm text-gray-800">
+                                <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-700">
+                                    {{ selectedLog.adminRole }}
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">IP Address</label>
+                            <p class="text-sm text-gray-800 font-mono">{{ selectedLog.ipAddress }}</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Export Information -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">ประเภทข้อมูล</label>
+                            <p class="text-sm text-gray-800">{{ selectedLog.exportedDataType }}</p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">รูปแบบไฟล์</label>
+                            <p class="text-sm text-gray-800">
+                                <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                                    {{ selectedLog.fileFormat }}
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">จำนวนแถว</label>
+                            <p class="text-sm text-gray-800">{{ selectedLog.rowCount || '-' }}</p>
+                        </div>
+                        <div>
+                            <label class="text-xs font-medium text-gray-600">วันที่หมดอายุ</label>
+                            <p class="text-sm text-gray-800">{{ formatDate(selectedLog.expiresAt) }}</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Scope Information -->
+                    <div>
+                        <label class="text-xs font-medium text-gray-600">ขอบเขตข้อมูล</label>
+                        <p class="text-sm text-gray-800">{{ selectedLog.dataScope || '-' }}</p>
+                    </div>
+
+                    <!-- Security Measure -->
+                    <div v-if="selectedLog.securityMeasure">
+                        <label class="text-xs font-medium text-gray-600">การรักษาความปลอดภัย</label>
+                        <p class="text-sm text-gray-800">{{ selectedLog.securityMeasure }}</p>
+                    </div>
+
+                    <!-- User Agent -->
+                    <div>
+                        <label class="text-xs font-medium text-gray-600">User Agent</label>
+                        <p class="text-xs text-gray-800 font-mono break-words">{{ selectedLog.userAgent || '-' }}</p>
+                    </div>
+
+                    <!-- Timestamps -->
+                    <hr class="my-4">
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div>
+                            <label class="font-medium text-gray-600">สร้างเมื่อ</label>
+                            <p class="text-gray-800">{{ formatDate(selectedLog.createdAt) }}</p>
+                        </div>
+                        <div>
+                            <label class="font-medium text-gray-600">ลบเมื่อ</label>
+                            <p class="text-gray-800">{{ selectedLog.deletedAt ? formatDate(selectedLog.deletedAt) : 'ยังไม่ได้ลบ' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-2 px-6 py-4 border-t border-gray-200">
+                    <button @click="closeDetailModal"
+                        class="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- Mobile Overlay -->
         <div id="overlay" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 lg:hidden"
@@ -203,6 +297,8 @@ const { toast } = useToast()
 const isLoading = ref(false)
 const loadError = ref('')
 const logs = ref([])
+const showDetailModal = ref(false)
+const selectedLog = ref(null)
 
 const pagination = reactive({
     page: 1,
@@ -212,9 +308,10 @@ const pagination = reactive({
 })
 
 const filters = reactive({
-    userId: '',
+    adminId: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    exportedDataType: ''
 })
 
 const totalPages = computed(() =>
@@ -238,28 +335,9 @@ const pageButtons = computed(() => {
     return out
 })
 
-function getMethodBadge(method) {
-    const badges = {
-        'GET': 'bg-blue-100 text-blue-700',
-        'POST': 'bg-green-100 text-green-700',
-        'PUT': 'bg-yellow-100 text-yellow-700',
-        'PATCH': 'bg-orange-100 text-orange-700',
-        'DELETE': 'bg-red-100 text-red-700'
-    }
-    return badges[method] || 'bg-gray-100 text-gray-700'
-}
-
-function getStatusBadge(status) {
-    if (status >= 200 && status < 300) return 'bg-green-100 text-green-700'
-    if (status >= 300 && status < 400) return 'bg-blue-100 text-blue-700'
-    if (status >= 400 && status < 500) return 'bg-yellow-100 text-yellow-700'
-    if (status >= 500) return 'bg-red-100 text-red-700'
-    return 'bg-gray-100 text-gray-700'
-}
-
 function formatDate(iso) {
     if (!iso) return '-'
-      return dayjs(iso).subtract(7, 'hour').format('D MMM BBBB HH:mm:ss')
+    return dayjs(iso).subtract(7, 'hour').format('D MMM BBBB HH:mm:ss')
 }
 
 async function fetchLogs(page = 1) {
@@ -269,15 +347,16 @@ async function fetchLogs(page = 1) {
         const config = useRuntimeConfig()
         const token = useCookie('token').value || (process.client ? localStorage.getItem('token') : '')
 
-        const res = await $fetch('/traffic-logs/admin', {
+        const res = await $fetch('/export-logs/admin', {
             baseURL: config.public.apiBase,
             headers: { Accept: 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
             query: {
                 page,
                 limit: pagination.limit,
-                userId: filters.userId || undefined,
+                adminId: filters.adminId || undefined,
                 startDate: filters.startDate || undefined,
                 endDate: filters.endDate || undefined,
+                exportedDataType: filters.exportedDataType || undefined,
             },
         })
 
@@ -309,11 +388,22 @@ function applyFilters() {
 }
 
 function clearFilters() {
-    filters.userId = ''
+    filters.adminId = ''
     filters.startDate = ''
     filters.endDate = ''
+    filters.exportedDataType = ''
     pagination.page = 1
     fetchLogs(1)
+}
+
+function openDetailModal(log) {
+    selectedLog.value = log
+    showDetailModal.value = true
+}
+
+function closeDetailModal() {
+    showDetailModal.value = false
+    selectedLog.value = null
 }
 
 function closeMobileSidebar() {
@@ -412,7 +502,7 @@ onUnmounted(() => {
 })
 
 useHead({
-    title: 'Traffic Log - Admin Dashboard',
+    title: 'Export Log - Admin Dashboard',
     link: [{ rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' }]
 })
 </script>
