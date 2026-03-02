@@ -229,3 +229,30 @@ model TrafficLog {
     statusCode      Int      
     action          String  
 }
+
+model LogExportAdmin {
+  id                String    @id @default(cuid())
+  adminId           String
+  adminUsername     String?   // optional
+  adminRole         String
+
+  createdAt         DateTime  @default(now())
+  ipAddress         String
+  userAgent         String?
+
+  exportedDataType  String
+  dataScope         String?   // optional
+  fileFormat        String
+  rowCount          Int?
+
+  securityMeasure   String?   // optional
+
+  retentionDays     Int       @default(90)
+  expiresAt         DateTime
+  deletedAt         DateTime?
+
+  @@index([adminId])
+  @@index([createdAt])
+  @@index([exportedDataType])
+  @@index([expiresAt])
+}
