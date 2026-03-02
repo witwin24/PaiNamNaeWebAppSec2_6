@@ -19,21 +19,21 @@
                         <!-- User ID (5/24) -->
                         <div class="lg:col-span-5">
                             <label class="block mb-1 text-xs font-medium text-gray-600">User ID</label>
-                            <input v-model="filters.userId" type="text" placeholder="ระบุ User ID"
+                            <input v-model="filters.userId" type="text" id="userID" placeholder="ระบุ User ID"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
                         <!-- Start Time (5/24) -->
                         <div class="lg:col-span-5">
                             <label class="block mb-1 text-xs font-medium text-gray-600">เวลาเริ่มต้น</label>
-                            <input v-model="filters.startDate" type="datetime-local"
+                            <input v-model="filters.startDate" type="datetime-local" id="startTime"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
                         <!-- End Time (5/24) -->
                         <div class="lg:col-span-5">
                             <label class="block mb-1 text-xs font-medium text-gray-600">เวลาสิ้นสุด</label>
-                            <input v-model="filters.endDate" type="datetime-local"
+                            <input v-model="filters.endDate" type="datetime-local" id="endTime"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
                         </div>
 
