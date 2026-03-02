@@ -200,26 +200,49 @@ const updateUserProfile = async (id, data) => {
     return safeUser;
 };
 
+// const deleteUser = async (id) => {
+//     return await prisma.$transaction(async (tx) => {
+//         const user = await tx.user.findUnique({ where: { id } });
+//         if (!user) {
+//             throw new ApiError(404, 'User not found');
+//         }
+
+//         await tx.userArchive.create({
+//             data: {
+//                 id: user.id,
+//                 username: user.username,
+//                 email: user.email,
+//                 password: null,
+//                 createdAt: user.createdAt,
+//                 updatedAt: user.updatedAt,
+//                 scheduledDelete: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+//             }
+//         });
+
+//         const deleted = await tx.user.delete({ where: { id } });
+//         const { password, ...safeDeleted } = deleted;
+//         return safeDeleted;
+//     });
+// };
+
 const deleteUser = async (id) => {
     return await prisma.$transaction(async (tx) => {
+        // 1. ตรวจสอบว่ามี User อยู่จริงไหม
         const user = await tx.user.findUnique({ where: { id } });
         if (!user) {
             throw new ApiError(404, 'User not found');
         }
 
-        await tx.userArchive.create({
-            data: {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                password: null,
-                createdAt: user.createdAt,
-                updatedAt: user.updatedAt,
-                scheduledDelete: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-            }
+        // 2. [PDPA] ลบข้อมูลส่วนตัวในตาราง User
+        // ด้วย onDelete: Cascade ใน Schema ข้อมูลจำพวก Vehicles, Bookings จะหายไป
+        // แต่ TrafficLog จะ "ยังอยู่" เพราะไม่มี Relation ใน Prisma
+        const deleted = await tx.user.delete({ 
+            where: { id } 
         });
 
-        const deleted = await tx.user.delete({ where: { id } });
+        // 3. (เพิ่มเติม) หากมีรูปภาพใน Cloudinary ควรลบทิ้งที่นี่เพื่อประหยัดพื้นที่และตามกฎ PDPA
+        // โดยใช้ public_id ที่เก็บไว้ใน DB (ถ้ามี)
+
         const { password, ...safeDeleted } = deleted;
         return safeDeleted;
     });
