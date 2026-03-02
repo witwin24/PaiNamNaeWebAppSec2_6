@@ -67,6 +67,17 @@
                         </button>
                     </div>
                 </div>
+                <NuxtLink to="/admin/traffic-log"
+                    class="sidebar-item flex items-center gap-3 px-3 py-2.5 text-gray-700 rounded-lg hover:bg-blue-50"
+                    active-class="font-semibold text-blue-600 bg-blue-50">
+                    <i class="w-6 text-lg text-center text-gray-500 fas fa-diagram-project"></i>
+                    <span class="sidebar-text">Traffic Log</span>
+                </NuxtLink>
+                <button @click="exportLog"
+                    class="sidebar-item w-full flex items-center gap-3 px-3 py-2.5 text-gray-700 rounded-lg hover:bg-blue-50">
+                    <i class="w-6 text-lg text-center text-gray-500 fas fa-file-download"></i>
+                    <span class="sidebar-text">Export Log</span>
+                </button>
             </nav>
         </div>
     </aside>
