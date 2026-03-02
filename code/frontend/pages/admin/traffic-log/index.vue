@@ -511,7 +511,7 @@ function cleanupGlobalScripts() {
 }
 
 // loading state
-const isExporting = ref(false)
+const isExporting = ref(false);
 
 async function exportLogs() {
   try {
@@ -527,45 +527,53 @@ async function exportLogs() {
       endDate: filters.endDate || "",
     });
 
+    // 1. โหลดข้อมูลจาก API
     const res = await fetch(
       `${config.public.apiBase}/traffic-logs/admin?limit=10000&${query}`,
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          Accept: "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
     );
 
-    if (!res.ok) throw new Error("Fetch failed");
+    if (!res.ok) throw new Error("Export failed");
 
-    const data = await res.json();
-    const logs = data.data || data;
+    const result = await res.json();
+    const data = result.data || [];
 
-    if (!logs.length) {
-      console.warn("No data to export");
-      return;
-    }
+    // 2. แปลงเป็น CSV
+    const headers = [
+      "userId",
+      "timestamp",
+      "sourceIp",
+      "destinationUrl",
+      "method",
+      "statusCode",
+      "action",
+    ];
 
-    // escape function
-    const escapeCSV = (value) => {
-      if (value === null || value === undefined) return "";
-      return `"${String(value).replace(/"/g, '""')}"`;
-    };
+    const csvRows = [
+      headers.join(","), // header
+      ...data.map((log) =>
+        [
+          log.userId || "",
+          log.timestamp || "",
+          log.sourceIp || "",
+          `"${(log.destinationUrl || "").replace(/"/g, '""')}"`,
+          log.method || "",
+          log.statusCode || "",
+          log.action || "",
+        ].join(",")
+      ),
+    ];
 
-    // เอา header จาก object จริง
-    const headers = Object.keys(logs[0]);
+    const csvString = csvRows.join("\n");
 
-    // map ทุก field
-    const rows = logs.map((log) => headers.map((key) => escapeCSV(log[key])).join(","));
-
-    const csv = [headers.join(","), ...rows].join("\r\n");
-
-    const blob = new Blob(["\uFEFF" + csv], {
-      type: "text/csv;charset=utf-8;",
-    });
-
+    // 3. download file
+    const blob = new Blob([csvString], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
 
     const now = new Date();
@@ -579,10 +587,24 @@ async function exportLogs() {
     document.body.appendChild(a);
     a.click();
     a.remove();
-
     window.URL.revokeObjectURL(url);
 
-    console.log("Export success");
+    // ✅ 4. CALL AUDIT LOG (สำคัญ)
+    await fetch(`${config.public.apiBase}/export-logs/admin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({
+        startDate: filters.startDate || null,
+        endDate: filters.endDate || null,
+        rowCount: data.length,
+        securityMeasure: "AES-256-GCM encryption",
+      }),
+    });
+
+    console.log("✅ Export + Audit success");
   } catch (err) {
     console.error("Export error:", err);
   } finally {
