@@ -98,13 +98,24 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 
+// const deleteMyUser = asyncHandler(async (req, res) => {
+//     const userId = req.user.sub;
+//     const deletedUser = await userService.deleteUser(userId);
+//     res.status(200).json({
+//         success: true,
+//         message: "User deleted successfully.",
+//         data: { deletedUserId: deletedUser.id }
+//     });
+// });
+
+// ผู้ใช้ลบบัญชีตัวเอง (Anonymize แทน Hard Delete)
 const deleteMyUser = asyncHandler(async (req, res) => {
     const userId = req.user.sub;
-    const deletedUser = await userService.deleteUser(userId);
+    const anonymized = await userService.anonymizeUser(userId);
     res.status(200).json({
         success: true,
-        message: "User deleted successfully.",
-        data: { deletedUserId: deletedUser.id }
+        message: "บัญชีของคุณถูกลบและข้อมูลส่วนตัวถูกลบออกเรียบร้อยแล้ว",
+        data: { deletedUserId: anonymized.id }
     });
 });
 
@@ -148,12 +159,22 @@ const adminUpdateUser = asyncHandler(async (req, res) => {
     });
 });
 
+// const adminDeleteUser = asyncHandler(async (req, res) => {
+//     const deletedUser = await userService.deleteUser(req.params.id);
+//     res.status(200).json({
+//         success: true,
+//         message: "User deleted successfully.",
+//         data: { deletedUserId: deletedUser.id }
+//     });
+// });
+
+// Admin ลบ User (Anonymize)
 const adminDeleteUser = asyncHandler(async (req, res) => {
-    const deletedUser = await userService.deleteUser(req.params.id);
+    const anonymized = await userService.anonymizeUser(req.params.id);
     res.status(200).json({
         success: true,
-        message: "User deleted successfully.",
-        data: { deletedUserId: deletedUser.id }
+        message: "User anonymized successfully.",
+        data: { deletedUserId: anonymized.id }
     });
 });
 

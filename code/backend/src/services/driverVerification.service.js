@@ -15,6 +15,10 @@ const searchVerifications = async (opts = {}) => {
   } = opts;
 
   const where = {
+    //กรองเฉพาะคำขอที่เจ้าของบัญชียัง Active อยู่ ---
+    user: {
+      isActive: true
+    },
     ...(status && { status }),
     ...(typeOnLicense && { typeOnLicense }),
     ...((createdFrom || createdTo) ? {
@@ -41,6 +45,7 @@ const searchVerifications = async (opts = {}) => {
         {
           user: {
             is: {
+              isActive: true, // เพิ่มตรงนี้เพื่อให้การค้นหา q ไม่ไปดึง User ที่ลบแล้วกลับมา
               OR: [
                 { email: { contains: q, mode: 'insensitive' } },
                 { username: { contains: q, mode: 'insensitive' } },
