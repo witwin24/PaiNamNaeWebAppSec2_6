@@ -5,7 +5,7 @@
 
 */
 -- DropTable
-DROP TABLE "UserArchive";
+DROP TABLE IF EXISTS "UserArchive";
 
 -- CreateTable
 CREATE TABLE "TrafficLog" (
