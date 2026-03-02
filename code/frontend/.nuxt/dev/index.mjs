@@ -648,7 +648,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBase": "https://painamnaewebappsec26-production.up.railway.app/api/",
+    "apiBase": "http://localhost:3000/api/",
     "googleMapsApiKey": ""
   }
 };
