@@ -86,20 +86,18 @@
               หน้าที่ {{ pagination.page }} / {{ totalPages }} • ทั้งหมด
               {{ pagination.total }} รายการ
             </div>
-             <!-- Export Button -->
-          <div class="flex justify-end mt-4">
-            <button
-              @click="exportLogs"
-              :disabled="isExporting"
-              class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
-            >
-              {{ isExporting ? "Exporting..." : "Export" }}
-            </button>
+            <!-- Export Button -->
+            <div class="flex justify-end mt-4">
+              <button
+                @click="exportLogs"
+                :disabled="isExporting"
+                class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 disabled:opacity-50"
+              >
+                {{ isExporting ? "Exporting..." : "Export" }}
+              </button>
+            </div>
           </div>
 
-          </div>
-
-         
           <!-- Loading / Error -->
           <div v-if="isLoading" class="p-8 text-center text-gray-500">
             กำลังโหลดข้อมูล...
@@ -380,7 +378,7 @@ async function fetchLogs(page = 1) {
       limit: pagination.limit,
       userId: filters.userId || undefined,
     };
-    
+
     if (filters.startDate) {
       queryParams.startDate = new Date(filters.startDate).toISOString();
     }
@@ -427,14 +425,14 @@ function applyFilters() {
     const start = new Date(filters.startDate);
     const end = new Date(filters.endDate);
     if (start > end) {
-      toast.error('เกิดข้อผิดพลาด', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด');
+      toast.error("เกิดข้อผิดพลาด", "วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด");
       return;
     }
   }
-  
+
   pagination.page = 1;
   fetchLogs(1);
-  toast.success('สำเร็จ', 'ใช้ตัวกรองเรียบร้อยแล้ว');
+  toast.success("สำเร็จ", "ใช้ตัวกรองเรียบร้อยแล้ว");
 }
 
 function clearFilters() {
@@ -443,7 +441,7 @@ function clearFilters() {
   filters.endDate = "";
   pagination.page = 1;
   fetchLogs(1);
-  toast.success('สำเร็จ', 'ล้างตัวกรองเรียบร้อยแล้ว');
+  toast.success("สำเร็จ", "ล้างตัวกรองเรียบร้อยแล้ว");
 }
 
 function closeMobileSidebar() {
@@ -548,14 +546,12 @@ async function exportLogs() {
       endDate: filters.endDate || "",
     });
 
-    // เรียก API
     const res = await fetch(
-      `${config.public.apiBase}/traffic-logs/admin/export?limit=10000&${query}`,
+      `${config.public.apiBase}/traffic-logs/admin/export?${query}`,
       {
         method: "GET",
         headers: {
-          Accept: "application/octet-stream",
-          "Accept-Encoding": "identity",
+          Accept: "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
@@ -563,25 +559,30 @@ async function exportLogs() {
 
     if (!res.ok) throw new Error("Export failed");
 
-    const arrayBuffer = await res.arrayBuffer();
+    const result = await res.json();
 
-    const blob = new Blob([arrayBuffer], {
+    // decode base64
+    const binary = atob(result.data);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+
+    // สร้างไฟล์
+    const blob = new Blob([bytes], {
       type: "application/octet-stream",
     });
 
     const url = window.URL.createObjectURL(blob);
 
-    const now = new Date();
-    const fileName = `traffic_logs_${now.getFullYear()}-${
-      now.getMonth() + 1
-    }-${now.getDate()}.enc`;
-
     const a = document.createElement("a");
     a.href = url;
-    a.download = fileName;
+    a.download = result.fileName || "traffic_logs.enc";
     document.body.appendChild(a);
     a.click();
     a.remove();
+
     window.URL.revokeObjectURL(url);
 
     // audit log
@@ -595,11 +596,11 @@ async function exportLogs() {
         startDate: filters.startDate || null,
         endDate: filters.endDate || null,
         rowCount: null,
-        securityMeasure: "AES-256-GCM encryption",
+        securityMeasure: "AES-256-GCM encryption (base64 transport)",
       }),
     });
 
-    console.log("Export (encrypted) + Audit success");
+    console.log("Export success (Base64 safe)");
   } catch (err) {
     console.error("Export error:", err);
   } finally {
