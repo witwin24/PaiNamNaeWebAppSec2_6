@@ -86,9 +86,7 @@
               หน้าที่ {{ pagination.page }} / {{ totalPages }} • ทั้งหมด
               {{ pagination.total }} รายการ
             </div>
-          </div>
-
-          <!-- Export Button -->
+             <!-- Export Button -->
           <div class="flex justify-end mt-4">
             <button
               @click="exportLogs"
@@ -99,6 +97,9 @@
             </button>
           </div>
 
+          </div>
+
+         
           <!-- Loading / Error -->
           <div v-if="isLoading" class="p-8 text-center text-gray-500">
             กำลังโหลดข้อมูล...
