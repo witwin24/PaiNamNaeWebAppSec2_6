@@ -374,19 +374,27 @@ async function fetchLogs(page = 1) {
     const token =
       useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
 
+    // Format dates to ISO string if provided
+    const queryParams = {
+      page,
+      limit: pagination.limit,
+      userId: filters.userId || undefined,
+    };
+    
+    if (filters.startDate) {
+      queryParams.startDate = new Date(filters.startDate).toISOString();
+    }
+    if (filters.endDate) {
+      queryParams.endDate = new Date(filters.endDate).toISOString();
+    }
+
     const res = await $fetch("/traffic-logs/admin", {
       baseURL: config.public.apiBase,
       headers: {
         Accept: "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
-      query: {
-        page,
-        limit: pagination.limit,
-        userId: filters.userId || undefined,
-        startDate: filters.startDate || undefined,
-        endDate: filters.endDate || undefined,
-      },
+      query: queryParams,
     });
 
     const list = res?.data || [];
@@ -414,8 +422,19 @@ function changePage(next) {
 }
 
 function applyFilters() {
+  // Validate date range if both dates are provided
+  if (filters.startDate && filters.endDate) {
+    const start = new Date(filters.startDate);
+    const end = new Date(filters.endDate);
+    if (start > end) {
+      toast.error('เกิดข้อผิดพลาด', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด');
+      return;
+    }
+  }
+  
   pagination.page = 1;
   fetchLogs(1);
+  toast.success('สำเร็จ', 'ใช้ตัวกรองเรียบร้อยแล้ว');
 }
 
 function clearFilters() {
@@ -424,6 +443,7 @@ function clearFilters() {
   filters.endDate = "";
   pagination.page = 1;
   fetchLogs(1);
+  toast.success('สำเร็จ', 'ล้างตัวกรองเรียบร้อยแล้ว');
 }
 
 function closeMobileSidebar() {
