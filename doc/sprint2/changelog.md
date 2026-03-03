@@ -16,7 +16,9 @@
     - เพิ่ม TrafficLog เพื่อทำการเก็บ log การใช้งานตามกฎหมาย 
     - เพิ่ม LogExportAdmin เพื่อทำการเก็บ Log การ Export ข้อมูลของ TrafficLog
 # Changed
-- ปรับปรุง Database Schema (Prisma) ลบ ActivityLog, UserArchive
+- ปรับปรุง Database Schema (Prisma) 
+    - +เพิ่ม TrafficLog, ExportLog
+    - -ลบ ActivityLog, UserArchive
 
 รายงานฉบับนี้ นําปัญญาประดิษฐ์ ChatGPT, Gemini, copilot มาใช้ในขั้นตอนดังต่อไปนี้ (1) ใช้ในการช่วยแก้ไขข้อผิดพลาดของโค้ด 
 (2) ใช้แนะนำแนวทางในการพัฒนาฟังก์ชันการทำงาน (3) ใช้ในการช่วยแนะนำการตั้งค่าสภาพแวดล้อมการทำงานของโปรเจค (4) แก้ api url ใน frontend ทั้งหมด (5) ช่วยคิดและสร้างสร้างโค้ด api testing automate 90% และช่วยคิด testcase senario (6) ช่วยสร้าง UI หน้า Traffic Log และหน้า Export Log
