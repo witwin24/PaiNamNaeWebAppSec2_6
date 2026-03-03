@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const notifService = require('../services/notification.service');
 const bcrypt = require("bcrypt");
+const prisma = require('../config/prisma');
 
 const adminListUsers = asyncHandler(async (req, res) => {
     const result = await userService.searchUsers(req.query);
