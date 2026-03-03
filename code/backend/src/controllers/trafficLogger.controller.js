@@ -64,14 +64,11 @@ const exportTrafficLogs = asyncHandler(async (req, res) => {
     const finalBuffer = Buffer.concat([iv, authTag, encrypted]);
 
     // download
-    res.setHeader('Content-Type', 'application/octet-stream');
-    res.setHeader(
-        'Content-Disposition',
-        `attachment; filename=traffic_logs_${Date.now()}.enc`
-    );
-    res.setHeader('Content-Length', finalBuffer.length);
+    res.setHeader('Cache-Control', 'no-store, no-transform');
     res.setHeader('Content-Encoding', 'identity');
-    res.setHeader('ETag', '');
+    res.setHeader('Content-Length', finalBuffer.length);
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename=traffic_logs_${Date.now()}.enc`);
 
     res.end(finalBuffer);
 });
