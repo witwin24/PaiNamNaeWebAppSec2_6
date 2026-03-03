@@ -1,0 +1,46 @@
+meta {
+  name: Login User
+  type: http
+}
+
+post {
+  url: {{baseUrl}}/api/auth/login
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "{{email}}",
+    "password": "{{password}}"
+  }
+}
+
+script:post-response {
+  const body = res.getBody();
+  if (body.data && body.data.token) {
+      bru.setEnvVar("token", body.data.token);
+      console.log("Token saved to Environment Variable successfully.");
+  }
+}
+
+tests {
+  console.log("Token Received:", res.getBody().data.token);
+  test("Status code is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has success true", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("success", true);
+  });
+  test("Token is returned", () => {
+    expect(res.getBody().data.token).to.be.a("string");
+  });
+  test("User data exists", () => {
+    expect(res.getBody().data.user).to.be.an("object");
+  });
+}
