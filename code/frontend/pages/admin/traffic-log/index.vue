@@ -527,13 +527,13 @@ async function exportLogs() {
       endDate: filters.endDate || "",
     });
 
-    // 1. โหลดข้อมูลจาก API
+    // เรียก API
     const res = await fetch(
-      `${config.public.apiBase}/traffic-logs/admin?limit=10000&${query}`,
+      `${config.public.apiBase}/traffic-logs/admin/export?limit=10000&${query}`,
       {
         method: "GET",
         headers: {
-          Accept: "application/json",
+          Accept: "application/octet-stream",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
@@ -541,45 +541,18 @@ async function exportLogs() {
 
     if (!res.ok) throw new Error("Export failed");
 
-    const result = await res.json();
-    const data = result.data || [];
+    const arrayBuffer = await res.arrayBuffer();
 
-    // 2. แปลงเป็น CSV
-    const headers = [
-      "userId",
-      "timestamp",
-      "sourceIp",
-      "destinationUrl",
-      "method",
-      "statusCode",
-      "action",
-    ];
+    const blob = new Blob([arrayBuffer], {
+      type: "application/octet-stream",
+    });
 
-    const csvRows = [
-      headers.join(","), // header
-      ...data.map((log) =>
-        [
-          log.userId || "",
-          log.timestamp || "",
-          log.sourceIp || "",
-          `"${(log.destinationUrl || "").replace(/"/g, '""')}"`,
-          log.method || "",
-          log.statusCode || "",
-          log.action || "",
-        ].join(",")
-      ),
-    ];
-
-    const csvString = csvRows.join("\n");
-
-    // 3. download file
-    const blob = new Blob([csvString], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
 
     const now = new Date();
-    const fileName = `traffic-logs-${now.getFullYear()}-${
+    const fileName = `traffic_logs_${now.getFullYear()}-${
       now.getMonth() + 1
-    }-${now.getDate()}.csv`;
+    }-${now.getDate()}.enc`;
 
     const a = document.createElement("a");
     a.href = url;
@@ -589,7 +562,7 @@ async function exportLogs() {
     a.remove();
     window.URL.revokeObjectURL(url);
 
-    // ✅ 4. CALL AUDIT LOG (สำคัญ)
+    // audit log
     await fetch(`${config.public.apiBase}/export-logs/admin`, {
       method: "POST",
       headers: {
@@ -599,12 +572,12 @@ async function exportLogs() {
       body: JSON.stringify({
         startDate: filters.startDate || null,
         endDate: filters.endDate || null,
-        rowCount: data.length,
+        rowCount: null,
         securityMeasure: "AES-256-GCM encryption",
       }),
     });
 
-    console.log("✅ Export + Audit success");
+    console.log("Export (encrypted) + Audit success");
   } catch (err) {
     console.error("Export error:", err);
   } finally {
