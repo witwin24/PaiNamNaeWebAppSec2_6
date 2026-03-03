@@ -3,6 +3,8 @@ const userService = require("../services/user.service");
 const ApiError = require('../utils/ApiError');
 const { uploadToCloudinary } = require('../utils/cloudinary');
 const notifService = require('../services/notification.service');
+const bcrypt = require("bcrypt");
+const prisma = require('../config/prisma');
 
 const adminListUsers = asyncHandler(async (req, res) => {
     const result = await userService.searchUsers(req.query);
@@ -97,26 +99,53 @@ const createUser = asyncHandler(async (req, res) => {
     });
 });
 
-
-// const deleteMyUser = asyncHandler(async (req, res) => {
-//     const userId = req.user.sub;
-//     const deletedUser = await userService.deleteUser(userId);
-//     res.status(200).json({
-//         success: true,
-//         message: "User deleted successfully.",
-//         data: { deletedUserId: deletedUser.id }
-//     });
-// });
-
-// ผู้ใช้ลบบัญชีตัวเอง (Anonymize แทน Hard Delete)
 const deleteMyUser = asyncHandler(async (req, res) => {
-    const userId = req.user.sub;
-    const anonymized = await userService.anonymizeUser(userId);
-    res.status(200).json({
-        success: true,
-        message: "บัญชีของคุณถูกลบและข้อมูลส่วนตัวถูกลบออกเรียบร้อยแล้ว",
-        data: { deletedUserId: anonymized.id }
-    });
+    try {
+        const userId = req.user.sub;
+        const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: "Password is required"
+            });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid password"
+            });
+        }
+
+        const deletedUser = await userService.anonymizeUser(userId);
+
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully.",
+            data: { deletedUserId: deletedUser.id }
+        });
+
+    } catch (err) {
+        console.error("DELETE USER ERROR:", err);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
 });
 
 const updateCurrentUserProfile = asyncHandler(async (req, res) => {

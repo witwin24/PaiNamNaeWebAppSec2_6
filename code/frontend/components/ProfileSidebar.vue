@@ -127,50 +127,57 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-// Function to check if a menu item is active
-const isActive = (path) => {
-  return route.path === path;
-};
-
-import { ref } from "vue";
+const isActive = (path) => route.path === path;
 
 const showModal = ref(false);
 const password = ref("");
 const loading = ref(false);
 
 const confirmDelete = async () => {
+  if (!password.value) {
+    alert("กรุณากรอกรหัสผ่าน");
+    return;
+  }
+
   loading.value = true;
+
   const config = useRuntimeConfig();
   const token =
     useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
 
   try {
-    await fetch(`${config.public.apiBase}/users/me`, {
+    const res = await fetch(`${config.public.apiBase}/users/me`, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Accept: "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
+      body: JSON.stringify({
+        password: password.value,
+      }),
       credentials: "include",
     });
 
-    // ลบคุกกี้ token และ user หลังจากลบบัญชีสำเร็จ
-  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    if (!res.ok) {
+      throw new Error("Delete failed");
+    }
+
+    // ลบ cookie
+    document.cookie = "token=; Max-Age=0; path=/;";
+    document.cookie = "user=; Max-Age=0; path=/;";
+
     alert("ลบบัญชีสำเร็จ");
-
-    // redirect ไปหน้าแรก
     await navigateTo("/");
-
   } catch (err) {
-    alert("รหัสผ่านไม่ถูกต้อง");
+    alert("ลบไม่สำเร็จ / รหัสผ่านผิด");
   } finally {
     loading.value = false;
   }
-
 };
 </script>

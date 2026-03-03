@@ -12,4 +12,12 @@ router.get(
     trafficLogController.getTrafficLogs
 );
 
+// GET /api/traffic-logs/admin/export
+router.get(
+    '/admin/export', 
+    protect, 
+    requireAdmin, 
+    trafficLogController.exportTrafficLogs
+);
+
 module.exports = router;
