@@ -383,14 +383,20 @@ const anonymizeUser = async (userId) => {
             });
         }
 
-        await tx.vehicle.updateMany({
+        const userVehicles = await tx.vehicle.findMany({
             where: { userId },
-            data: {
-                licensePlate: `DELETE_${userId.slice(-4)}`, // เปลี่ยนเลขทะเบียน
-                photos: null // ลบรูปภาพรถ
-            }
         });
 
+        for (const vehicle of userVehicles) {
+            await tx.vehicle.update({
+                where: { id: vehicle.id },
+                data: {
+                    // ใช้ userId และ vehicle.id เพื่อให้เลขทะเบียนใหม่ไม่ซ้ำกัน
+                    licensePlate: `DELETE_${userId.slice(-4)}_${String(vehicle.id).slice(-4)}`, // เปลี่ยนเลขทะเบียนแบบไม่ชนกัน
+                    photos: null // ลบรูปภาพรถ
+                }
+            });
+        }
         await tx.notification.deleteMany({ where: { userId } });
 
         
