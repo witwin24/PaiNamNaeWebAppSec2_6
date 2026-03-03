@@ -99,45 +99,52 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const deleteMyUser = asyncHandler(async (req, res) => {
-    const userId = req.user.sub;
-    const { password } = req.body;
+    try {
+        const userId = req.user.sub;
+        const { password } = req.body;
 
-    if (!password) {
-        return res.status(400).json({
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: "Password is required"
+            });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid password"
+            });
+        }
+
+        const deletedUser = await userService.deleteUser(userId);
+
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully.",
+            data: { deletedUserId: deletedUser.id }
+        });
+
+    } catch (err) {
+        console.error("DELETE USER ERROR:", err);
+        res.status(500).json({
             success: false,
-            message: "Password is required"
+            message: "Internal Server Error"
         });
     }
-
-    // หา user
-    const user = await prisma.user.findUnique({
-        where: { id: userId }
-    });
-
-    if (!user) {
-        return res.status(404).json({
-            success: false,
-            message: "User not found"
-        });
-    }
-
-    // เช็ครหัสผ่าน
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-        return res.status(401).json({
-            success: false,
-            message: "Invalid password"
-        });
-    }
-
-    const deletedUser = await userService.deleteUser(userId);
-
-    res.status(200).json({
-        success: true,
-        message: "User deleted successfully.",
-        data: { deletedUserId: deletedUser.id }
-    });
 });
 
 const updateCurrentUserProfile = asyncHandler(async (req, res) => {
