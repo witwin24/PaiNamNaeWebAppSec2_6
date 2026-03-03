@@ -555,6 +555,7 @@ async function exportLogs() {
         method: "GET",
         headers: {
           Accept: "application/octet-stream",
+          "Accept-Encoding": "identity",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
