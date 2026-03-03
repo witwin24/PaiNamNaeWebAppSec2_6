@@ -131,7 +131,7 @@ const deleteMyUser = asyncHandler(async (req, res) => {
             });
         }
 
-        const deletedUser = await userService.deleteUser(userId);
+        const deletedUser = await userService.anonymizeUser(userId);
 
         res.status(200).json({
             success: true,
@@ -188,12 +188,22 @@ const adminUpdateUser = asyncHandler(async (req, res) => {
     });
 });
 
+// const adminDeleteUser = asyncHandler(async (req, res) => {
+//     const deletedUser = await userService.deleteUser(req.params.id);
+//     res.status(200).json({
+//         success: true,
+//         message: "User deleted successfully.",
+//         data: { deletedUserId: deletedUser.id }
+//     });
+// });
+
+// Admin ลบ User (Anonymize)
 const adminDeleteUser = asyncHandler(async (req, res) => {
-    const deletedUser = await userService.deleteUser(req.params.id);
+    const anonymized = await userService.anonymizeUser(req.params.id);
     res.status(200).json({
         success: true,
-        message: "User deleted successfully.",
-        data: { deletedUserId: deletedUser.id }
+        message: "User anonymized successfully.",
+        data: { deletedUserId: anonymized.id }
     });
 });
 

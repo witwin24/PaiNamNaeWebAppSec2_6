@@ -87,7 +87,15 @@ const searchVehiclesAdmin = async (opts) => {
     sortOrder = "desc",
     ...filters
   } = opts || {};
-  const where = buildVehicleWhere(filters);
+
+  // เพิ่มการกรองเฉพาะ User ที่ยัง Active อยู่
+  const where = {
+    ...buildVehicleWhere(filters),
+    user: {
+      isActive: true
+    }
+  };
+
   const skip = (page - 1) * limit,
     take = limit;
 
