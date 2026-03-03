@@ -23,18 +23,18 @@ const getTrafficLogs = asyncHandler(async (req, res) => {
 
 const EXPORT_SECRET = process.env.EXPORT_SECRET || 'super-secret-key';
 
-// 🔐 helper: สร้าง key 32 bytes
+// สร้าง key 32 bytes
 const getKey = () => crypto.createHash('sha256').update(EXPORT_SECRET).digest();
 
 const exportTrafficLogs = asyncHandler(async (req, res) => {
-    // ✅ 1. check admin
+    // heck admin
     if (req.user.role !== 'ADMIN') {
         return res.status(403).json({ message: 'Forbidden' });
     }
 
     const { startDate, endDate, userId, method, statusCode } = req.query;
 
-    // ✅ 2. ดึงข้อมูลทั้งหมด (ไม่ paginate)
+    // ดึงข้อมูลทั้งหมด (ไม่ paginate)
     const logs = await trafficLogService.getTrafficLogs({
         startDate,
         endDate,
@@ -47,7 +47,7 @@ const exportTrafficLogs = asyncHandler(async (req, res) => {
 
     const jsonData = JSON.stringify(logs.data || logs, null, 2);
 
-    // 🔐 3. encrypt AES-256-GCM
+    // encrypt AES-256-GCM
     const iv = crypto.randomBytes(12);
     const key = getKey();
 
@@ -60,17 +60,20 @@ const exportTrafficLogs = asyncHandler(async (req, res) => {
 
     const authTag = cipher.getAuthTag();
 
-    // 📦 4. รวม iv + tag + data
+    // รวม iv + tag + data
     const finalBuffer = Buffer.concat([iv, authTag, encrypted]);
 
-    // ⬇️ 5. ส่งเป็นไฟล์ download
+    // download
     res.setHeader('Content-Type', 'application/octet-stream');
     res.setHeader(
         'Content-Disposition',
         `attachment; filename=traffic_logs_${Date.now()}.enc`
     );
+    res.setHeader('Content-Length', finalBuffer.length);
+    res.setHeader('Content-Encoding', 'identity');
+    res.setHeader('ETag', '');
 
-    res.send(finalBuffer);
+    res.end(finalBuffer);
 });
 
 module.exports = { getTrafficLogs, exportTrafficLogs };

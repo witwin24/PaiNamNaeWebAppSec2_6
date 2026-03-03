@@ -86,9 +86,7 @@
               หน้าที่ {{ pagination.page }} / {{ totalPages }} • ทั้งหมด
               {{ pagination.total }} รายการ
             </div>
-          </div>
-
-          <!-- Export Button -->
+             <!-- Export Button -->
           <div class="flex justify-end mt-4">
             <button
               @click="exportLogs"
@@ -99,6 +97,9 @@
             </button>
           </div>
 
+          </div>
+
+         
           <!-- Loading / Error -->
           <div v-if="isLoading" class="p-8 text-center text-gray-500">
             กำลังโหลดข้อมูล...
@@ -373,19 +374,27 @@ async function fetchLogs(page = 1) {
     const token =
       useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
 
+    // Format dates to ISO string if provided
+    const queryParams = {
+      page,
+      limit: pagination.limit,
+      userId: filters.userId || undefined,
+    };
+    
+    if (filters.startDate) {
+      queryParams.startDate = new Date(filters.startDate).toISOString();
+    }
+    if (filters.endDate) {
+      queryParams.endDate = new Date(filters.endDate).toISOString();
+    }
+
     const res = await $fetch("/traffic-logs/admin", {
       baseURL: config.public.apiBase,
       headers: {
         Accept: "application/json",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
-      query: {
-        page,
-        limit: pagination.limit,
-        userId: filters.userId || undefined,
-        startDate: filters.startDate || undefined,
-        endDate: filters.endDate || undefined,
-      },
+      query: queryParams,
     });
 
     const list = res?.data || [];
@@ -413,8 +422,19 @@ function changePage(next) {
 }
 
 function applyFilters() {
+  // Validate date range if both dates are provided
+  if (filters.startDate && filters.endDate) {
+    const start = new Date(filters.startDate);
+    const end = new Date(filters.endDate);
+    if (start > end) {
+      toast.error('เกิดข้อผิดพลาด', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด');
+      return;
+    }
+  }
+  
   pagination.page = 1;
   fetchLogs(1);
+  toast.success('สำเร็จ', 'ใช้ตัวกรองเรียบร้อยแล้ว');
 }
 
 function clearFilters() {
@@ -423,6 +443,7 @@ function clearFilters() {
   filters.endDate = "";
   pagination.page = 1;
   fetchLogs(1);
+  toast.success('สำเร็จ', 'ล้างตัวกรองเรียบร้อยแล้ว');
 }
 
 function closeMobileSidebar() {
@@ -527,13 +548,14 @@ async function exportLogs() {
       endDate: filters.endDate || "",
     });
 
-    // 1. โหลดข้อมูลจาก API
+    // เรียก API
     const res = await fetch(
-      `${config.public.apiBase}/traffic-logs/admin?limit=10000&${query}`,
+      `${config.public.apiBase}/traffic-logs/admin/export?limit=10000&${query}`,
       {
         method: "GET",
         headers: {
-          Accept: "application/json",
+          Accept: "application/octet-stream",
+          "Accept-Encoding": "identity",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
@@ -541,45 +563,18 @@ async function exportLogs() {
 
     if (!res.ok) throw new Error("Export failed");
 
-    const result = await res.json();
-    const data = result.data || [];
+    const arrayBuffer = await res.arrayBuffer();
 
-    // 2. แปลงเป็น CSV
-    const headers = [
-      "userId",
-      "timestamp",
-      "sourceIp",
-      "destinationUrl",
-      "method",
-      "statusCode",
-      "action",
-    ];
+    const blob = new Blob([arrayBuffer], {
+      type: "application/octet-stream",
+    });
 
-    const csvRows = [
-      headers.join(","), // header
-      ...data.map((log) =>
-        [
-          log.userId || "",
-          log.timestamp || "",
-          log.sourceIp || "",
-          `"${(log.destinationUrl || "").replace(/"/g, '""')}"`,
-          log.method || "",
-          log.statusCode || "",
-          log.action || "",
-        ].join(",")
-      ),
-    ];
-
-    const csvString = csvRows.join("\n");
-
-    // 3. download file
-    const blob = new Blob([csvString], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
 
     const now = new Date();
-    const fileName = `traffic-logs-${now.getFullYear()}-${
+    const fileName = `traffic_logs_${now.getFullYear()}-${
       now.getMonth() + 1
-    }-${now.getDate()}.csv`;
+    }-${now.getDate()}.enc`;
 
     const a = document.createElement("a");
     a.href = url;
@@ -589,7 +584,7 @@ async function exportLogs() {
     a.remove();
     window.URL.revokeObjectURL(url);
 
-    // ✅ 4. CALL AUDIT LOG (สำคัญ)
+    // audit log
     await fetch(`${config.public.apiBase}/export-logs/admin`, {
       method: "POST",
       headers: {
@@ -599,12 +594,12 @@ async function exportLogs() {
       body: JSON.stringify({
         startDate: filters.startDate || null,
         endDate: filters.endDate || null,
-        rowCount: data.length,
+        rowCount: null,
         securityMeasure: "AES-256-GCM encryption",
       }),
     });
 
-    console.log("✅ Export + Audit success");
+    console.log("Export (encrypted) + Audit success");
   } catch (err) {
     console.error("Export error:", err);
   } finally {
