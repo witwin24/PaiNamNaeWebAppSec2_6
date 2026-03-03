@@ -104,7 +104,11 @@ const deleteMyUser = asyncHandler(async (req, res) => {
         const userId = req.user.sub;
         const { password } = req.body;
 
+        console.log('[DELETE USER] Starting deletion process for userId:', userId);
+        console.log('[DELETE USER] Received password:', !!password);
+
         if (!password) {
+            console.warn('[DELETE USER] Password not provided');
             return res.status(400).json({
                 success: false,
                 message: "Password is required"
@@ -112,38 +116,76 @@ const deleteMyUser = asyncHandler(async (req, res) => {
         }
 
         const user = await prisma.user.findUnique({
-            where: { id: userId }
+            where: { id: userId },
+            select: {
+                id: true,
+                password: true,
+                email: true,
+                firstName: true,
+                username: true,
+                nationalIdNumber: true
+            }
         });
 
         if (!user) {
+            console.warn('[DELETE USER] User not found with id:', userId);
             return res.status(404).json({
                 success: false,
                 message: "User not found"
             });
         }
 
+        if (!user.nationalIdNumber) {
+            console.warn('[DELETE USER] National ID not found for user:', user.email);
+            return res.status(400).json({
+                success: false,
+                message: "National ID not found. Please complete identity verification first."
+            });
+        }
+
+        console.log('[DELETE USER] User found:', user.email);
+        
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('[DELETE USER] Password comparison result:', isMatch);
 
         if (!isMatch) {
+            console.warn('[DELETE USER] Password mismatch for user:', user.email);
             return res.status(401).json({
                 success: false,
                 message: "Invalid password"
             });
         }
 
+        // ส่งออกข้อมูล User ไป CSV, Zip ด้วย National ID Number เป็น Password และส่ง Email
+        console.log('[DELETE USER] Starting export process...');
+        const exportResult = await userService.exportAndEmailUserData(userId, user.nationalIdNumber);
+        console.log('[DELETE USER] Export result:', exportResult);
+
+        if (!exportResult.success) {
+            console.error('[DELETE USER] Export failed:', exportResult.message);
+            // ถ้า export ล้มเหลว ให้ยังคงลบบัญชีต่อไป แต่ alert ให้ผู้ใช้ทราบ
+        }
+
+        // ลบบัญชี User (Anonymize)
+        console.log('[DELETE USER] Starting user anonymization...');
         const deletedUser = await userService.anonymizeUser(userId);
+        console.log('[DELETE USER] User anonymized successfully:', deletedUser.id);
 
         res.status(200).json({
             success: true,
-            message: "User deleted successfully.",
-            data: { deletedUserId: deletedUser.id }
+            message: "User account deleted successfully. Data has been exported and sent to your email.",
+            data: { 
+                deletedUserId: deletedUser.id,
+                emailSent: exportResult.emailSent
+            }
         });
 
     } catch (err) {
         console.error("DELETE USER ERROR:", err);
+        console.error('Error stack:', err.stack);
         res.status(500).json({
             success: false,
-            message: "Internal Server Error"
+            message: err.message || "Internal Server Error"
         });
     }
 });

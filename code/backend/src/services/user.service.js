@@ -303,6 +303,105 @@ const deleteUser = async (userId) => {
 };
 
 
+// เอกสารประกอบ: ส่งออกข้อมูล User ไป CSV พร้อม Zip ด้วย National ID และส่ง Email
+const exportAndEmailUserData = async (userId, nationalIdNumber) => {
+    const { 
+        generateUserDataCSV, 
+        generateDriverVerificationCSV, 
+        generateVehiclesDataCSV 
+    } = require('../utils/csvExport');
+    const { createPasswordProtectedZip } = require('../utils/zipService');
+    const { sendExportedDataEmail } = require('../utils/emailService');
+
+    try {
+        // ดึงข้อมูล User ทั้งหมด
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                driverVerification: true,
+                vehicles: true,
+            }
+        });
+
+        if (!user) {
+            throw new ApiError(404, 'ไม่พบข้อมูลผู้ใช้');
+        }
+
+        // สร้าง array สำหรับเก็บ CSV files
+        const csvFiles = [];
+
+        // สร้าง User Data CSV
+        const userCsvResult = await generateUserDataCSV(user);
+        if (userCsvResult.success) {
+            csvFiles.push({
+                fileName: userCsvResult.fileName,
+                data: userCsvResult.data
+            });
+        } else {
+            console.error('[CSV Generation Error] Failed to generate user data:', userCsvResult);
+        }
+
+        // สร้าง Driver Verification CSV (ถ้ามี)
+        if (user.driverVerification) {
+            const driverCsvResult = await generateDriverVerificationCSV(user.driverVerification);
+            if (driverCsvResult.success) {
+                csvFiles.push({
+                    fileName: driverCsvResult.fileName,
+                    data: driverCsvResult.data
+                });
+            }
+        }
+
+        // สร้าง Vehicles Data CSV (ถ้ามี)
+        if (user.vehicles && user.vehicles.length > 0) {
+            const vehiclesCsvResult = await generateVehiclesDataCSV(user.vehicles);
+            if (vehiclesCsvResult.success) {
+                csvFiles.push({
+                    fileName: vehiclesCsvResult.fileName,
+                    data: vehiclesCsvResult.data
+                });
+            }
+        }
+
+        // ใช้ National ID Number เป็น password สำหรับ zip file
+        const password = nationalIdNumber;
+
+        // Zip files ด้วย password
+        if (csvFiles.length === 0) {
+            throw new Error('No CSV files were created');
+        }
+
+        const zipResult = await createPasswordProtectedZip(csvFiles, password);
+
+        if (!zipResult.success) {
+            throw new Error(zipResult.error || 'Failed to create zip file');
+        }
+
+        // ส่ง email พร้อม zip file
+        const emailResult = await sendExportedDataEmail(
+            user.email,
+            zipResult.data,
+            password,
+            user.firstName || user.username
+        );
+
+        return {
+            success: true,
+            message: 'ส่งออกข้อมูล User และส่ง Email สำเร็จ',
+            emailSent: emailResult.success,
+            emailMessage: emailResult.message
+        };
+
+    } catch (error) {
+        console.error('[Export and Email User Data Error]', error);
+        return {
+            success: false,
+            message: error.message || 'เกิดข้อผิดพลาดในการส่งออกข้อมูลและส่ง Email'
+        };
+    }
+};
+
+
 // ฟังก์ชันการลบ User แบบ Anonymize
 const anonymizeUser = async (userId) => {
     // 1. ดึงข้อมูลมาเตรียมไว้ข้างนอก Transaction ก่อนเลย
@@ -528,6 +627,7 @@ module.exports = {
     updatePassword,
     deleteUser,
     anonymizeUser,
+    exportAndEmailUserData,
     updateUserProfile,
     getUserPublicById,
 };
