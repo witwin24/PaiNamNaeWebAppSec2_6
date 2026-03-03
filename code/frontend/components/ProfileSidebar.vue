@@ -42,15 +42,18 @@
                 <h2 class="text-lg font-semibold text-red-600 mb-2">ยืนยันการลบบัญชี</h2>
 
                 <p class="text-sm text-gray-600 mb-4">
-                  การลบบัญชีจะไม่สามารถกู้คืนได้ กรุณากรอกรหัสผ่านเพื่อยืนยัน
+                  การลบบัญชีจะไม่สามารถกู้คืนได้ ข้อมูลของคุณจะถูกส่งไปยัง Email เป็น Zip file
                 </p>
 
-                <input
-                  v-model="password"
-                  type="password"
-                  placeholder="กรอกรหัสผ่าน"
-                  class="w-full border rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-400"
-                />
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">กรอกรหัสผ่าน</label>
+                  <input
+                    v-model="password"
+                    type="password"
+                    placeholder="กรอกรหัสผ่าน"
+                    class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-400"
+                  />
+                </div>
 
                 <div class="flex justify-end gap-2">
                   <button
@@ -164,18 +167,21 @@ const confirmDelete = async () => {
       credentials: "include",
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      throw new Error("Delete failed");
+      throw new Error(data.message || "Delete failed");
     }
 
     // ลบ cookie
     document.cookie = "token=; Max-Age=0; path=/;";
     document.cookie = "user=; Max-Age=0; path=/;";
 
-    alert("ลบบัญชีสำเร็จ");
+    alert("ลบบัญชีสำเร็จ ข้อมูลของคุณได้ถูกส่งไปยัง Email แล้ว");
     await navigateTo("/");
   } catch (err) {
-    alert("ลบไม่สำเร็จ / รหัสผ่านผิด");
+    console.error("Delete error:", err);
+    alert("ลบไม่สำเร็จ: " + err.message);
   } finally {
     loading.value = false;
   }
