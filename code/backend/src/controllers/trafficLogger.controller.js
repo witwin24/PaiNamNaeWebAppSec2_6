@@ -69,6 +69,9 @@ const exportTrafficLogs = asyncHandler(async (req, res) => {
         'Content-Disposition',
         `attachment; filename=traffic_logs_${Date.now()}.enc`
     );
+    res.setHeader('Content-Length', finalBuffer.length);
+    res.setHeader('Content-Encoding', 'identity');
+    res.setHeader('ETag', '');
 
     res.end(finalBuffer);
 });
