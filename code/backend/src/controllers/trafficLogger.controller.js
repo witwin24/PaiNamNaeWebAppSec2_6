@@ -70,7 +70,7 @@ const exportTrafficLogs = asyncHandler(async (req, res) => {
         `attachment; filename=traffic_logs_${Date.now()}.enc`
     );
 
-    res.send(finalBuffer);
+    res.end(finalBuffer);
 });
 
 module.exports = { getTrafficLogs, exportTrafficLogs };
