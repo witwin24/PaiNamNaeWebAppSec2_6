@@ -58,6 +58,15 @@ router.patch(
     userController.setUserStatus
 );
 
+// POST /api/users/admin/:id/verify
+router.post(
+    '/admin/:id/verify',
+    protect,
+    requireAdmin,
+    validate({ params: idParamSchema }),
+    userController.comparePassword
+);
+
 // --- Public / User-specific Routes ---
 // GET /api/users/me
 router.get(

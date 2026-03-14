@@ -513,7 +513,50 @@ function cleanupGlobalScripts() {
 // loading state
 const isExporting = ref(false);
 
-async function exportLogs() {
+
+
+async function verifyAndExport() {
+  try {
+    // Verify password with backend
+    const config = useRuntimeConfig();
+    const token =
+      useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
+
+
+    // decode token เอา id
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    const adminId = payload.sub;
+
+    // Logic การยืนยันรหัสผ่านแอดมินก่อนส่งออกข้อมูล
+    const verifyRes = await fetch(`${config.public.apiBase}users/admin/${adminId}/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({
+        password: adminPassword.value,
+      }),
+    });
+
+    if (!verifyRes.ok) {
+      const error = await verifyRes.json();
+      passwordError.value = error?.message || "รหัสผ่านไม่ถูกต้อง";
+      return;
+    }
+
+    // Password verified, proceed with export
+    showPasswordModal.value = false;
+    adminPassword.value = "";
+    passwordError.value = "";
+    await performExport();
+  } catch (err) {
+    console.error("Password verification error:", err);
+    passwordError.value = "เกิดข้อผิดพลาดในการตรวจสอบ";
+  }
+}
+
+async function performExport() {
   try {
     isExporting.value = true;
 

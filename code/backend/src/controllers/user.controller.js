@@ -257,6 +257,30 @@ const setUserStatus = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, message: "User status updated", data: updatedUser });
 });
 
+const comparePassword = asyncHandler(async (req, res) => {
+    const { password } = req.body;
+
+    if (!password) {
+        throw new ApiError(400, "Password is required");
+    }
+
+    const result = await userService.verifyPasswordById(req.params.id, password)
+
+    if (result === null) {
+        throw new ApiError(404, "ไม่พบผู้ใช้");
+    }
+
+    if (!result) {
+        throw new ApiError(401, "รหัสผ่านไม่ถูกต้อง");
+    }
+
+    res.status(200).json({ message: "verified" });
+});
+
+
+
+
+
 module.exports = {
     adminListUsers,
     getAllUsers,
@@ -269,4 +293,5 @@ module.exports = {
     adminDeleteUser,
     setUserStatus,
     deleteMyUser,
+    comparePassword,
 };
