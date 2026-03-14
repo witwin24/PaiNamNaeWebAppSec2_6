@@ -16,13 +16,6 @@
                 <div class="mb-4 bg-white border border-gray-300 rounded-lg shadow-sm">
                     <div class="grid grid-cols-1 gap-3 px-4 py-4 sm:px-6 lg:grid-cols-[repeat(24,minmax(0,1fr))]">
 
-                        <!-- Admin ID (5/24) -->
-                        <div class="lg:col-span-5">
-                            <label class="block mb-1 text-xs font-medium text-gray-600">Admin ID</label>
-                            <input v-model="filters.adminId" type="text" id="adminID" placeholder="ระบุ Admin ID"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500" />
-                        </div>
-
                         <!-- Start Date (5/24) -->
                         <div class="lg:col-span-5">
                             <label class="block mb-1 text-xs font-medium text-gray-600">วันที่เริ่มต้น</label>
@@ -38,7 +31,7 @@
                         </div>
 
                         <!-- Actions -->
-                        <div class="flex items-end justify-end gap-2 mt-1 lg:col-span-9 lg:mt-0">
+                        <div class="flex items-end justify-end gap-2 mt-1 lg:col-span-14 lg:mt-0">
                             <button @click="clearFilters"
                                 class="px-3 py-2 text-gray-700 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50" id="clearFilters">
                                 ล้างตัวกรอง
@@ -282,6 +275,8 @@ import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 import { useRuntimeConfig, useCookie } from '#app'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 import buddhistEra from 'dayjs/plugin/buddhistEra'
 import AdminHeader from '~/components/admin/AdminHeader.vue'
 import AdminSidebar from '~/components/admin/AdminSidebar.vue'
@@ -289,6 +284,8 @@ import { useToast } from '~/composables/useToast'
 
 dayjs.locale('th')
 dayjs.extend(buddhistEra)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 definePageMeta({ middleware: ['admin-auth'] })
 
@@ -308,7 +305,6 @@ const pagination = reactive({
 })
 
 const filters = reactive({
-    adminId: '',
     startDate: '',
     endDate: '',
     exportedDataType: ''
@@ -337,7 +333,7 @@ const pageButtons = computed(() => {
 
 function formatDate(iso) {
     if (!iso) return '-'
-    return dayjs(iso).subtract(7, 'hour').format('D MMM BBBB HH:mm:ss')
+    return dayjs.utc(iso).tz('Asia/Bangkok').format('D MMM BBBB HH:mm:ss')
 }
 
 async function fetchLogs(page = 1) {
@@ -347,17 +343,24 @@ async function fetchLogs(page = 1) {
         const config = useRuntimeConfig()
         const token = useCookie('token').value || (process.client ? localStorage.getItem('token') : '')
 
+        // Format dates to ISO string if provided
+        const queryParams = {
+            page,
+            limit: pagination.limit,
+            exportedDataType: filters.exportedDataType || undefined,
+        }
+        
+        if (filters.startDate) {
+            queryParams.startDate = new Date(filters.startDate).toISOString()
+        }
+        if (filters.endDate) {
+            queryParams.endDate = new Date(filters.endDate).toISOString()
+        }
+
         const res = await $fetch('/export-logs/admin', {
             baseURL: config.public.apiBase,
             headers: { Accept: 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-            query: {
-                page,
-                limit: pagination.limit,
-                adminId: filters.adminId || undefined,
-                startDate: filters.startDate || undefined,
-                endDate: filters.endDate || undefined,
-                exportedDataType: filters.exportedDataType || undefined,
-            },
+            query: queryParams,
         })
 
         const list = res?.data || []
@@ -383,17 +386,28 @@ function changePage(next) {
 }
 
 function applyFilters() {
+    // Validate date range if both dates are provided
+    if (filters.startDate && filters.endDate) {
+        const start = new Date(filters.startDate)
+        const end = new Date(filters.endDate)
+        if (start > end) {
+            toast.error('เกิดข้อผิดพลาด', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด')
+            return
+        }
+    }
+    
     pagination.page = 1
     fetchLogs(1)
+    toast.success('สำเร็จ', 'ใช้ตัวกรองเรียบร้อยแล้ว')
 }
 
 function clearFilters() {
-    filters.adminId = ''
     filters.startDate = ''
     filters.endDate = ''
     filters.exportedDataType = ''
     pagination.page = 1
     fetchLogs(1)
+    toast.success('สำเร็จ', 'ล้างตัวกรองเรียบร้อยแล้ว')
 }
 
 function openDetailModal(log) {
