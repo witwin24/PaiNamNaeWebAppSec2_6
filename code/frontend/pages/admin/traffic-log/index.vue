@@ -289,9 +289,7 @@
       >
         <div class="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4">
           <div class="px-6 py-4 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-900">
-              ยืนยันตัวตน
-            </h2>
+            <h2 class="text-xl font-semibold text-gray-900">ยืนยันตัวตน</h2>
             <p class="text-sm text-gray-600 mt-1">
               กรุณากรอกรหัสผ่านของคุณเพื่อยืนยันตัวตน
             </p>
@@ -311,7 +309,10 @@
               />
             </div>
 
-            <div v-if="passwordError" class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+            <div
+              v-if="passwordError"
+              class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md"
+            >
               <p class="text-sm text-red-600">{{ passwordError }}</p>
             </div>
           </div>
@@ -645,7 +646,6 @@ async function performExport() {
       {
         method: "GET",
         headers: {
-          Accept: "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
@@ -653,49 +653,20 @@ async function performExport() {
 
     if (!res.ok) throw new Error("Export failed");
 
-    const result = await res.json();
-
-    // decode base64
-    const binary = atob(result.data);
-    const bytes = new Uint8Array(binary.length);
-
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-
-    // สร้างไฟล์
-    const blob = new Blob([bytes], {
-      type: "application/octet-stream",
-    });
+    const blob = await res.blob();
 
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = result.fileName || "traffic_logs.enc";
+    a.download = `traffic_logs_${Date.now()}.zip`;
     document.body.appendChild(a);
     a.click();
     a.remove();
 
     window.URL.revokeObjectURL(url);
 
-    // audit log
-    await fetch(`${config.public.apiBase}/export-logs/admin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({
-        startDate: filters.startDate || null,
-        endDate: filters.endDate || null,
-        rowCount: null,
-        securityMeasure: "AES-256-GCM encryption (base64 transport)",
-      }),
-    });
-
-    toast.success("สำเร็จ", "ส่งออกข้อมูล Traffic Log เรียบร้อยแล้ว");
-    console.log("Export success (Base64 safe)");
+    toast.success("สำเร็จ", "ส่งออก Traffic Log พร้อมไฟล์ตรวจสอบ SHA256");
   } catch (err) {
     console.error("Export error:", err);
     toast.error("เกิดข้อผิดพลาด", "ไม่สามารถส่งออกข้อมูลได้");
