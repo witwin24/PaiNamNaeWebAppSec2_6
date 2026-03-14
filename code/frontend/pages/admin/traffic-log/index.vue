@@ -279,6 +279,62 @@
       class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 lg:hidden"
       @click="closeMobileSidebar"
     ></div>
+
+    <!-- Password Confirmation Modal -->
+    <transition name="modal-fade">
+      <div
+        v-if="showPasswordModal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        @click.self="showPasswordModal = false"
+      >
+        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4">
+          <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">ยืนยันตัวตน</h2>
+            <p class="text-sm text-gray-600 mt-1">
+              กรุณากรอกรหัสผ่านของคุณเพื่อยืนยันตัวตน
+            </p>
+          </div>
+
+          <div class="px-6 py-4">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                รหัสผ่าน
+              </label>
+              <input
+                v-model="adminPassword"
+                type="password"
+                placeholder="กรอกรหัสผ่าน"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                @keyup.enter="verifyAndExport"
+              />
+            </div>
+
+            <div
+              v-if="passwordError"
+              class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md"
+            >
+              <p class="text-sm text-red-600">{{ passwordError }}</p>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
+            <button
+              @click="showPasswordModal = false"
+              class="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+            >
+              ยกเลิก
+            </button>
+            <button
+              @click="verifyAndExport"
+              :disabled="!adminPassword || isExporting"
+              class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {{ isExporting ? "กำลังส่งออก..." : "ยืนยัน" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -529,10 +585,49 @@ function cleanupGlobalScripts() {
   delete window.__adminResizeHandler__;
 }
 
-// loading state
+// Loading and modal states
 const isExporting = ref(false);
+const showPasswordModal = ref(false);
+const adminPassword = ref("");
+const passwordError = ref("");
 
-async function exportLogs() {
+async function verifyAndExport() {
+  try {
+    // Verify password with backend
+    const config = useRuntimeConfig();
+    const token =
+      useCookie("token").value || (process.client ? localStorage.getItem("token") : "");
+
+    // Logic การยืนยันรหัสผ่านแอดมินก่อนส่งออกข้อมูล
+    const verifyRes = await fetch(`${config.public.apiBase}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({
+        password: adminPassword.value,
+      }),
+    });
+
+    if (!verifyRes.ok) {
+      const error = await verifyRes.json();
+      passwordError.value = error?.message || "รหัสผ่านไม่ถูกต้อง";
+      return;
+    }
+
+    // Password verified, proceed with export
+    showPasswordModal.value = false;
+    adminPassword.value = "";
+    passwordError.value = "";
+    await performExport();
+  } catch (err) {
+    console.error("Password verification error:", err);
+    passwordError.value = "เกิดข้อผิดพลาดในการตรวจสอบ";
+  }
+}
+
+async function performExport() {
   try {
     isExporting.value = true;
 
@@ -551,7 +646,6 @@ async function exportLogs() {
       {
         method: "GET",
         headers: {
-          Accept: "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       }
@@ -559,53 +653,32 @@ async function exportLogs() {
 
     if (!res.ok) throw new Error("Export failed");
 
-    const result = await res.json();
-
-    // decode base64
-    const binary = atob(result.data);
-    const bytes = new Uint8Array(binary.length);
-
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-
-    // สร้างไฟล์
-    const blob = new Blob([bytes], {
-      type: "application/octet-stream",
-    });
+    const blob = await res.blob();
 
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = result.fileName || "traffic_logs.enc";
+    a.download = `traffic_logs_${Date.now()}.zip`;
     document.body.appendChild(a);
     a.click();
     a.remove();
 
     window.URL.revokeObjectURL(url);
 
-    // audit log
-    await fetch(`${config.public.apiBase}/export-logs/admin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({
-        startDate: filters.startDate || null,
-        endDate: filters.endDate || null,
-        rowCount: null,
-        securityMeasure: "AES-256-GCM encryption (base64 transport)",
-      }),
-    });
-
-    console.log("Export success (Base64 safe)");
+    toast.success("สำเร็จ", "ส่งออก Traffic Log พร้อมไฟล์ตรวจสอบ SHA256");
   } catch (err) {
     console.error("Export error:", err);
+    toast.error("เกิดข้อผิดพลาด", "ไม่สามารถส่งออกข้อมูลได้");
   } finally {
     isExporting.value = false;
   }
+}
+
+function exportLogs() {
+  showPasswordModal.value = true;
+  passwordError.value = "";
+  adminPassword.value = "";
 }
 
 onMounted(() => {
@@ -661,6 +734,21 @@ useHead({
 
 .main-content {
   transition: margin-left 0.3s ease;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-to,
+.modal-fade-leave-from {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
