@@ -707,6 +707,22 @@ async function performExport() {
 
     window.URL.revokeObjectURL(url);
 
+    // บันทึก Export Log
+    await fetch(`${config.public.apiBase}/export-logs/admin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({
+        startDate: filters.startDate || null,
+        endDate: filters.endDate || null,
+        exportType: "TRAFFIC_LOG",
+        securityMeasure: "SHA256 Integrity + Verify Script",
+        exportedAt: new Date().toISOString(),
+      }),
+    });
+
     toast.success("สำเร็จ", "ส่งออก Traffic Log พร้อมไฟล์ตรวจสอบ SHA256");
   } catch (err) {
     console.error("Export error:", err);
