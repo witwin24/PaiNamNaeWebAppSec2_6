@@ -616,6 +616,21 @@ const anonymizeUser = async (userId) => {
 //     return safeUser;
 // };
 
+// เฉพาะใช้สำหรับ verify password เท่านั้น ไม่ return ออกไปใช้ที่อื่น
+const verifyPasswordById = async (id, plainPassword) => {
+    const user = await prisma.user.findUnique({
+        where: { id },
+        select: {
+            id: true,
+            password: true
+        }
+    })
+
+    if (!user) return null  
+
+    return bcrypt.compare(plainPassword, user.password)  
+}
+
 module.exports = {
     searchUsers,
     getAllUsers,
@@ -630,4 +645,5 @@ module.exports = {
     exportAndEmailUserData,
     updateUserProfile,
     getUserPublicById,
+    verifyPasswordById,
 };
