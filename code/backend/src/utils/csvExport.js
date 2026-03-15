@@ -150,8 +150,112 @@ const generateVehiclesDataCSV = async (vehicles) => {
     }
 };
 
+/**
+ * Generate route history data as CSV buffer (for Driver)
+ * @param {Array} routes - Array of route objects
+ * @returns {Object} - { success: boolean, data: Buffer }
+ */
+const generateRouteHistoryCSV = async (routes) => {
+    try {
+        let csvContent = 'No.,Route ID,Origin,Destination,Departure Date,Departure Time,Available Seats,Price per Seat,Status,Created At\n';
+
+        routes.forEach((route, index) => {
+            const row = {
+                no: index + 1,
+                routeId: route.id || 'N/A',
+                origin: route.startLocation ? (route.startLocation.address || route.startLocation.name || 'N/A') : 'N/A',
+                destination: route.endLocation ? (route.endLocation.address || route.endLocation.name || 'N/A') : 'N/A',
+                departureDate: route.departureTime ? new Date(route.departureTime).toISOString().split('T')[0] : 'N/A',
+                departureTime: route.departureTime ? new Date(route.departureTime).toTimeString().slice(0, 5) : 'N/A',
+                availableSeats: String(route.availableSeats || 'N/A'),
+                pricePerSeat: route.pricePerSeat ? `'${route.pricePerSeat}` : 'N/A',
+                status: route.status || 'N/A',
+                createdAt: route.createdAt ? new Date(route.createdAt).toISOString() : 'N/A'
+            };
+
+            const values = [row.no, row.routeId, row.origin, row.destination, row.departureDate, row.departureTime, row.availableSeats, row.pricePerSeat, row.status, row.createdAt];
+            const csvRow = values.map(val => {
+                const str = String(val);
+                return str.includes(',') || str.includes('"') 
+                    ? `"${str.replace(/"/g, '""')}"` 
+                    : `"${str}"`;
+            }).join(',');
+
+            csvContent += csvRow + '\n';
+        });
+
+        const buffer = Buffer.from('\ufeff' + csvContent, 'utf8');
+
+        return {
+            success: true,
+            data: buffer,
+            fileName: 'route_history.csv'
+        };
+
+    } catch (error) {
+        console.error('[Route History CSV Generation Error]', error);
+        return {
+            success: false,
+            error: error.message
+        };
+    }
+};
+
+/**
+ * Generate booking history data as CSV buffer (for Passenger)
+ * @param {Array} bookings - Array of booking objects
+ * @returns {Object} - { success: boolean, data: Buffer }
+ */
+const generateBookingHistoryCSV = async (bookings) => {
+    try {
+        let csvContent = 'No.,Booking ID,Route ID,Origin,Destination,Booking Date,Departure Date,Number of Seats,Status,Created At\n';
+
+        bookings.forEach((booking, index) => {
+            const row = {
+                no: index + 1,
+                bookingId: booking.id || 'N/A',
+                routeId: booking.routeId || 'N/A',
+                origin: booking.route?.startLocation ? (booking.route.startLocation.address || booking.route.startLocation.name || 'N/A') : 'N/A',
+                destination: booking.route?.endLocation ? (booking.route.endLocation.address || booking.route.endLocation.name || 'N/A') : 'N/A',
+                bookingDate: booking.createdAt ? new Date(booking.createdAt).toISOString().split('T')[0] : 'N/A',
+                departureDate: booking.route?.departureTime ? new Date(booking.route.departureTime).toISOString().split('T')[0] : 'N/A',
+                numberOfSeats: String(booking.numberOfSeats || 'N/A'),
+                status: booking.status || 'N/A',
+                createdAt: booking.createdAt ? new Date(booking.createdAt).toISOString() : 'N/A'
+            };
+
+            const values = [row.no, row.bookingId, row.routeId, row.origin, row.destination, row.bookingDate, row.departureDate, row.numberOfSeats, row.status, row.createdAt];
+            const csvRow = values.map(val => {
+                const str = String(val);
+                return str.includes(',') || str.includes('"') 
+                    ? `"${str.replace(/"/g, '""')}"` 
+                    : `"${str}"`;
+            }).join(',');
+
+            csvContent += csvRow + '\n';
+        });
+
+        const buffer = Buffer.from('\ufeff' + csvContent, 'utf8');
+
+        return {
+            success: true,
+            data: buffer,
+            fileName: 'booking_history.csv'
+        };
+
+    } catch (error) {
+        console.error('[Booking History CSV Generation Error]', error);
+        return {
+            success: false,
+            error: error.message
+        };
+    }
+};
+
 module.exports = {
     generateUserDataCSV,
     generateDriverVerificationCSV,
-    generateVehiclesDataCSV
+    generateVehiclesDataCSV,
+    generateRouteHistoryCSV,
+    generateBookingHistoryCSV
 };

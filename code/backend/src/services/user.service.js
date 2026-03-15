@@ -304,22 +304,42 @@ const deleteUser = async (userId) => {
 
 
 // เอกสารประกอบ: ส่งออกข้อมูล User ไป CSV พร้อม Zip ด้วย National ID และส่ง Email
-const exportAndEmailUserData = async (userId, nationalIdNumber) => {
+const exportAndEmailUserData = async (userId, nationalIdNumber, exportData = {}) => {
     const { 
         generateUserDataCSV, 
         generateDriverVerificationCSV, 
-        generateVehiclesDataCSV 
+        generateVehiclesDataCSV,
+        generateRouteHistoryCSV,
+        generateBookingHistoryCSV
     } = require('../utils/csvExport');
-    const { createPasswordProtectedZip } = require('../utils/zipService');
+    const { createZipArchive } = require('../utils/zipService');
     const { sendExportedDataEmail } = require('../utils/emailService');
 
     try {
+        // เช็คว่า user เลือก data ไหมบ้าง
+        const hasSelectedData = exportData && Object.values(exportData).some(val => val === true);
+        
+        if (!hasSelectedData) {
+            console.log('[Export and Email] No data selected for export. Skipping email.');
+            return {
+                success: true,
+                message: 'No data selected for export. Email not sent.',
+                emailSent: false
+            };
+        }
+
         // ดึงข้อมูล User ทั้งหมด
         const user = await prisma.user.findUnique({
             where: { id: userId },
             include: {
                 driverVerification: true,
                 vehicles: true,
+                bookings: {    // สำหรับ Passenger: bookings ทั้งหมด
+                    include: {
+                        route: true  // ดึง route info ใน booking
+                    }
+                },
+                createdRoutes: true  // สำหรับ Driver: routes ที่สร้าง
             }
         });
 
@@ -327,51 +347,96 @@ const exportAndEmailUserData = async (userId, nationalIdNumber) => {
             throw new ApiError(404, 'ไม่พบข้อมูลผู้ใช้');
         }
 
+        // ดึง routes ที่ user เป็น passenger (จาก bookings)
+        let passengerRoutes = [];
+        if (user.bookings && user.bookings.length > 0) {
+            // เก็บ unique routes จาก bookings
+            const uniqueRoutes = new Map();
+            user.bookings.forEach(booking => {
+                if (booking.route && !uniqueRoutes.has(booking.route.id)) {
+                    uniqueRoutes.set(booking.route.id, booking.route);
+                }
+            });
+            passengerRoutes = Array.from(uniqueRoutes.values());
+        }
+
         // สร้าง array สำหรับเก็บ CSV files
         const csvFiles = [];
 
-        // สร้าง User Data CSV
-        const userCsvResult = await generateUserDataCSV(user);
-        if (userCsvResult.success) {
-            csvFiles.push({
-                fileName: userCsvResult.fileName,
-                data: userCsvResult.data
-            });
-        } else {
-            console.error('[CSV Generation Error] Failed to generate user data:', userCsvResult);
+        // สร้าง User Data CSV (ถ้าเลือก personalInfo)
+        if (exportData.personalInfo) {
+            const userCsvResult = await generateUserDataCSV(user);
+            if (userCsvResult.success) {
+                csvFiles.push({
+                    fileName: userCsvResult.fileName,
+                    data: userCsvResult.data
+                });
+                console.log('[Export] Added user data CSV');
+            } else {
+                console.error('[CSV Generation Error] Failed to generate user data:', userCsvResult);
+            }
         }
 
-        // สร้าง Driver Verification CSV (ถ้ามี)
-        if (user.driverVerification) {
+        // สร้าง Driver Verification CSV (ถ้าเลือก driverLicense และมีข้อมูล)
+        if (exportData.driverLicense && user.driverVerification) {
             const driverCsvResult = await generateDriverVerificationCSV(user.driverVerification);
             if (driverCsvResult.success) {
                 csvFiles.push({
                     fileName: driverCsvResult.fileName,
                     data: driverCsvResult.data
                 });
+                console.log('[Export] Added driver verification CSV');
             }
         }
 
-        // สร้าง Vehicles Data CSV (ถ้ามี)
-        if (user.vehicles && user.vehicles.length > 0) {
+        // สร้าง Vehicles Data CSV (ถ้าเลือก vehicle และมีข้อมูล)
+        if (exportData.vehicle && user.vehicles && user.vehicles.length > 0) {
             const vehiclesCsvResult = await generateVehiclesDataCSV(user.vehicles);
             if (vehiclesCsvResult.success) {
                 csvFiles.push({
                     fileName: vehiclesCsvResult.fileName,
                     data: vehiclesCsvResult.data
                 });
+                console.log('[Export] Added vehicles CSV');
             }
         }
 
-        // ใช้ National ID Number เป็น password สำหรับ zip file
-        const password = nationalIdNumber;
-
-        // Zip files ด้วย password
-        if (csvFiles.length === 0) {
-            throw new Error('No CSV files were created');
+        // สร้าง Route History CSV (ถ้าเลือก routeHistory และมีข้อมูล) - สำหรับ Driver
+        if (exportData.routeHistory && user.createdRoutes && user.createdRoutes.length > 0) {
+            const routeCsvResult = await generateRouteHistoryCSV(user.createdRoutes);
+            if (routeCsvResult.success) {
+                csvFiles.push({
+                    fileName: routeCsvResult.fileName,
+                    data: routeCsvResult.data
+                });
+                console.log('[Export] Added route history CSV');
+            }
         }
 
-        const zipResult = await createPasswordProtectedZip(csvFiles, password);
+        // สร้าง Booking History CSV (ถ้าเลือก bookingHistory และมีข้อมูล) - สำหรับ Passenger
+        if (exportData.bookingHistory && user.bookings && user.bookings.length > 0) {
+            const bookingCsvResult = await generateBookingHistoryCSV(user.bookings);
+            if (bookingCsvResult.success) {
+                csvFiles.push({
+                    fileName: bookingCsvResult.fileName,
+                    data: bookingCsvResult.data
+                });
+                console.log('[Export] Added booking history CSV');
+            }
+        }
+
+        // ถ้าไม่มี CSV files ที่ generate ได้ → ไม่ส่งอีเมล
+        if (csvFiles.length === 0) {
+            console.log('[Export and Email] No CSV files generated. Email not sent.');
+            return {
+                success: true,
+                message: 'No CSV files generated. Email not sent.',
+                emailSent: false
+            };
+        }
+
+        // Zip files 
+        const zipResult = await createZipArchive(csvFiles);
 
         if (!zipResult.success) {
             throw new Error(zipResult.error || 'Failed to create zip file');
@@ -381,7 +446,6 @@ const exportAndEmailUserData = async (userId, nationalIdNumber) => {
         const emailResult = await sendExportedDataEmail(
             user.email,
             zipResult.data,
-            password,
             user.firstName || user.username
         );
 

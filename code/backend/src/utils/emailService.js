@@ -5,11 +5,10 @@ const fs = require('fs');
  * Send exported user data zip file via email
  * @param {string} recipientEmail - Recipient email address
  * @param {Buffer} zipBuffer - Zip file data as buffer
- * @param {string} password - Password (National ID Number) for the zip file
  * @param {string} userName - User name for personalization
  * @returns {Object} - { success: boolean, message: string }
  */
-const sendExportedDataEmail = async (recipientEmail, zipBuffer, password, userName) => {
+const sendExportedDataEmail = async (recipientEmail, zipBuffer, userName) => {
     try {
         // ตรวจสอบว่ามี .env ที่กำหนด email config
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
@@ -42,19 +41,18 @@ const sendExportedDataEmail = async (recipientEmail, zipBuffer, password, userNa
             html: `
                 <h2>Account Data Export</h2>
                 <p>Dear ${userName},</p>
-                <p>As requested, your account data has been exported and compressed into a secure zip file.</p>
+                <p>As requested, your account data has been exported and compressed into a zip file.</p>
                 
                 <h3>File Details:</h3>
                 <ul>
                     <li><strong>File Name:</strong> user_data_export.zip</li>
-                    <li><strong>Password:</strong> Your National ID Number</li>
-                    <li><strong>Contents:</strong> User profile, driver verification (if applicable), and vehicle data</li>
+                    <li><strong>Contents:</strong> Personal data and account records as selected during your account deletion process.</li>
                 </ul>
                 
                 <h3>How to Extract:</h3>
                 <ol>
                     <li>Download the attached zip file</li>
-                    <li>Extract the files on your computer</li>
+                    <li>Extract the files on your computer using any zip extraction tool</li>
                 </ol>
                 
                 <p><strong>Note:</strong> This is an automated email. Your account has been deleted, and this export file is for your records.</p>
