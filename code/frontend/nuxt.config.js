@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
   runtimeConfig: {
-    public: {
+    public: {   
       apiBase: "https://painamnaewebappsec26-production.up.railway.app/api/",
       // apiBase:"https://painamnae-backend.onrender.com/api/",
       googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
