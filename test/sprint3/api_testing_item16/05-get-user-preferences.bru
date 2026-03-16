@@ -1,0 +1,26 @@
+meta {
+  name: Get User Preferences
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/users/preferences
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{userToken}}
+}
+
+tests {
+  test("ดึงข้อมูลสิ่งที่ผู้ใช้เลือกไว้สำเร็จ", () => {
+    expect(res.status).to.equal(200);
+    const body = res.getBody();
+    expect(body.success).to.be.true;
+    // ตรวจสอบว่ามีข้อมูลประเภทที่ต้องการรับ (Requirement: UI ให้ผู้ใช้เลือก)
+    expect(body.data).to.have.property("selectedDataTypes");
+    expect(body.data).to.have.property("emailNotifications");
+  });
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Post Request Data Copy
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/users/request-data-copy
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{userToken}}
+}
+
+body:json {
+  {
+    "includeLogs": true,
+    "includeProfile": true,
+    "exportFormat": "pdf",
+    "emailCopy": "{{email}}"
+  }
+}
+
+tests {
+  test("ส่งคำขอสำเนาข้อมูลสำเร็จและมีการส่งอีเมล", () => {
+    // ระบบอาจตอบกลับเป็น 200 หรือ 201
+    expect([200, 201]).to.include(res.status);
+    const body = res.getBody();
+    expect(body.success).to.be.true;
+    // ตรวจสอบ Message ยืนยัน (Requirement: แก้ไขฟังก์ชันการส่งอีเมล)
+    expect(body.message).to.contain("สำเร็จ");
+    expect(body.data).to.have.property("emailSentStatus", true);
+  });
+}
