@@ -427,7 +427,11 @@ const confirmDelete = async () => {
     document.cookie = "token=; Max-Age=0; path=/;";
     document.cookie = "user=; Max-Age=0; path=/;";
 
-    alert("ลบบัญชีสำเร็จ ข้อมูลของคุณได้ถูกส่งไปยัง Email แล้ว");
+    const allFalse = Object.values(deleteSelection.value).every(v => v === false);
+     if (allFalse) {
+    alert("ลบบัญชีสำเร็จ ข้อมูลของคุณจะไม่ถูกส่งไปยัง Email เนื่องจากคุณไม่ได้เลือกข้อมูลใดๆ ในขั้นตอนก่อนหน้า");
+  }else {alert("ลบบัญชีสำเร็จ ข้อมูลของคุณได้ถูกส่งไปยัง Email แล้ว");}
+    
     await navigateTo("/");
   } catch (err) {
     console.error("Delete error:", err);

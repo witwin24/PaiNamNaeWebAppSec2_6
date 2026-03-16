@@ -21,18 +21,13 @@ const sendExportedDataEmail = async (recipientEmail, zipBuffer, userName) => {
 
         // สร้าง transporter สำหรับส่ง email
         const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "smtp.sendgrid.net",
   port: 587,
   secure: false,
-
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  },
-
-  family: 4,
-  connectionTimeout: 20000,
-  greetingTimeout: 20000
+    user: "apikey",
+    pass: process.env.SENDGRID_API_KEY
+  }
 });
 
         // Check if zip buffer exists
