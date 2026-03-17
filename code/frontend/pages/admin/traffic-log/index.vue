@@ -587,6 +587,9 @@ function cleanupGlobalScripts() {
 
 // Loading and modal states
 const isExporting = ref(false);
+const showPasswordModal = ref(false);
+const adminPassword = ref("");
+const passwordError = ref("");
 
 async function verifyAndExport() {
   try {
