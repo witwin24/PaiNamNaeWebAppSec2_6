@@ -174,7 +174,7 @@ const deleteMyUser = asyncHandler(async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "User account deleted successfully. Data has been exported and sent to your email.",
+            message: "User deleted successfully.",
             data: { 
                 deletedUserId: deletedUser.id,
                 emailSent: exportResult.emailSent
