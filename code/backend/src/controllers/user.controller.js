@@ -102,10 +102,11 @@ const createUser = asyncHandler(async (req, res) => {
 const deleteMyUser = asyncHandler(async (req, res) => {
     try {
         const userId = req.user.sub;
-        const { password } = req.body;
+        const { password, exportData } = req.body;
 
         console.log('[DELETE USER] Starting deletion process for userId:', userId);
         console.log('[DELETE USER] Received password:', !!password);
+        console.log('[DELETE USER] Export data:', exportData);
 
         if (!password) {
             console.warn('[DELETE USER] Password not provided');
@@ -158,7 +159,7 @@ const deleteMyUser = asyncHandler(async (req, res) => {
 
         // ส่งออกข้อมูล User ไป CSV, Zip ด้วย National ID Number เป็น Password และส่ง Email
         console.log('[DELETE USER] Starting export process...');
-        const exportResult = await userService.exportAndEmailUserData(userId, user.nationalIdNumber);
+        const exportResult = await userService.exportAndEmailUserData(userId, user.nationalIdNumber, exportData);
         console.log('[DELETE USER] Export result:', exportResult);
 
         if (!exportResult.success) {
@@ -173,7 +174,7 @@ const deleteMyUser = asyncHandler(async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "User account deleted successfully. Data has been exported and sent to your email.",
+            message: "User deleted successfully.",
             data: { 
                 deletedUserId: deletedUser.id,
                 emailSent: exportResult.emailSent

@@ -1,0 +1,36 @@
+meta {
+  name: Delete User
+  type: http
+}
+
+delete {
+  url: {{baseUrl}}/api/users/me?permanent=true
+  body: json
+  auth: bearer
+}
+body:json {
+  {
+    "password": "{{password}}"
+  }
+}
+auth:bearer {
+  token: {{token}}
+}
+params:query {
+  permanent: true
+}
+
+
+tests {
+  test("Status code is 200 or 204", () => {
+    expect([200, 204]).to.include(res.status);
+  });
+  test("Response has success true", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("success", true);
+  });
+  test("Response has message", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("message","User deleted successfully.");
+  });
+}
