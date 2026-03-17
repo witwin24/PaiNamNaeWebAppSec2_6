@@ -91,3 +91,10 @@ TC01-08 Login Admin Go ExportLog Pages To See The Detail
     Admin Click Detail Button
     sleep   10s
     Element Should Contain    xpath=//h2    รายละเอียด Export Log
+
+TC01-09 Login Admin Filter Log By Datetime And Export file
+    Go To Login Page
+    Login   ${ADMIN_USERNAME}   ${ADMIN_PASSWORD}    
+    Admin Go To Log Page
+    
+    Click Download And Verify By Counting    ${ADMIN_PASSWORD}  

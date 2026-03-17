@@ -8,12 +8,19 @@ Library    OperatingSystem
 ${URL}		https://csse2669.cpkku.com
 ${BROWSER}	chrome
 
+# Download
+${DOWNLOAD_PATH}    ${CURDIR}${/}downloads
+
 ${DELAY}	0s
 
 *** Keywords ***
 Open Main Page
     [Documentation]     เปิดหน้าเว็บไซต์หลัก
-    Open Browser    ${URL}    ${BROWSER}
+
+    Create Directory    ${DOWNLOAD_PATH}
+    ${prefs}=    Create Dictionary    download.default_directory=${DOWNLOAD_PATH}
+
+    Open Browser    ${URL}    ${BROWSER}    options=add_experimental_option("prefs", ${prefs})
     Maximize Browser Window
     Set Selenium Speed    ${DELAY}  
 
@@ -206,6 +213,23 @@ Admin Filter Log With Enddatetime
     Input Text    id=endTime    ${endtime}
     sleep   2s
 
+
+
+Click Download And Verify By Counting
+    [Arguments]     ${password}
+    ${count_before}=    Count Items In Directory    ${DOWNLOAD_PATH}
+    
+    Admin Click Export Log Button
+    Input Text    xpath=//input[@type="password"]    ${password}
+    Admin Click Confirm
+
+    Wait Until Keyword Succeeds    20s    2s    Check If File Count Increased    ${count_before}
+
+Check If File Count Increased
+    [Arguments]    ${old_count}
+    ${new_count}=    Count Items In Directory    ${DOWNLOAD_PATH}
+    Should Be True    ${new_count} > ${old_count}
+
 Click Go To Register Page
     Click Element    xpath=//a[@href="/register"]
 
@@ -251,7 +275,13 @@ Admin Click Clear Log Button
 
 Admin Click Detail Button
     Click Button	id=details
+
+Admin Click Export Log Button
+    Click Button	Export
 	
+Admin Click Confirm
+    Click Button	ยืนยัน
+
 Time Out
     [Arguments]     ${sleeptime}
     Sleep    ${sleeptime}
