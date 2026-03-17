@@ -13,12 +13,20 @@
     - เพิ่มการใส่รหัสผ่านก่อน Export ข้อมูลในหน้า Traffic log
 -	Backend:  
     - 
+-   เพิ่มโครงสร้าง Export File ดังนี้ :
+        traffic_logs_<timestamp>.zip
+        ├─ traffic_logs_<timestamp>.json
+        ├─ traffic_logs_<timestamp>.sha256
+        └─ verify-log.bat
+        
 # Changed
 - ปรับปรุง Database Schema (Prisma) 
     - +เพิ่ม TrafficLog, ExportLog
     - -ลบ ActivityLog, UserArchive
 - ฟังก์ชันส่งเมล
 - ปรับเปลี่ยน test data ใน api testing item1
+- เปลี่ยนรูปแบบการป้องกันไฟล์ Traffic Log จาก AES-256 Encryption เป็น SHA-256 HASH integrity Verification
+- เปลี่ยนวิธีการดาวน์โหลดไฟล์จาก Encrypted Binary (.enc) เป็น ZIP Archive
 
 รายงานฉบับนี้ นําปัญญาประดิษฐ์ ChatGPT, Gemini, copilot มาใช้ในขั้นตอนดังต่อไปนี้ 
 - ใช้ในการช่วยแก้ไขข้อผิดพลาดของโค้ด 
