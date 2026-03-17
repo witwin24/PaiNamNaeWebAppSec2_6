@@ -1,0 +1,3602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.3 on win32)" generated="2026-03-03T22:38:08.318703" rpa="false" schemaversion="5">
+<suite id="s1" name="Log UAT" source="D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\PBL_item1_UAT\Log_UAT.robot">
+<test id="s1-t1" name="TC01-01 Login Admin And Filter Log By UserID" line="25">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:38:08.591586" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:38:08.591255" elapsed="0.000404"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:38:08.592214" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:38:08.591809" elapsed="0.000431"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:08.592569" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:08.592355" elapsed="1.951794"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.544403" elapsed="0.021702"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.566311" elapsed="0.000360"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:38:08.590532" elapsed="1.976225"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:10.567583" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.567452" elapsed="0.107515"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.676099" elapsed="0.031327"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.707879" elapsed="0.051482"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:10.760928" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.760270" elapsed="0.045170"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:10.675439" elapsed="0.130214"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:38:10.567183" elapsed="0.238522"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:10.806627" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.806402" elapsed="0.100542"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:10.908166" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.907588" elapsed="0.069042"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:10.978744" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:10.978360" elapsed="0.051466"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:10.977705" elapsed="0.052236"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:12.031067" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:11.030072" elapsed="1.001118"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:38:10.806048" elapsed="1.225236"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:12.032079" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.031961" elapsed="0.243802"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.276316" elapsed="0.003082"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:12.276035" elapsed="0.003471"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:38:12.031695" elapsed="0.247856"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.280778" elapsed="0.219521"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.500509" elapsed="0.013567"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:12.514482" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.514257" elapsed="0.064874"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:14.580479" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:12.579488" elapsed="2.001124"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:38:12.280100" elapsed="2.300610"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:14.581702" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:14.581533" elapsed="0.059651"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:16.641944" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:14.641406" elapsed="2.000664"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:14.581256" elapsed="2.060911"/>
+</kw>
+<kw name="Admin Check Log Single Id" owner="common-resource">
+<kw name="Get Element Count" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.651980" level="INFO">${rows} = 20</msg>
+<var>${rows}</var>
+<arg>xpath=//table/tbody/tr</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.642882" elapsed="0.009142"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.665552" level="INFO">${first_value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${first_value}</var>
+<arg>xpath=//table/tbody/tr[1]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.652185" elapsed="0.013412"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.676090" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.666086" elapsed="0.010046"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.676289" elapsed="0.000318"/>
+</kw>
+<var name="${i}">1</var>
+<status status="PASS" start="2026-03-03T22:38:16.665954" elapsed="0.010694"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.688335" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.676865" elapsed="0.011515"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.688532" elapsed="0.000308"/>
+</kw>
+<var name="${i}">2</var>
+<status status="PASS" start="2026-03-03T22:38:16.676765" elapsed="0.012116"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.701108" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.689070" elapsed="0.012084"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.701311" elapsed="0.000305"/>
+</kw>
+<var name="${i}">3</var>
+<status status="PASS" start="2026-03-03T22:38:16.688985" elapsed="0.012672"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.713956" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.701833" elapsed="0.012166"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.714157" elapsed="0.000307"/>
+</kw>
+<var name="${i}">4</var>
+<status status="PASS" start="2026-03-03T22:38:16.701752" elapsed="0.012753"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.727368" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.714689" elapsed="0.012727"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.727591" elapsed="0.000333"/>
+</kw>
+<var name="${i}">5</var>
+<status status="PASS" start="2026-03-03T22:38:16.714603" elapsed="0.013364"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.748085" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.728199" elapsed="0.019931"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.748285" elapsed="0.000302"/>
+</kw>
+<var name="${i}">6</var>
+<status status="PASS" start="2026-03-03T22:38:16.728075" elapsed="0.020550"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.760715" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.748814" elapsed="0.011958"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.760928" elapsed="0.000281"/>
+</kw>
+<var name="${i}">7</var>
+<status status="PASS" start="2026-03-03T22:38:16.748724" elapsed="0.012522"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.772353" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.761418" elapsed="0.010974"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.772518" elapsed="0.000259"/>
+</kw>
+<var name="${i}">8</var>
+<status status="PASS" start="2026-03-03T22:38:16.761338" elapsed="0.011475"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.783939" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.772976" elapsed="0.010997"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.784090" elapsed="0.000252"/>
+</kw>
+<var name="${i}">9</var>
+<status status="PASS" start="2026-03-03T22:38:16.772902" elapsed="0.011493"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.795620" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.784551" elapsed="0.011108"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.795794" elapsed="0.000274"/>
+</kw>
+<var name="${i}">10</var>
+<status status="PASS" start="2026-03-03T22:38:16.784480" elapsed="0.011627"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.806917" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.796299" elapsed="0.010656"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.807105" elapsed="0.000278"/>
+</kw>
+<var name="${i}">11</var>
+<status status="PASS" start="2026-03-03T22:38:16.796208" elapsed="0.011215"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.818701" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.807587" elapsed="0.011151"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.818866" elapsed="0.000272"/>
+</kw>
+<var name="${i}">12</var>
+<status status="PASS" start="2026-03-03T22:38:16.807511" elapsed="0.011668"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.831044" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.819342" elapsed="0.011743"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.831240" elapsed="0.000313"/>
+</kw>
+<var name="${i}">13</var>
+<status status="PASS" start="2026-03-03T22:38:16.819267" elapsed="0.012328"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.842872" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.831791" elapsed="0.011119"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.843052" elapsed="0.000296"/>
+</kw>
+<var name="${i}">14</var>
+<status status="PASS" start="2026-03-03T22:38:16.831711" elapsed="0.011678"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.857566" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.843563" elapsed="0.014050"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.857781" elapsed="0.000344"/>
+</kw>
+<var name="${i}">15</var>
+<status status="PASS" start="2026-03-03T22:38:16.843484" elapsed="0.014684"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.873279" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.858448" elapsed="0.014878"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.873500" elapsed="0.000333"/>
+</kw>
+<var name="${i}">16</var>
+<status status="PASS" start="2026-03-03T22:38:16.858306" elapsed="0.015571"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.888739" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.874076" elapsed="0.014710"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.888964" elapsed="0.000337"/>
+</kw>
+<var name="${i}">17</var>
+<status status="PASS" start="2026-03-03T22:38:16.873987" elapsed="0.015357"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.903528" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.889542" elapsed="0.014035"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.903744" elapsed="0.000302"/>
+</kw>
+<var name="${i}">18</var>
+<status status="PASS" start="2026-03-03T22:38:16.889451" elapsed="0.014640"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.919935" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.904278" elapsed="0.015733"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.920295" elapsed="0.000806"/>
+</kw>
+<var name="${i}">19</var>
+<status status="PASS" start="2026-03-03T22:38:16.904195" elapsed="0.016979"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:16.939083" level="INFO">${value} = cmmaqoiy8000a23jry6jcccf5</msg>
+<var>${value}</var>
+<arg>xpath=//table/tbody/tr[${i}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.921437" elapsed="0.017693"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${value}</arg>
+<arg>${first_value}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.939308" elapsed="0.000431"/>
+</kw>
+<var name="${i}">20</var>
+<status status="PASS" start="2026-03-03T22:38:16.921306" elapsed="0.018519"/>
+</iter>
+<var>${i}</var>
+<value>1</value>
+<value>${rows}+1</value>
+<status status="PASS" start="2026-03-03T22:38:16.665702" elapsed="0.274185"/>
+</for>
+<status status="PASS" start="2026-03-03T22:38:16.642612" elapsed="0.297364"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:38:16.940450" elapsed="2.256439"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:08.589750" elapsed="10.607439"/>
+</test>
+<test id="s1-t2" name="TC01-02 Login Admin And Filter Log By Startdatetime" line="34">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:38:19.199060" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:38:19.198794" elapsed="0.000325"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:38:19.199537" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:38:19.199235" elapsed="0.000324"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:19.199836" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:19.199658" elapsed="1.712932"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:38:20.912845" elapsed="0.031940"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:38:20.945070" elapsed="0.000386"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:38:19.198585" elapsed="1.746961"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:20.946255" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:20.946141" elapsed="0.095797"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.042959" elapsed="0.039023"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.083463" elapsed="0.039149"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:21.123521" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.123052" elapsed="0.051023"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:21.042451" elapsed="0.132050"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:38:20.945909" elapsed="0.228779"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:21.177255" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.176772" elapsed="0.134325"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:21.312947" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.312026" elapsed="0.056345"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:21.369028" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.368859" elapsed="0.056310"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:21.368604" elapsed="0.056693"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:22.426271" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:21.425425" elapsed="1.000974"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:38:21.175933" elapsed="1.250562"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:22.427271" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.427146" elapsed="0.239488"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.667072" elapsed="0.005160"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:22.666840" elapsed="0.005496"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:38:22.426894" elapsed="0.245484"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.672966" elapsed="0.216866"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:22.890327" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.890047" elapsed="0.045478"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:22.936072" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:38:22.936178" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:38:22.936218" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.935714" elapsed="0.006377"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:22.942501" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:22.942275" elapsed="0.060622"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:25.003862" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:23.003224" elapsed="2.000762"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:38:22.672678" elapsed="2.331424"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:25.005070" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:25.004898" elapsed="0.050771"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:27.056613" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:25.055858" elapsed="2.000873"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:25.004642" elapsed="2.052181"/>
+</kw>
+<kw name="Admin Check Traffic-log Last Row Is Within Lower Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:27.065740" level="INFO">${lower_bound} = 2026-01-01 11:39:00</msg>
+<var>${lower_bound}</var>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:38:27.057590" elapsed="0.008180"/>
+</kw>
+<kw name="Get Element Count" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:27.075658" level="INFO">${row_count} = 20</msg>
+<var>${row_count}</var>
+<arg>xpath=//table/tbody/tr</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:27.065901" elapsed="0.009793"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:27.089587" level="INFO">${last_row_text} = 3 มี.ค. 2569 22:32:44</msg>
+<var>${last_row_text}</var>
+<arg>xpath=//table/tbody/tr[${row_count}]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:27.075831" elapsed="0.013802"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:27.090303" level="INFO">${last_row_dt} = 2026-03-03 22:32:44</msg>
+<var>${last_row_dt}</var>
+<arg>${last_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:38:27.089792" elapsed="0.000539"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${last_row_dt}' &gt;= '${lower_bound}'</arg>
+<arg>msg=แถวสุดท้ายเก่ากว่าเวลาที่กำหนด (${last_row_text} &lt; ขอบเขตล่าง)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:38:27.090442" elapsed="0.000507"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:38:27.057297" elapsed="0.033736"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:38:27.091511" elapsed="2.222804"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:19.198106" elapsed="10.116576"/>
+</test>
+<test id="s1-t3" name="TC01-03 Login Admin And Filter Log By Enddatetime" line="42">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:38:29.316315" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:38:29.316030" elapsed="0.000344"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:38:29.316797" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:38:29.316493" elapsed="0.000326"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:29.317117" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:29.316936" elapsed="2.111081"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.428260" elapsed="0.027246"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.455772" elapsed="0.000304"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:38:29.315804" elapsed="2.140361"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:31.457311" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.457146" elapsed="0.121241"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.579066" elapsed="0.029812"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.609436" elapsed="0.029836"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:31.640471" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.640016" elapsed="0.054073"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:31.578733" elapsed="0.115468"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:38:31.456786" elapsed="0.237455"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:31.695075" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.694873" elapsed="0.129619"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:31.825433" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.824685" elapsed="0.060428"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:31.887648" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.887105" elapsed="0.053023"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:31.886350" elapsed="0.053907"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:32.941093" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:31.940458" elapsed="1.000766"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:38:31.694545" elapsed="1.246774"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:32.942096" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:32.941978" elapsed="0.259335"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.201767" elapsed="0.005917"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:33.201531" elapsed="0.006260"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:38:32.941719" elapsed="0.266114"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.208429" elapsed="0.218288"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:33.427129" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.426901" elapsed="0.048727"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:33.476613" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:38:33.476726" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:38:33.476764" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.475895" elapsed="0.020513"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:33.496836" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.496602" elapsed="0.063303"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:35.561528" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:33.560352" elapsed="2.001560"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:33.208144" elapsed="2.353981"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:35.563615" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:35.563396" elapsed="0.057969"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:37.622474" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:35.621551" elapsed="2.001041"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:35.562887" elapsed="2.059798"/>
+</kw>
+<kw name="Admin Check Traffic-Log First Row Is Within Upper Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:37.623646" level="INFO">${upper_bound} = 2026-05-05 11:39:00</msg>
+<var>${upper_bound}</var>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:37.623465" elapsed="0.000203"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:37.641686" level="INFO">${first_row_text} = 3 มี.ค. 2569 22:37:11</msg>
+<var>${first_row_text}</var>
+<arg>xpath=//table/tbody/tr[1]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:37.623754" elapsed="0.017993"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:37.642447" level="INFO">${first_row_dt} = 2026-03-03 22:37:11</msg>
+<var>${first_row_dt}</var>
+<arg>${first_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:38:37.642094" elapsed="0.000387"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${first_row_dt}' &lt;= '${upper_bound}'</arg>
+<arg>msg=แถวแรกเกินเวลาที่กำหนด (${first_row_text} &gt; ขอบเขตบน)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:38:37.642580" elapsed="0.000550"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:37.623140" elapsed="0.020106"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:38:37.643548" elapsed="2.273076"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:29.315430" elapsed="10.601582"/>
+</test>
+<test id="s1-t4" name="TC01-04 Login Admin And Filter Log By UserID And Startdatetime" line="50">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:38:39.918680" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:38:39.918405" elapsed="0.000329"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:38:39.919167" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:38:39.918875" elapsed="0.000330"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:39.919478" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:39.919300" elapsed="1.807479"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.727032" elapsed="0.025006"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.752433" elapsed="0.000478"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:38:39.918219" elapsed="1.834829"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:41.754151" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.753936" elapsed="0.112351"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.867306" elapsed="0.032555"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.900140" elapsed="0.050429"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:41.952971" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.951705" elapsed="0.035329"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:41.866769" elapsed="0.120759"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:38:41.753558" elapsed="0.234022"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:41.989072" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:41.988816" elapsed="0.144570"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:42.134653" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:42.133884" elapsed="0.060201"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:42.194964" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:42.194752" elapsed="0.060324"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:42.194488" elapsed="0.060712"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:43.257762" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:42.255358" elapsed="1.002586"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:38:41.988284" elapsed="1.269764"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:43.258923" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.258768" elapsed="0.319076"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.578313" elapsed="0.004365"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:43.578064" elapsed="0.004714"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:38:43.258426" elapsed="0.324396"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.583383" elapsed="0.218765"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.802328" elapsed="0.013602"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:43.816332" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.816107" elapsed="0.063499"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:45.880634" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:43.879787" elapsed="2.001030"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:38:43.583128" elapsed="2.297824"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:45.881863" elapsed="0.010589"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:45.892984" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:45.892661" elapsed="0.045059"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:45.938256" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:38:45.938330" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:38:45.938362" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:38:45.937912" elapsed="0.005324"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:45.943662" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:45.943437" elapsed="0.040685"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:47.985176" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:45.984317" elapsed="2.000986"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:45.881494" elapsed="2.103903"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:47.986261" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:47.986065" elapsed="0.059971"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:50.046687" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:48.046208" elapsed="2.000598"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:47.985820" elapsed="2.061081"/>
+</kw>
+<kw name="Admin Check Traffic-Log First Row Is Within Upper Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:50.047830" level="INFO">${upper_bound} = 2026-05-05 11:39:00</msg>
+<var>${upper_bound}</var>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:50.047660" elapsed="0.000192"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:50.062044" level="INFO">${first_row_text} = 3 มี.ค. 2569 22:37:21</msg>
+<var>${first_row_text}</var>
+<arg>xpath=//table/tbody/tr[1]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:50.047932" elapsed="0.014153"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:38:50.062412" level="INFO">${first_row_dt} = 2026-03-03 22:37:21</msg>
+<var>${first_row_dt}</var>
+<arg>${first_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:38:50.062227" elapsed="0.000207"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${first_row_dt}' &lt;= '${upper_bound}'</arg>
+<arg>msg=แถวแรกเกินเวลาที่กำหนด (${first_row_text} &gt; ขอบเขตบน)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:38:50.062515" elapsed="0.000384"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:38:50.047377" elapsed="0.015585"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:38:50.063361" elapsed="2.246772"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:39.917718" elapsed="12.393163"/>
+</test>
+<test id="s1-t5" name="TC01-05 Login Admin And Filter Log By UserID And Startdatetime" line="59">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:38:52.313440" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:38:52.313096" elapsed="0.000416"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:38:52.313996" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:38:52.313651" elapsed="0.000369"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:52.314344" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:52.314138" elapsed="1.815398"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.129731" elapsed="0.034793"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.164792" elapsed="0.000293"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:38:52.312799" elapsed="1.852347"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:54.166096" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.165983" elapsed="0.107780"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.274971" elapsed="0.023190"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.298772" elapsed="0.029517"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:54.328898" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.328606" elapsed="0.036457"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:54.274639" elapsed="0.090807"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:38:54.165640" elapsed="0.199886"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:54.367638" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.366953" elapsed="0.141902"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:54.509421" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.509071" elapsed="0.064634"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:54.574827" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.574676" elapsed="0.051796"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:54.574364" elapsed="0.052219"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:55.627478" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:54.626714" elapsed="1.000883"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:38:54.366237" elapsed="1.261450"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:55.628495" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:38:55.628385" elapsed="0.211328"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:38:55.840175" elapsed="0.005508"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:55.839916" elapsed="0.005869"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:38:55.628160" elapsed="0.217667"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:55.846374" elapsed="0.222168"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:38:56.068735" elapsed="0.014076"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:56.083206" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:56.082987" elapsed="0.082637"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:38:58.166672" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:56.165813" elapsed="2.000984"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:38:55.846115" elapsed="2.320774"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:38:58.167499" elapsed="0.009120"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:58.177011" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:58.176793" elapsed="0.054447"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:58.231956" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:38:58.232024" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:38:58.232055" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:38:58.231439" elapsed="0.005039"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:38:58.236835" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:38:58.236627" elapsed="0.040353"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:00.277914" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:38:58.277159" elapsed="2.000877"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:38:58.167199" elapsed="2.110933"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:00.278987" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:00.278827" elapsed="0.055619"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:02.335413" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:00.334635" elapsed="2.000900"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:00.278529" elapsed="2.057113"/>
+</kw>
+<kw name="Admin Check Traffic-Log First Row Is Within Upper Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:02.336540" level="INFO">${upper_bound} = 2026-05-05 11:39:00</msg>
+<var>${upper_bound}</var>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:02.336347" elapsed="0.000219"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:02.350799" level="INFO">${first_row_text} = 3 มี.ค. 2569 22:37:34</msg>
+<var>${first_row_text}</var>
+<arg>xpath=//table/tbody/tr[1]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:02.336661" elapsed="0.014206"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:02.351369" level="INFO">${first_row_dt} = 2026-03-03 22:37:34</msg>
+<var>${first_row_dt}</var>
+<arg>${first_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:39:02.351124" elapsed="0.000267"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${first_row_dt}' &lt;= '${upper_bound}'</arg>
+<arg>msg=แถวแรกเกินเวลาที่กำหนด (${first_row_text} &gt; ขอบเขตบน)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:39:02.351501" elapsed="0.000454"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:02.336037" elapsed="0.016004"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:02.352364" elapsed="2.262650"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:38:52.311946" elapsed="12.303755"/>
+</test>
+<test id="s1-t6" name="TC01-06 Login Admin And Filter Log By Datetime" line="68">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:39:04.617619" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:39:04.617359" elapsed="0.000338"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:39:04.618104" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:39:04.617815" elapsed="0.000310"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:04.618407" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:04.618222" elapsed="1.609824"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.228247" elapsed="0.024341"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.252821" elapsed="0.000230"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:39:04.617157" elapsed="1.635956"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:06.253711" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.253610" elapsed="0.092482"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.346770" elapsed="0.025314"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.372486" elapsed="0.035126"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:06.409097" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.408379" elapsed="0.026164"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:06.346390" elapsed="0.088615"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:39:06.253413" elapsed="0.181668"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:06.437085" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.436915" elapsed="0.109915"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:06.547261" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.547029" elapsed="0.072075"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:06.620735" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.620123" elapsed="0.052332"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:06.619589" elapsed="0.052977"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:07.677258" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:06.672761" elapsed="1.004614"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:39:06.436133" elapsed="1.241339"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:07.678212" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:07.678096" elapsed="0.189932"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:07.868548" elapsed="0.004832"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:07.868295" elapsed="0.005200"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:39:07.677852" elapsed="0.195687"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:07.874292" elapsed="0.235417"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:08.110146" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:08.109894" elapsed="0.046181"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:08.156597" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:08.156665" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:08.156695" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:08.156264" elapsed="0.006733"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:08.163385" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:08.163167" elapsed="0.041460"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:10.207313" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:08.204812" elapsed="2.002702"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:39:07.873995" elapsed="2.333653"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:10.208561" elapsed="0.010414"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:10.219303" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:10.219120" elapsed="0.043026"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:10.262663" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:10.262729" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:10.262758" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:10.262334" elapsed="0.005378"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:10.268089" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:10.267881" elapsed="0.045907"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:12.314777" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:10.313987" elapsed="2.000910"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:10.208159" elapsed="2.106832"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:12.315786" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:12.315638" elapsed="0.061258"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:14.377918" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:12.377082" elapsed="2.000959"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:12.315408" elapsed="2.062731"/>
+</kw>
+<kw name="Admin Check Traffic-Log First Row Is Within Upper Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:14.379154" level="INFO">${upper_bound} = 2026-05-05 11:39:00</msg>
+<var>${upper_bound}</var>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:14.378978" elapsed="0.000199"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:14.394570" level="INFO">${first_row_text} = 3 มี.ค. 2569 22:37:45</msg>
+<var>${first_row_text}</var>
+<arg>xpath=//table/tbody/tr[1]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:14.379258" elapsed="0.015357"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:14.394980" level="INFO">${first_row_dt} = 2026-03-03 22:37:45</msg>
+<var>${first_row_dt}</var>
+<arg>${first_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:39:14.394778" elapsed="0.000225"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${first_row_dt}' &lt;= '${upper_bound}'</arg>
+<arg>msg=แถวแรกเกินเวลาที่กำหนด (${first_row_text} &gt; ขอบเขตบน)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:39:14.395089" elapsed="0.000433"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:14.378661" elapsed="0.016935"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:14.395877" elapsed="2.224723"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:04.616641" elapsed="12.004623"/>
+</test>
+<test id="s1-t7" name="TC01-07 Login Admin And Filter Log By UserID And Startdatetime" line="77">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:39:16.623017" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:39:16.622727" elapsed="0.000339"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:39:16.623456" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:39:16.623172" elapsed="0.000304"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:16.623737" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:16.623572" elapsed="1.612050"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.235908" elapsed="0.039560"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.275651" elapsed="0.000271"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:39:16.622525" elapsed="1.653459"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:18.276682" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.276569" elapsed="0.090524"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.367726" elapsed="0.026526"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.394922" elapsed="0.032584"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:18.428425" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.427691" elapsed="0.022809"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:18.367342" elapsed="0.083292"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:39:18.276329" elapsed="0.174351"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:18.451680" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.451457" elapsed="0.100879"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:18.552807" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.552532" elapsed="0.070088"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:18.623212" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.623061" elapsed="0.049237"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:18.622832" elapsed="0.049591"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:19.673271" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:18.672559" elapsed="1.000833"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:39:18.451094" elapsed="1.222391"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:19.674267" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:19.674155" elapsed="0.183467"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:19.858068" elapsed="0.002844"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:19.857842" elapsed="0.003157"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:39:19.673917" elapsed="0.187124"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:19.861879" elapsed="0.228875"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:39:20.091079" elapsed="0.012773"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:20.104222" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:20.104017" elapsed="0.056245"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:22.161149" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:20.160458" elapsed="2.000809"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:39:19.861355" elapsed="2.299999"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:22.162107" elapsed="0.011466"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:22.173934" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:22.173726" elapsed="0.043581"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:22.217845" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:22.217916" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:22.217948" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:22.217515" elapsed="0.005547"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:22.223432" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:22.223228" elapsed="0.037840"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:24.261976" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:22.261248" elapsed="2.000861"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:39:22.161804" elapsed="2.100396"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:24.262982" elapsed="0.010090"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:24.273345" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:24.273188" elapsed="0.047376"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:24.321390" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:24.321474" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:24.321504" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:24.320995" elapsed="0.004586"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:24.326015" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:24.325726" elapsed="0.038788"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:26.365491" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:24.364691" elapsed="2.000916"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:24.262703" elapsed="2.103015"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:26.366516" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:26.366350" elapsed="0.049664"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:28.417139" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:26.416218" elapsed="2.001043"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:26.366123" elapsed="2.051228"/>
+</kw>
+<kw name="Admin Check Traffic-Log First Row Is Within Upper Bound" owner="datetime-resource">
+<kw name="Convert Input To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:28.418258" level="INFO">${upper_bound} = 2026-05-05 11:39:00</msg>
+<var>${upper_bound}</var>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:28.418086" elapsed="0.000194"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:28.434810" level="INFO">${first_row_text} = 3 มี.ค. 2569 22:37:58</msg>
+<var>${first_row_text}</var>
+<arg>xpath=//table/tbody/tr[1]/td[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:28.418360" elapsed="0.016502"/>
+</kw>
+<kw name="Convert Thai Table Time To Datetime" owner="datetime_check">
+<msg time="2026-03-03T22:39:28.435331" level="INFO">${first_row_dt} = 2026-03-03 22:37:58</msg>
+<var>${first_row_dt}</var>
+<arg>${first_row_text}</arg>
+<status status="PASS" start="2026-03-03T22:39:28.435125" elapsed="0.000267"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>'${first_row_dt}' &lt;= '${upper_bound}'</arg>
+<arg>msg=แถวแรกเกินเวลาที่กำหนด (${first_row_text} &gt; ขอบเขตบน)</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:39:28.435501" elapsed="0.000423"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:28.417795" elapsed="0.018200"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:28.436390" elapsed="2.225640"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:16.622035" elapsed="14.040308"/>
+</test>
+<test id="s1-t8" name="TC01-08 Login Admin Filter UserID And Clear Activity log" line="87">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:39:30.664211" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:39:30.663927" elapsed="0.000334"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:39:30.664640" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:39:30.664364" elapsed="0.000297"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:30.664920" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:30.664756" elapsed="1.617523"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.282471" elapsed="0.032399"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.315267" elapsed="0.000694"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:39:30.663735" elapsed="1.652329"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:32.317898" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.317765" elapsed="0.103238"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.422090" elapsed="0.028572"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.451138" elapsed="0.022335"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:32.474046" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.473769" elapsed="0.023597"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:32.421572" elapsed="0.075992"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:39:32.317107" elapsed="0.180514"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:32.498391" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.498225" elapsed="0.103209"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:32.602121" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.601779" elapsed="0.064375"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:32.667335" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.667157" elapsed="0.052439"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:32.666822" elapsed="0.052877"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:33.720754" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:32.719819" elapsed="1.001217"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:39:32.497928" elapsed="1.223376"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:33.721982" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:33.721869" elapsed="0.235480"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:33.957894" elapsed="0.005648"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:33.957616" elapsed="0.006033"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:39:33.721646" elapsed="0.242048"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:33.964262" elapsed="0.233369"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:39:34.197825" elapsed="0.014389"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:34.212614" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:34.212390" elapsed="0.066954"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:36.280278" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:34.279524" elapsed="2.000918"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:39:33.963986" elapsed="2.316627"/>
+</kw>
+<kw name="Admin Click Clear Log Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:36.281474" level="INFO">Clicking button 'id=clearFilters'.</msg>
+<arg>id=clearFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:36.281321" elapsed="0.050145"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:36.281087" elapsed="0.050502"/>
+</kw>
+<kw name="Admin Check Empty Traffic-Log Filter" owner="common-resource">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:36.349266" level="INFO">${value} = </msg>
+<var>${value}</var>
+<arg>id=userID</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:36.332324" elapsed="0.016988"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2026-03-03T22:39:36.349921" level="INFO">Length is 0.</msg>
+<arg>${value}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2026-03-03T22:39:36.349471" elapsed="0.000498"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:36.331935" elapsed="0.018099"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:36.350332" elapsed="2.263241"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:30.663178" elapsed="7.950648"/>
+</test>
+<test id="s1-t9" name="TC01-09 Login Admin Filter Datetime And Clear Activity log" line="95">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:39:38.615524" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:39:38.615250" elapsed="0.000326"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:39:38.615961" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:39:38.615680" elapsed="0.000301"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:38.616249" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:38.616077" elapsed="1.655846"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.272142" elapsed="0.029808"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.302151" elapsed="0.000252"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:39:38.615052" elapsed="1.687418"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:40.303145" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.302980" elapsed="0.117201"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.420885" elapsed="0.024544"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.445681" elapsed="0.025292"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:40.471420" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.471170" elapsed="0.020197"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:40.420546" elapsed="0.070939"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:39:40.302757" elapsed="0.188774"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:40.492420" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.492217" elapsed="0.101386"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:40.595279" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.594324" elapsed="0.065441"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:40.661867" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.661342" elapsed="0.057480"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:40.660449" elapsed="0.058484"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:41.719650" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:40.719053" elapsed="1.000731"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:39:40.491857" elapsed="1.228020"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:41.721436" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:41.721212" elapsed="0.212201"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:41.933861" elapsed="0.003050"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:41.933621" elapsed="0.003403"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:39:41.720429" elapsed="0.216644"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:41.938296" elapsed="0.219520"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:42.158200" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:42.157988" elapsed="0.046753"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:42.205259" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:42.205328" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:42.205357" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:42.204931" elapsed="0.006062"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:42.211384" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:42.211166" elapsed="0.056185"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:44.268398" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:42.267535" elapsed="2.000993"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:39:41.937667" elapsed="2.330960"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:44.269331" elapsed="0.010529"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:44.280169" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:44.279991" elapsed="0.042642"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:44.323158" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:44.323227" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:44.323258" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:44.322826" elapsed="0.005074"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:44.328275" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:44.328069" elapsed="0.042505"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:46.371638" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:44.370797" elapsed="2.000964"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:44.269043" elapsed="2.102812"/>
+</kw>
+<kw name="Admin Click Clear Log Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:46.372696" level="INFO">Clicking button 'id=clearFilters'.</msg>
+<arg>id=clearFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:46.372551" elapsed="0.049410"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:46.372322" elapsed="0.049749"/>
+</kw>
+<kw name="Admin Check Empty Traffic-Log Filter" owner="common-resource">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:46.432961" level="INFO">${value} = </msg>
+<var>${value}</var>
+<arg>id=userID</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:46.422686" elapsed="0.010318"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2026-03-03T22:39:46.433438" level="INFO">Length is 0.</msg>
+<arg>${value}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2026-03-03T22:39:46.433159" elapsed="0.000319"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:46.422385" elapsed="0.011154"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:46.433809" elapsed="2.216032"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:38.614535" elapsed="10.035808"/>
+</test>
+<test id="s1-t10" name="TC01-10 Login Admin Filter UserID, Datetime And Clear Activity log" line="104">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:39:48.652138" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:39:48.651845" elapsed="0.000352"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:39:48.652646" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:39:48.652315" elapsed="0.000374"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:48.652981" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:48.652803" elapsed="1.664073"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.317143" elapsed="0.027942"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.345267" elapsed="0.000311"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:39:48.651632" elapsed="1.694021"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:50.346481" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.346334" elapsed="0.112085"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.459857" elapsed="0.023721"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.483825" elapsed="0.037392"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:50.522171" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.521811" elapsed="0.024526"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:50.459008" elapsed="0.087450"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:39:50.346069" elapsed="0.200442"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:50.547377" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.547156" elapsed="0.107031"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:50.655281" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.654719" elapsed="0.076345"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:50.732463" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.732291" elapsed="0.049533"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:50.731837" elapsed="0.050124"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:51.785308" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:50.782088" elapsed="1.003343"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:39:50.546828" elapsed="1.238692"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:51.786340" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:39:51.786229" elapsed="0.164744"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:39:51.951867" elapsed="0.003846"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:51.951227" elapsed="0.004577"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:39:51.785998" elapsed="0.169849"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:51.956353" elapsed="0.237981"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:39:52.194513" elapsed="0.011885"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:52.206751" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:52.206545" elapsed="0.070505"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:54.277897" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:52.277233" elapsed="2.000788"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:39:51.956110" elapsed="2.322009"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:54.279138" elapsed="0.012142"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:54.291987" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:54.291710" elapsed="0.052800"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:54.345038" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:54.345106" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:54.345137" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:54.344705" elapsed="0.012289"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:54.357398" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:54.357172" elapsed="0.042304"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:56.400556" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:54.399669" elapsed="2.001008"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:39:54.278704" elapsed="2.122069"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:39:56.401551" elapsed="0.010452"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:56.412331" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:56.412140" elapsed="0.041671"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:56.454337" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:39:56.454405" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:39:56.454435" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:39:56.454002" elapsed="0.005078"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:56.459453" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:56.459248" elapsed="0.037209"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:39:58.497304" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:39:56.496637" elapsed="2.000783"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:39:56.401218" elapsed="2.096297"/>
+</kw>
+<kw name="Admin Click Clear Log Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:58.498342" level="INFO">Clicking button 'id=clearFilters'.</msg>
+<arg>id=clearFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:58.498195" elapsed="0.049948"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:58.497969" elapsed="0.050281"/>
+</kw>
+<kw name="Admin Check Empty Traffic-Log Filter" owner="common-resource">
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:39:58.559547" level="INFO">${value} = </msg>
+<var>${value}</var>
+<arg>id=userID</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:39:58.548826" elapsed="0.010763"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2026-03-03T22:39:58.560029" level="INFO">Length is 0.</msg>
+<arg>${value}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2026-03-03T22:39:58.559746" elapsed="0.000324"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:58.548569" elapsed="0.011560"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:39:58.560592" elapsed="2.226231"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:39:48.651208" elapsed="12.135854"/>
+</test>
+<test id="s1-t11" name="TC01-11 Login Admin Filter Incorrect UserID and Datetime" line="114">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:00.788758" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:00.788463" elapsed="0.000345"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:40:00.789219" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:40:00.788926" elapsed="0.000314"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:00.789508" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:00.789340" elapsed="1.714387"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.503912" elapsed="0.035505"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.539604" elapsed="0.000240"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:40:00.788260" elapsed="1.751645"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:02.540694" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.540546" elapsed="0.104779"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.646024" elapsed="0.025669"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.672520" elapsed="0.033310"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:02.706695" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.706337" elapsed="0.027100"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:02.645693" elapsed="0.087963"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:40:02.540240" elapsed="0.193464"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:02.734758" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.734526" elapsed="0.095524"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:02.831279" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.830248" elapsed="0.082024"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:02.913637" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.913479" elapsed="0.050467"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:02.912948" elapsed="0.051111"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:03.964747" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:02.964191" elapsed="1.000676"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:40:02.734156" elapsed="1.230802"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:03.965755" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:03.965646" elapsed="0.336815"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:04.302893" elapsed="0.004177"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:04.302675" elapsed="0.004489"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:40:03.965424" elapsed="0.341780"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:04.307755" elapsed="0.218419"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:40:04.526414" elapsed="0.012522"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:04.539286" level="INFO">Typing text 'cpcskkuintelcorei13Amdryzen' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:04.539093" elapsed="0.065597"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:06.605324" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:04.604877" elapsed="2.000566"/>
+</kw>
+<arg>${INCORRECT_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:40:04.307486" elapsed="2.298047"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:06.606191" elapsed="0.012705"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:06.619514" level="INFO">Typing text '123456' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:06.619212" elapsed="0.041629"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:06.661370" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:40:06.661437" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:40:06.661467" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:40:06.661043" elapsed="0.005414"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:06.666823" level="INFO">Typing text '1130PM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:06.666626" elapsed="0.038627"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:08.706247" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:06.705432" elapsed="2.000934"/>
+</kw>
+<arg>123456</arg>
+<arg>1130PM</arg>
+<status status="PASS" start="2026-03-03T22:40:06.605924" elapsed="2.100534"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:08.707202" elapsed="0.009941"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:08.717478" level="INFO">Typing text '121230' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:08.717284" elapsed="0.048534"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:08.766350" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:40:08.766420" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:40:08.766451" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:40:08.766013" elapsed="0.004791"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:08.771231" level="INFO">Typing text '1130AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:08.771021" elapsed="0.036719"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:10.808358" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:08.807919" elapsed="2.000560"/>
+</kw>
+<arg>121230</arg>
+<arg>1130AM</arg>
+<status status="PASS" start="2026-03-03T22:40:08.706943" elapsed="2.101629"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:10.809384" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:10.809204" elapsed="0.049621"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:12.859466" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:10.859005" elapsed="2.000578"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:10.808975" elapsed="2.050700"/>
+</kw>
+<kw name="Admin Check Empty Traffic-Log table" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//table/tbody/tr</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:12.860433" elapsed="0.015373"/>
+</kw>
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:12.887670" level="INFO">Element 'xpath=//table/tbody/tr[1]/td' contains text 'ไม่มีข้อมูล Traffic Log'.</msg>
+<arg>xpath=//table/tbody/tr[1]/td</arg>
+<arg>ไม่มีข้อมูล Traffic Log</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:12.875984" elapsed="0.011777"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:12.860146" elapsed="0.027703"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:40:12.888212" elapsed="2.237687"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:00.787825" elapsed="14.338371"/>
+</test>
+<test id="s1-t12" name="TC01-12 Login Admin Filter Log By UserID And Export file" line="124">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:15.127664" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:15.127401" elapsed="0.000314"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:40:15.128153" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:40:15.127833" elapsed="0.000351"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:15.128456" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:15.128281" elapsed="1.692477"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:40:16.821168" elapsed="0.039231"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:40:16.860658" elapsed="0.000266"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:40:15.127213" elapsed="1.733774"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:16.861788" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:16.861671" elapsed="0.136817"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:16.999872" elapsed="0.038092"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.038475" elapsed="0.059018"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:17.099068" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.098453" elapsed="0.081211"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:16.999135" elapsed="0.180668"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:40:16.861419" elapsed="0.318439"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:17.182299" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.181591" elapsed="0.097952"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:17.282089" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.280992" elapsed="0.070830"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:17.353953" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.353458" elapsed="0.051614"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:17.352524" elapsed="0.052664"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:18.406083" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:17.405321" elapsed="1.000916"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:40:17.180916" elapsed="1.225438"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:18.407305" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.407131" elapsed="0.202590"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.610231" elapsed="0.004858"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:18.609969" elapsed="0.005219"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:40:18.406806" elapsed="0.208425"/>
+</kw>
+<kw name="Admin Filter With ID" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.615775" elapsed="0.222343"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.838302" elapsed="0.013347"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:18.852055" level="INFO">Typing text 'cmmaqoiy8000a23jry6jcccf5' into text field 'id=userID'.</msg>
+<arg>id=userID</arg>
+<arg>${userid}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.851829" elapsed="0.083143"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:20.936108" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:18.935161" elapsed="2.001144"/>
+</kw>
+<arg>${TEST_USER_ID}</arg>
+<status status="PASS" start="2026-03-03T22:40:18.615515" elapsed="2.320954"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:20.937598" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:20.937354" elapsed="0.056411"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:22.996513" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:20.994001" elapsed="2.002671"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:20.937026" elapsed="2.059751"/>
+</kw>
+<kw name="Admin Click Export Log Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:22.997565" level="INFO">Clicking button 'Export'.</msg>
+<arg>Export</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:22.997425" elapsed="0.048459"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:22.997204" elapsed="0.048824"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Check If CSV Exists" owner="common-resource">
+<kw name="List Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:23.047404" level="INFO" html="true">Listing contents of directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;'.</msg>
+<msg time="2026-03-03T22:40:23.047873" level="INFO">6 items:
+traffic-logs-2026-3-3 (1).csv
+traffic-logs-2026-3-3 (2).csv
+traffic-logs-2026-3-3 (3).csv
+traffic-logs-2026-3-3.csv
+traffic_logs_2026-3-3 (1).enc
+traffic_logs_2026-3-3.enc</msg>
+<msg time="2026-03-03T22:40:23.048000" level="INFO">${files} = ['traffic-logs-2026-3-3 (1).csv', 'traffic-logs-2026-3-3 (2).csv', 'traffic-logs-2026-3-3 (3).csv', 'traffic-logs-2026-3-3.csv', 'traffic_logs_2026-3-3 (1).enc', 'traffic_logs_2026-3-3.enc']</msg>
+<var>${files}</var>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Returns and logs items in a directory, optionally filtered with ``pattern``.</doc>
+<status status="PASS" start="2026-03-03T22:40:23.047292" elapsed="0.000729"/>
+</kw>
+<kw name="Should Match Regexp" owner="BuiltIn">
+<arg>${files[0]}</arg>
+<arg>.*\.csv</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" start="2026-03-03T22:40:23.048141" elapsed="0.001098"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:23.047110" elapsed="0.002233"/>
+</kw>
+<arg>20s</arg>
+<arg>2s</arg>
+<arg>Check If CSV Exists</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2026-03-03T22:40:23.046372" elapsed="0.003038"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:40:23.049834" elapsed="2.229362"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:15.126826" elapsed="10.152969"/>
+</test>
+<test id="s1-t13" name="TC01-13 Login Admin Filter Log By Datetime And Export file" line="135">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:25.281747" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:25.281454" elapsed="0.000345"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:40:25.282195" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:40:25.281910" elapsed="0.000305"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:25.282481" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:25.282315" elapsed="1.616249"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:40:26.898758" elapsed="0.025793"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:40:26.924734" elapsed="0.000224"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:40:25.281254" elapsed="1.643767"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:26.925621" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:26.925519" elapsed="0.105261"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.031589" elapsed="0.035458"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.067971" elapsed="0.072294"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:27.141191" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.140720" elapsed="0.026285"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:27.031109" elapsed="0.136026"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:40:26.925321" elapsed="0.241859"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:27.169401" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.168945" elapsed="0.103841"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:27.273612" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.273335" elapsed="0.057666"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:27.331877" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.331524" elapsed="0.049602"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:27.331230" elapsed="0.050008"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:28.381840" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:27.381360" elapsed="1.000598"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:40:27.168173" elapsed="1.213880"/>
+</kw>
+<kw name="Admin Go To Log Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:28.382887" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/traffic-log'</msg>
+<arg>${URL}/admin/traffic-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.382756" elapsed="0.174758"/>
+</kw>
+<kw name="Log Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/traffic-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.557964" elapsed="0.002939"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:28.557731" elapsed="0.003277"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:40:28.382528" elapsed="0.178521"/>
+</kw>
+<kw name="Admin Filter Log With Startdatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.562214" elapsed="0.219718"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:28.782341" level="INFO">Typing text '01012026' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${startdate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.782116" elapsed="0.045289"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:28.827994" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:40:28.828071" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:40:28.828100" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.827626" elapsed="0.007354"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:28.835439" level="INFO">Typing text '1139AM' into text field 'id=startTime'.</msg>
+<arg>id=startTime</arg>
+<arg>${starttime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.835187" elapsed="0.060972"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:30.897415" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:28.896367" elapsed="2.001167"/>
+</kw>
+<arg>${startdate}</arg>
+<arg>${starttime}</arg>
+<status status="PASS" start="2026-03-03T22:40:28.561563" elapsed="2.336070"/>
+</kw>
+<kw name="Admin Filter Log With Enddatetime" owner="common-resource">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=userID</arg>
+<arg>5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:30.898398" elapsed="0.010833"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:30.909545" level="INFO">Typing text '05052026' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${enddate}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:30.909359" elapsed="0.043014"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:30.952944" level="INFO">Sending key(s) ('TAB',) to page.</msg>
+<msg time="2026-03-03T22:40:30.953015" level="INFO">Pressing special key TAB to browser.</msg>
+<msg time="2026-03-03T22:40:30.953045" level="INFO">Releasing special key TAB.</msg>
+<arg>NONE</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-03-03T22:40:30.952604" elapsed="0.004262"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:30.957211" level="INFO">Typing text '1139AM' into text field 'id=endTime'.</msg>
+<arg>id=endTime</arg>
+<arg>${endtime}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:30.957015" elapsed="0.042914"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:33.000867" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:31.000134" elapsed="2.000854"/>
+</kw>
+<arg>${enddate}</arg>
+<arg>${endtime}</arg>
+<status status="PASS" start="2026-03-03T22:40:30.898108" elapsed="2.102969"/>
+</kw>
+<kw name="Admin Click Filter Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:33.001934" level="INFO">Clicking button 'id=applyFilters'.</msg>
+<arg>id=applyFilters</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:33.001791" elapsed="0.049905"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:35.054314" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:33.051911" elapsed="2.002526"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:33.001571" elapsed="2.052962"/>
+</kw>
+<kw name="Click Download And Verify By Counting" owner="common-resource">
+<kw name="Count Items In Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:35.055377" level="INFO" html="true">Listing contents of directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;'.</msg>
+<msg time="2026-03-03T22:40:35.055655" level="INFO">6 items.</msg>
+<msg time="2026-03-03T22:40:35.055738" level="INFO">${count_before} = 6</msg>
+<var>${count_before}</var>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Returns and logs the number of all items in the given directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:35.055244" elapsed="0.000512"/>
+</kw>
+<kw name="Admin Click Export Log Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:35.056163" level="INFO">Clicking button 'Export'.</msg>
+<arg>Export</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:35.056044" elapsed="0.048090"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:35.055880" elapsed="0.048368"/>
+</kw>
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Check If File Count Increased" owner="common-resource">
+<kw name="Count Items In Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:35.105289" level="INFO" html="true">Listing contents of directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;'.</msg>
+<msg time="2026-03-03T22:40:35.105776" level="INFO">6 items.</msg>
+<msg time="2026-03-03T22:40:35.105890" level="INFO">${new_count} = 6</msg>
+<var>${new_count}</var>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Returns and logs the number of all items in the given directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:35.105180" elapsed="0.000730"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<msg time="2026-03-03T22:40:35.106554" level="FAIL">'6 &gt; 6' should be true.</msg>
+<arg>${new_count} &gt; ${old_count}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="FAIL" start="2026-03-03T22:40:35.106036" elapsed="0.000986">'6 &gt; 6' should be true.</status>
+</kw>
+<arg>${count_before}</arg>
+<status status="FAIL" start="2026-03-03T22:40:35.104959" elapsed="0.002305">'6 &gt; 6' should be true.</status>
+</kw>
+<kw name="Check If File Count Increased" owner="common-resource">
+<kw name="Count Items In Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:37.108354" level="INFO" html="true">Listing contents of directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;'.</msg>
+<msg time="2026-03-03T22:40:37.108685" level="INFO">7 items.</msg>
+<msg time="2026-03-03T22:40:37.108809" level="INFO">${new_count} = 7</msg>
+<var>${new_count}</var>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Returns and logs the number of all items in the given directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:37.108221" elapsed="0.000608"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${new_count} &gt; ${old_count}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-03-03T22:40:37.108967" elapsed="0.000306"/>
+</kw>
+<arg>${count_before}</arg>
+<status status="PASS" start="2026-03-03T22:40:37.107890" elapsed="0.001439"/>
+</kw>
+<arg>20s</arg>
+<arg>2s</arg>
+<arg>Check If File Count Increased</arg>
+<arg>${count_before}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2026-03-03T22:40:35.104384" elapsed="2.004984"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:35.054997" elapsed="2.054428"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:40:37.109850" elapsed="2.220911"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:25.280745" elapsed="14.050731"/>
+</test>
+<test id="s1-t14" name="TC01-14 Login Admin Go To ExportLog Pages See Detail" line="145">
+<kw name="Open Main Page" owner="common-resource" type="SETUP">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-03-03T22:40:39.333387" level="INFO" html="true">Directory '&lt;a href="file://D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads"&gt;D:\663380022-3_3.2\Software_En\Project\current\PaiNamNaeWebAppSec2_6\test\Resource\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_PATH}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-03-03T22:40:39.333091" elapsed="0.000354"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-03-03T22:40:39.334062" level="INFO">${prefs} = {'download.default_directory': 'D:\\663380022-3_3.2\\Software_En\\Project\\current\\PaiNamNaeWebAppSec2_6\\test\\Resource\\downloads'}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=${DOWNLOAD_PATH}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-03-03T22:40:39.333667" elapsed="0.000416"/>
+</kw>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:39.334345" level="INFO">Opening browser 'chrome' to base url 'https://csse2669.cpkku.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:39.334179" elapsed="1.844613"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.179043" elapsed="0.026809"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.206310" elapsed="0.000594"/>
+</kw>
+<doc>เปิดหน้าเว็บไซต์หลัก</doc>
+<status status="PASS" start="2026-03-03T22:40:39.332876" elapsed="1.874115"/>
+</kw>
+<kw name="Go To Login Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:41.207811" level="INFO">Opening url 'https://csse2669.cpkku.com/login'</msg>
+<arg>${URL}/login</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.207683" elapsed="0.142684"/>
+</kw>
+<kw name="Login Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/login</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.351044" elapsed="0.018292"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.369616" elapsed="0.031096"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:41.401499" level="INFO">Verifying element 'xpath=//main//h1' contains exact text 'เข้าสู่ระบบ'.</msg>
+<arg>xpath=//main//h1</arg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.401207" elapsed="0.035359"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:41.350644" elapsed="0.086121"/>
+</kw>
+<doc>เปิดหน้าเข้าสู่ระบบ</doc>
+<status status="PASS" start="2026-03-03T22:40:41.207402" elapsed="0.229413"/>
+</kw>
+<kw name="Login" owner="common-resource">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:41.438741" level="INFO">Typing text 'AdminNokia' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.438290" elapsed="0.121215"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:41.561935" level="INFO">Typing text 'adminnokia007xRovxMLBB' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.560382" elapsed="0.087952"/>
+</kw>
+<kw name="Click Login Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:41.649335" level="INFO">Clicking button 'เข้าสู่ระบบ'.</msg>
+<arg>เข้าสู่ระบบ</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.648917" elapsed="0.053137"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:41.648567" elapsed="0.053593"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:42.703209" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:41.702280" elapsed="1.001093"/>
+</kw>
+<arg>${ADMIN_USERNAME}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<doc>ลงทะเบียนผู้ใช้</doc>
+<status status="PASS" start="2026-03-03T22:40:41.437451" elapsed="1.266053"/>
+</kw>
+<kw name="Admin Go To ExportLog Page" owner="common-resource">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:42.704521" level="INFO">Opening url 'https://csse2669.cpkku.com/admin/export-log'</msg>
+<arg>${URL}/admin/export-log</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-03-03T22:40:42.704354" elapsed="0.175191"/>
+</kw>
+<kw name="ExportLog Page Should Be Open" owner="common-resource">
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>${URL}/admin/export-log</arg>
+<arg>timeout=2s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:42.880030" elapsed="0.005372"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:42.879770" elapsed="0.005732"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=details</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-03-03T22:40:42.885626" elapsed="0.428728"/>
+</kw>
+<doc>เปิดหน้าlog</doc>
+<status status="PASS" start="2026-03-03T22:40:42.704008" elapsed="0.610449"/>
+</kw>
+<kw name="Admin Click Detail Button" owner="common-resource">
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:43.315279" level="INFO">Clicking button 'id=details'.</msg>
+<arg>id=details</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-03-03T22:40:43.315092" elapsed="0.159477"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:43.314820" elapsed="0.159858"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-03-03T22:40:48.475749" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-03-03T22:40:43.474994" elapsed="5.000869"/>
+</kw>
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-03-03T22:40:48.488840" level="INFO">Element 'xpath=//h2' contains text 'รายละเอียด Export Log'.</msg>
+<arg>xpath=//h2</arg>
+<arg>รายละเอียด Export Log</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-03-03T22:40:48.476233" elapsed="0.012662"/>
+</kw>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-03-03T22:40:48.489238" elapsed="2.203692"/>
+</kw>
+<status status="PASS" start="2026-03-03T22:40:39.332397" elapsed="11.360794"/>
+</test>
+<status status="PASS" start="2026-03-03T22:38:08.320152" elapsed="162.373878"/>
+</suite>
+<statistics>
+<total>
+<stat pass="14" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Log UAT" id="s1" pass="14" fail="0" skip="0">Log UAT</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

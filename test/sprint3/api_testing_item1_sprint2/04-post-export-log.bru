@@ -1,0 +1,53 @@
+meta {
+  name: Post Export Log
+  type: http
+}
+
+post {
+  url: {{baseUrl}}/api/export-logs/admin
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "startDate":       "2026-01-01",
+    "endDate":         "2026-02-01",
+    "rowCount":        150,
+    "securityMeasure": "Password Protected CSV"
+  }
+}
+
+headers {
+  Content-Type: application/json
+}
+headers {
+  Accept: application/json
+}
+
+query {
+  page: 1
+  limit: 10
+}
+
+tests {
+  test("Status code is 201", () => {
+    expect(res.status).to.equal(201);
+  });
+  test("Response has success true", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("success", true);
+  });
+  test("Response has message", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("message","บันทึกประวัติการ Export สำเร็จ");
+  });
+  test("Response has data", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("data");
+  });
+}
