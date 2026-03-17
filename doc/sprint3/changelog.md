@@ -13,11 +13,11 @@
     - เพิ่มการใส่รหัสผ่านก่อน Export ข้อมูลในหน้า Traffic log
 -	Backend:  
     - 
--   เพิ่มโครงสร้าง Export File ดังนี้ :
-        traffic_logs_<timestamp>.zip
-            ├─ traffic_logs_<timestamp>.json
-            ├─ traffic_logs_<timestamp>.sha256
-            └─ verify-log.bat
+-   เพิ่มโครงสร้าง Export File ดังนี้<br>
+        traffic_logs_<timestamp>.zip : 
+          - traffic_logs_<timestamp>.json
+          - traffic_logs_<timestamp>.sha256
+          - verify-log.bat
         
 # Changed
 - ปรับปรุง Database Schema (Prisma) 
