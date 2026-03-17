@@ -78,7 +78,9 @@ Register Form
     sleep   1s
 
     Wait Until Element Is Visible
-    ...    xpath=//div[contains(., 'สมัครสมาชิกเรียบร้อยแล้ว')]    timeout=5s
+    ...    xpath=//div[contains(., 'สมัครสมาชิกเรียบร้อยแล้ว')]    timeout=10s
+
+    Click Element    xpath=//button[contains(text(),'ไปสู่หน้าเข้าสู่ระบบ')]
     
     Wait Until Location Contains	${URL}		timeout=2s
 	
@@ -92,19 +94,49 @@ Login
 	
 Delete User Account
     [Documentation]     ลบบัญชีผู้ใช้งาน
-    [Arguments]	    ${password}     ${massage}
+    [Arguments]         ${password}     ${massage}      ${dataoption}
     Wait Until Element Is Visible    xpath=//button[contains(., 'ลบบัญชี')]    timeout=5s
     Click Delete User Button
-    
+
+    # XPath ใหม่ — ตรงกับ HTML จริง (label > input)
+    ${CHECKBOX_ALL}=        Set Variable    xpath=//label[.//p[contains(text(),'เลือกทั้งหมด')]]/input[@type='checkbox']
+    ${CHECKBOX_PERSONAL}=   Set Variable    xpath=//label[.//p[contains(text(),'ข้อมูลส่วนตัว')]]/input[@type='checkbox']
+
+    Wait Until Element Is Visible    ${CHECKBOX_ALL}    timeout=10s
+
+    Checkbox Should Be Selected    ${CHECKBOX_ALL}
+
+    IF    '${dataoption}' == 'all'
+        Checkbox Should Be Selected    ${CHECKBOX_ALL}
+
+    ELSE IF    '${dataoption}' == 'personal'
+        Click Element    ${CHECKBOX_ALL}
+        Checkbox Should Not Be Selected    ${CHECKBOX_ALL}
+
+        ${is_checked}=    Run Keyword And Return Status    Checkbox Should Be Selected    ${CHECKBOX_PERSONAL}
+        IF    not ${is_checked}
+            Click Element    ${CHECKBOX_PERSONAL}
+        END
+        Checkbox Should Be Selected    ${CHECKBOX_PERSONAL}
+
+    ELSE IF    '${dataoption}' == 'none'
+        Click Element    ${CHECKBOX_ALL}
+        Checkbox Should Not Be Selected    ${CHECKBOX_ALL}
+        Checkbox Should Not Be Selected    ${CHECKBOX_PERSONAL}
+    END
+
+    Click Element    xpath=//button[contains(., 'ถัดไป')]
+
     ${INPUT_CONFIRM_PASS}    Set Variable    xpath=//input[@placeholder='กรอกรหัสผ่าน']
-    Wait Until Element Is Visible    ${INPUT_CONFIRM_PASS}    timeout=10s
+    Wait Until Element Is Visible    ${INPUT_CONFIRM_PASS}    timeout=5s
     Input Password    ${INPUT_CONFIRM_PASS}    ${password}
     Click Comfirm Delete
 
-    sleep   2s
+    Sleep    2s
     ${actual_msg}=    Handle Alert    action=ACCEPT
     Should Be Equal    ${actual_msg}    ${massage}
-    Wait Until Location Contains	${URL}		timeout=2s
+    Wait Until Location Contains    ${URL}    timeout=2s
+
 
 Admin Go To Log Page
     [Documentation]     เปิดหน้า log
@@ -178,6 +210,7 @@ Click Go To Register Page
     Click Element    xpath=//a[@href="/register"]
 
 Click Go To Login Page
+    Sleep   2
     Click Element    xpath=//a[@href="/login"]
 
 Click Next Button
@@ -218,3 +251,7 @@ Admin Click Clear Log Button
 
 Admin Click Detail Button
     Click Button	id=details
+	
+Time Out
+    [Arguments]     ${sleeptime}
+    Sleep    ${sleeptime}

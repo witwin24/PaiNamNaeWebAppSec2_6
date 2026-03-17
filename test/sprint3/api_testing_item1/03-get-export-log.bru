@@ -1,0 +1,39 @@
+meta {
+  name: Get Export Logs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/export-logs/admin
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+headers {
+  Accept: application/json
+}
+
+query {
+  page: 1
+  limit: 10
+}
+
+tests {
+  test("Status code is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  test("Response has success true", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("success", true);
+  });
+  test("Response has data array", () => {
+    const body = res.getBody();
+    expect(body).to.have.property("data");
+    expect(body.data).to.be.an("array");
+  });
+}

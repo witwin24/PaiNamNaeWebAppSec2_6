@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on win32)" generated="2026-02-18T02:23:27.379553" rpa="false" schemaversion="5">
+<suite id="s1" name="Delete User" source="D:\Software Engineering\PaiNamNaeWebAppSec2_6\test\api_testing_item16\delete_user.robot">
+<kw name="Create API Session" type="SETUP">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-02-18T02:23:27.480908" level="INFO">Creating Session using : alias=api, url=https://painamnaewebappsec26-production.up.railway.app/api, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-02-18T02:23:27.480589" elapsed="0.000654"/>
+</kw>
+<status status="PASS" start="2026-02-18T02:23:27.480070" elapsed="0.001284"/>
+</kw>
+<test id="s1-t1" name="Delete User Successfully" line="25">
+<kw name="Get Auth Headers">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-18T02:23:27.483299" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${ADMIN_TOKEN}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-18T02:23:27.482450" elapsed="0.000898"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-02-18T02:23:27.483422" elapsed="0.000056"/>
+</return>
+<msg time="2026-02-18T02:23:27.483646" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZ...</msg>
+<var>${headers}</var>
+<status status="PASS" start="2026-02-18T02:23:27.482200" elapsed="0.001476"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-02-18T02:23:27.827512" level="INFO">DELETE Request : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ path_url=/api/users/cmlqscvi70000b7czsc5yhtie 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZChSiZ2MKqaMLB8gT86HTg', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-02-18T02:23:27.827795" level="INFO">DELETE Response : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ status=404, reason=Not Found 
+ headers={'Access-Control-Allow-Credentials': 'true', 'Content-Length': '92', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Content-Type': 'application/json; charset=utf-8', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Date': 'Tue, 17 Feb 2026 19:23:25 GMT', 'Etag': 'W/"5c-k5RhwAn2TeWx19seXFTSQooIBcI"', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Server': 'railway-edge', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff', 'X-Dns-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-Railway-Edge': 'railway/asia-southeast1-eqsg3a', 'X-Railway-Request-Id': 'I3xyebx4QQaxSYaIDcO5xA', 'X-Xss-Protection': '0'} 
+ body={"success":false,"message":"Cannot DELETE /api/users/cmlqscvi70000b7czsc5yhtie","data":null} 
+ </msg>
+<msg time="2026-02-18T02:23:27.827958" level="INFO">C:\Users\user\AppData\Local\Programs\Python\Python314\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'painamnaewebappsec26-production.up.railway.app'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-02-18T02:23:27.828555" level="FAIL">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users/${TEST_USER_ID}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.483891" elapsed="0.348405">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-02-18T02:23:27.833043" elapsed="0.000061"/>
+</kw>
+<kw name="Dictionary Should Not Contain Key" owner="Collections">
+<arg>${response.json()}</arg>
+<arg>password</arg>
+<doc>Fails if ``key`` is found from ``dictionary``.</doc>
+<status status="NOT RUN" start="2026-02-18T02:23:27.834154" elapsed="0.000055"/>
+</kw>
+<doc>ลบผู้ใช้ → ย้ายเข้า UserArchive → ลบจาก User</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.481429" elapsed="0.353294">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</test>
+<test id="s1-t2" name="Delete Same User Again Should Return 404" line="37">
+<kw name="Get Auth Headers">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-02-18T02:23:27.838246" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${ADMIN_TOKEN}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-02-18T02:23:27.837517" elapsed="0.000783"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-02-18T02:23:27.838406" elapsed="0.000078"/>
+</return>
+<msg time="2026-02-18T02:23:27.838753" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZ...</msg>
+<var>${headers}</var>
+<status status="PASS" start="2026-02-18T02:23:27.837110" elapsed="0.001691"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-02-18T02:23:27.898071" level="INFO">DELETE Request : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ path_url=/api/users/cmlqscvi70000b7czsc5yhtie 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWxxc2N2aTcwMDAwYjdjenNjNXlodGllIiwicm9sZSI6IkRSSVZFUiIsImlhdCI6MTc3MTM1NjA5MSwiZXhwIjoxNzcxMzU5NjkxfQ.5I5ccx0AzeGbHD8ntYfNPZChSiZ2MKqaMLB8gT86HTg', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-02-18T02:23:27.898279" level="INFO">DELETE Response : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ status=404, reason=Not Found 
+ headers={'Access-Control-Allow-Credentials': 'true', 'Content-Length': '92', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Content-Type': 'application/json; charset=utf-8', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Date': 'Tue, 17 Feb 2026 19:23:25 GMT', 'Etag': 'W/"5c-k5RhwAn2TeWx19seXFTSQooIBcI"', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Server': 'railway-edge', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff', 'X-Dns-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-Railway-Edge': 'railway/asia-southeast1-eqsg3a', 'X-Railway-Request-Id': 'Rl3opGuSRXW2RV0EDcO5xA', 'X-Xss-Protection': '0'} 
+ body={"success":false,"message":"Cannot DELETE /api/users/cmlqscvi70000b7czsc5yhtie","data":null} 
+ </msg>
+<msg time="2026-02-18T02:23:27.898521" level="INFO">C:\Users\user\AppData\Local\Programs\Python\Python314\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'painamnaewebappsec26-production.up.railway.app'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-02-18T02:23:27.899249" level="FAIL">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users/${TEST_USER_ID}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.839277" elapsed="0.061808">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>404</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-02-18T02:23:27.901674" elapsed="0.000064"/>
+</kw>
+<doc>ลบผู้ใช้ซ้ำ → ต้องไม่เจอ user แล้ว</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.835806" elapsed="0.066432">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</test>
+<test id="s1-t3" name="Delete User Without Token Should Fail" line="48">
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2026-02-18T02:23:27.953235" level="INFO">DELETE Request : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ path_url=/api/users/cmlqscvi70000b7czsc5yhtie 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2026-02-18T02:23:27.953391" level="INFO">DELETE Response : url=https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie 
+ status=404, reason=Not Found 
+ headers={'Access-Control-Allow-Credentials': 'true', 'Content-Length': '92', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Content-Type': 'application/json; charset=utf-8', 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Date': 'Tue, 17 Feb 2026 19:23:25 GMT', 'Etag': 'W/"5c-k5RhwAn2TeWx19seXFTSQooIBcI"', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Server': 'railway-edge', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'Vary': 'Origin', 'X-Content-Type-Options': 'nosniff', 'X-Dns-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-Railway-Edge': 'railway/asia-southeast1-eqsg3a', 'X-Railway-Request-Id': 'u7SlbOG1TWCM99K-DcO5xA', 'X-Xss-Protection': '0'} 
+ body={"success":false,"message":"Cannot DELETE /api/users/cmlqscvi70000b7czsc5yhtie","data":null} 
+ </msg>
+<msg time="2026-02-18T02:23:27.953509" level="INFO">C:\Users\user\AppData\Local\Programs\Python\Python314\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'painamnaewebappsec26-production.up.railway.app'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-02-18T02:23:27.954222" level="FAIL">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users/${TEST_USER_ID}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.905171" elapsed="0.050930">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-02-18T02:23:27.956599" elapsed="0.000054"/>
+</kw>
+<doc>ลบผู้ใช้โดยไม่ส่ง token → 401</doc>
+<status status="FAIL" start="2026-02-18T02:23:27.903842" elapsed="0.053275">HTTPError: 404 Client Error: Not Found for url: https://painamnaewebappsec26-production.up.railway.app/api/users/cmlqscvi70000b7czsc5yhtie</status>
+</test>
+<kw name="Delete All Sessions" owner="RequestsLibrary" type="TEARDOWN">
+<msg time="2026-02-18T02:23:27.959067" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-02-18T02:23:27.958897" elapsed="0.000292"/>
+</kw>
+<status status="FAIL" start="2026-02-18T02:23:27.382007" elapsed="0.577243"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Delete User" id="s1" pass="0" fail="3" skip="0">Delete User</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
